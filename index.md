@@ -271,7 +271,7 @@
 <header class="sb-header sb-header-fallback">
   <div class="sb-titlebox">
     <div class="sb-kicker">personal yume / OC archive</div>
-    <h1 class="sb-title">— 朝霧 ROUTE —</h1>
+    <h1 class="sb-title">朝霧 ROUTE</h1>
     <p class="sb-subtitle">朝霧美雨 × 足立透　|　a quiet backup room for fragments, dreams, and rain.</p>
   </div>
 </header>
