@@ -1,15 +1,3 @@
-
-
-
-
-⸻
-
-layout: null
-title: 朝霧 ROUTE
-permalink: /
-
-<!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
