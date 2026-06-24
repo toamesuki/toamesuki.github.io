@@ -3,6 +3,107 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>朝霧 ROUTE</title>
+  /* ===== PC WIDTH FIX / wider Tistory-like layout ===== */
+
+/* Make the whole page wider on desktop */
+.route-shell {
+  width: min(1500px, calc(100vw - 36px));
+  margin: 24px auto 56px;
+}
+
+/* Make the PC layout less squeezed */
+.route-layout {
+  grid-template-columns: 260px minmax(560px, 1fr) 270px;
+  gap: 18px;
+  padding: 20px;
+}
+
+/* Make side panels slightly smaller */
+.panel {
+  padding: 14px;
+}
+
+/* Make center content breathe more */
+.main-card {
+  padding: 22px;
+}
+
+/* Make welcome section less narrow */
+.notice-box {
+  grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
+}
+
+/* Make archive cards readable */
+.archive-grid {
+  grid-template-columns: repeat(2, minmax(230px, 1fr));
+}
+
+/* Better image preview proportions on PC */
+.gallery-strip {
+  grid-template-columns: 1.4fr 1fr 1fr;
+}
+
+/* Bigger gallery cards */
+.gallery-item {
+  min-height: 210px;
+}
+
+/* Prevent text from becoming too vertical */
+.notice-copy,
+.archive-card,
+.section p {
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* On medium screens, remove the right panel from the same row */
+@media (max-width: 1180px) {
+  .route-shell {
+    width: min(1050px, calc(100vw - 24px));
+  }
+
+  .route-layout {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+
+  .right-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .right-panel .panel-title {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Phone/tablet stays clean */
+@media (max-width: 780px) {
+  .route-shell {
+    width: calc(100% - 14px);
+    margin-top: 8px;
+  }
+
+  .route-layout {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .right-panel {
+    display: block;
+  }
+
+  .notice-box,
+  .archive-grid,
+  .gallery-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item {
+    min-height: 180px;
+  }
+}
   <style>
     /*
       朝霧 ROUTE homepage
