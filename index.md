@@ -1,6 +1,3 @@
-layout: default
-title: — 朝霧 ROUTE —
-
 <style>
   :root {
     --bg: #f7f2ec;
