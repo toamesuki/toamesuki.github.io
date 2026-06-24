@@ -1,133 +1,21 @@
+
+
+
+
+⸻
+
+layout: null
+title: 朝霧 ROUTE
+permalink: /
+
+<!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>朝霧 ROUTE</title>
-  /* ===== PC WIDTH FIX / wider Tistory-like layout ===== */
-
-/* Make the whole page wider on desktop */
-.route-shell {
-  width: min(1500px, calc(100vw - 36px));
-  margin: 24px auto 56px;
-}
-
-/* Make the PC layout less squeezed */
-.route-layout {
-  grid-template-columns: 260px minmax(560px, 1fr) 270px;
-  gap: 18px;
-  padding: 20px;
-}
-
-/* Make side panels slightly smaller */
-.panel {
-  padding: 14px;
-}
-
-/* Make center content breathe more */
-.main-card {
-  padding: 22px;
-}
-
-/* Make welcome section less narrow */
-.notice-box {
-  grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
-}
-
-/* Make archive cards readable */
-.archive-grid {
-  grid-template-columns: repeat(2, minmax(230px, 1fr));
-}
-
-/* Better image preview proportions on PC */
-.gallery-strip {
-  grid-template-columns: 1.4fr 1fr 1fr;
-}
-
-/* Bigger gallery cards */
-.gallery-item {
-  min-height: 210px;
-}
-
-/* Prevent text from becoming too vertical */
-.notice-copy,
-.archive-card,
-.section p {
-  word-break: normal;
-  overflow-wrap: normal;
-}
-
-/* On medium screens, remove the right panel from the same row */
-@media (max-width: 1180px) {
-  .route-shell {
-    width: min(1050px, calc(100vw - 24px));
-  }
-
-  .route-layout {
-    grid-template-columns: 260px minmax(0, 1fr);
-  }
-
-  .right-panel {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .right-panel .panel-title {
-    grid-column: 1 / -1;
-  }
-}
-
-/* Phone/tablet stays clean */
-@media (max-width: 780px) {
-  .route-shell {
-    width: calc(100% - 14px);
-    margin-top: 8px;
-  }
-
-  .route-layout {
-    grid-template-columns: 1fr;
-    padding: 12px;
-  }
-
-  .right-panel {
-    display: block;
-  }
-
-  .notice-box,
-  .archive-grid,
-  .gallery-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-item {
-    min-height: 180px;
-  }
-}
   <style>
-    /*
-      朝霧 ROUTE homepage
-      Paste this whole file into index.md.
-      Optional image files to upload later:
-      /assets/images/bg-page.png
-      /assets/images/bg-panel.png
-      /assets/images/header-banner.png
-      /assets/images/profile-icon.png
-      /assets/images/mini-art.png
-      /assets/images/deco-tv.png
-      /assets/images/deco-rain.png
-      /assets/images/gallery-1.png
-      /assets/images/gallery-2.png
-      /assets/images/gallery-3.png
-      /assets/images/banner-main.png
-      /assets/images/banner-small.png
-      /assets/images/link-official-1.png
-      /assets/images/link-official-2.png
-      /assets/images/video-poster.png
-      Optional media files:
-      /assets/audio/bgm.mp3
-      /assets/video/preview.mp4
-    */
     :root {
       --page-bg: #ece5dc;
       --paper: #fffaf4;
@@ -139,7 +27,6 @@
       --red-soft: #b45f6a;
       --yellow: #e2c36b;
       --blue: #71889b;
-      --fog: #d9dde0;
       --dark: #29262c;
       --shadow: rgba(50, 37, 35, 0.18);
       --page-pattern: url("/assets/images/bg-page.png");
@@ -157,8 +44,8 @@
       color: var(--ink);
       background:
         var(--page-pattern),
-        radial-gradient(circle at 10% 0%, rgba(124, 47, 56, 0.20), transparent 25%),
-        radial-gradient(circle at 100% 20%, rgba(113, 136, 155, 0.20), transparent 24%),
+        radial-gradient(circle at 10% 0%, rgba(124, 47, 56, 0.18), transparent 26%),
+        radial-gradient(circle at 100% 20%, rgba(113, 136, 155, 0.18), transparent 25%),
         linear-gradient(180deg, #f7f0e8 0%, var(--page-bg) 100%);
       background-repeat: repeat, no-repeat, no-repeat, no-repeat;
       font-family:
@@ -189,7 +76,7 @@
       font-size: 12px;
     }
     .route-shell {
-      width: min(1240px, calc(100% - 28px));
+      width: min(1500px, calc(100vw - 36px));
       margin: 24px auto 56px;
     }
     .route-frame {
@@ -225,11 +112,11 @@
     .hero {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 320px;
-      gap: 22px;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 24px;
       align-items: end;
-      min-height: 330px;
-      padding: 28px;
+      min-height: 360px;
+      padding: 30px;
       overflow: hidden;
       background:
         linear-gradient(90deg, rgba(41, 38, 44, 0.72), rgba(41, 38, 44, 0.18)),
@@ -253,8 +140,8 @@
     .hero-titlebox {
       position: relative;
       z-index: 1;
-      max-width: 720px;
-      padding: 24px;
+      max-width: 780px;
+      padding: 26px;
       border: 1px solid rgba(255, 250, 244, 0.36);
       border-radius: 20px;
       background: rgba(27, 24, 29, 0.64);
@@ -269,7 +156,7 @@
     }
     .hero-title {
       margin: 8px 0 6px;
-      font-size: clamp(42px, 7vw, 76px);
+      font-size: clamp(42px, 7vw, 78px);
       line-height: 0.95;
       letter-spacing: 0.04em;
       font-weight: normal;
@@ -290,7 +177,7 @@
       position: relative;
       z-index: 1;
       align-self: stretch;
-      min-height: 230px;
+      min-height: 250px;
       border: 1px solid rgba(255, 250, 244, 0.46);
       border-radius: 22px;
       background:
@@ -314,7 +201,7 @@
     }
     .route-layout {
       display: grid;
-      grid-template-columns: 285px minmax(0, 1fr) 305px;
+      grid-template-columns: 260px minmax(620px, 1fr) 270px;
       gap: 18px;
       align-items: start;
       padding: 20px;
@@ -337,7 +224,7 @@
     .main-card {
       position: relative;
       overflow: hidden;
-      padding: 20px;
+      padding: 22px;
     }
     .panel-title {
       display: flex;
@@ -474,10 +361,12 @@
       margin: 0 0 12px;
       font-size: 14px;
       line-height: 1.85;
+      word-break: normal;
+      overflow-wrap: normal;
     }
     .notice-box {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
       gap: 14px;
     }
     .notice-copy {
@@ -485,11 +374,13 @@
       border: 1px solid var(--line);
       border-radius: 18px;
       background: rgba(255,255,255,0.64);
+      word-break: normal;
+      overflow-wrap: normal;
     }
     .stamp-card {
       display: flex;
       align-items: end;
-      min-height: 210px;
+      min-height: 230px;
       padding: 12px;
       border: 1px dashed var(--line);
       border-radius: 18px;
@@ -557,7 +448,7 @@
     }
     .archive-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(230px, 1fr));
       gap: 12px;
     }
     .archive-card {
@@ -569,6 +460,8 @@
       border-radius: 18px;
       background: #fffdf9;
       color: var(--ink);
+      word-break: normal;
+      overflow-wrap: normal;
     }
     a.archive-card:hover {
       text-decoration: none;
@@ -598,12 +491,12 @@
     }
     .gallery-strip {
       display: grid;
-      grid-template-columns: 1.25fr 1fr 1fr;
+      grid-template-columns: 1.4fr 1fr 1fr;
       gap: 12px;
     }
     .gallery-item {
       position: relative;
-      min-height: 170px;
+      min-height: 210px;
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -792,15 +685,27 @@
     .is-hidden {
       display: none !important;
     }
-    @media (max-width: 980px) {
+    @media (max-width: 1180px) {
+      .route-shell {
+        width: min(1050px, calc(100vw - 24px));
+      }
       .hero {
         grid-template-columns: 1fr;
       }
       .hero-art-card {
-        min-height: 220px;
+        min-height: 230px;
       }
       .route-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 260px minmax(0, 1fr);
+      }
+      .right-panel {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .right-panel .panel-title {
+        grid-column: 1 / -1;
       }
       .panel {
         position: relative;
@@ -809,10 +714,26 @@
       .deco {
         display: none;
       }
+    }
+    @media (max-width: 780px) {
+      .route-shell {
+        width: calc(100% - 14px);
+        margin-top: 8px;
+      }
+      .route-layout {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .right-panel {
+        display: block;
+      }
       .notice-box,
       .archive-grid,
       .gallery-strip {
         grid-template-columns: 1fr;
+      }
+      .gallery-item {
+        min-height: 180px;
       }
       .profile-icon {
         width: 150px;
@@ -820,10 +741,6 @@
       }
     }
     @media (max-width: 560px) {
-      .route-shell {
-        width: calc(100% - 14px);
-        margin-top: 8px;
-      }
       .route-frame {
         border-radius: 18px;
       }
@@ -847,7 +764,6 @@
       }
       .route-layout {
         gap: 12px;
-        padding: 12px;
       }
       .main-card,
       .panel {
