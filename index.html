@@ -523,16 +523,45 @@
       font-size: 11px;
     }
     .rules-box {
-      padding: 16px;
+      padding: 0;
       border: 1px solid rgba(124, 47, 56, 0.36);
       border-radius: 18px;
       background: #fff5f3;
+      overflow: hidden;
       font-size: 13px;
       line-height: 1.75;
     }
-    .rules-box ul {
-      margin: 8px 0 0 18px;
+    .rules-head {
+      padding: 12px 16px;
+      background: rgba(124, 47, 56, 0.12);
+      border-bottom: 1px solid rgba(124, 47, 56, 0.22);
+      color: var(--red);
+      letter-spacing: 0.08em;
+    }
+    .rules-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .rules-lang {
+      padding: 16px;
+    }
+    .rules-lang:first-child {
+      border-right: 1px dashed rgba(124, 47, 56, 0.25);
+    }
+    .rules-lang h3 {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      font-weight: normal;
+    }
+    .rules-lang ol {
+      margin: 0 0 0 20px;
       padding: 0;
+    }
+    .rules-lang li {
+      margin-bottom: 8px;
     }
     .search-input {
       width: 100%;
@@ -549,47 +578,160 @@
       font-size: 11px;
       line-height: 1.6;
     }
-    .calendar {
+    .p4-calendar-box {
+      border: 1px solid #cbbcaf;
+      border-radius: 14px;
+      background:
+        linear-gradient(rgba(255, 250, 244, 0.88), rgba(255, 250, 244, 0.96)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(45, 42, 47, 0.04) 0 1px,
+          transparent 1px 5px
+        );
       overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fffdf9;
+      box-shadow: inset 0 0 20px rgba(50, 37, 35, 0.05);
     }
-    .cal-head {
-      padding: 10px;
-      background: var(--dark);
+    .p4-calendar-top {
+      padding: 11px 10px;
+      background: linear-gradient(90deg, #27232b, #3b343b);
       color: #fffaf4;
       text-align: center;
       font-size: 12px;
       letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #cbbcaf;
     }
-    .cal-grid {
+    .p4-calendar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: rgba(243, 235, 226, 0.8);
+      border-bottom: 1px solid #dfd2c8;
+    }
+    .p4-calendar-controls button {
+      border: 1px solid #cbbcaf;
+      border-radius: 999px;
+      background: #fffdf9;
+      color: #7c2f38;
+      font-family: inherit;
+      font-size: 11px;
+      padding: 5px 9px;
+      cursor: pointer;
+    }
+    .p4-calendar-controls button:hover {
+      background: #f3e1dc;
+    }
+    .p4-calendar-month {
+      color: #7c2f38;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .p4-weekdays,
+    .p4-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
+    }
+    .p4-weekdays div {
+      padding: 7px 2px;
+      background: #f3ebe2;
+      color: #7c2f38;
       text-align: center;
       font-size: 11px;
+      font-weight: bold;
+      border-right: 1px solid #eadfd6;
+      border-bottom: 1px solid #eadfd6;
     }
-    .cal-grid div {
-      min-height: 18px;
-      padding: 7px 2px;
-      border-right: 1px solid #eee4dc;
-      border-bottom: 1px solid #eee4dc;
-    }
-    .cal-grid div:nth-child(7n) {
+    .p4-weekdays div:last-child {
       border-right: 0;
     }
-    .cal-dayname {
-      background: #f3ebe2;
-      color: var(--red);
-      font-weight: bold;
+    .p4-day {
+      min-height: 36px;
+      padding: 5px 3px;
+      border-right: 1px solid #eee4dc;
+      border-bottom: 1px solid #eee4dc;
+      background: rgba(255, 253, 249, 0.8);
+      text-align: center;
+      font-size: 11px;
+      position: relative;
     }
-    .cal-rain {
-      background: rgba(113, 136, 155, 0.14);
+    .p4-day:nth-child(7n) {
+      border-right: 0;
     }
-    .cal-fog {
+    .p4-day.is-empty {
+      background: rgba(243, 235, 226, 0.35);
+    }
+    .p4-day-number {
+      display: block;
+      color: #403a3c;
+    }
+    .p4-day-icon {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      opacity: 0.82;
+    }
+    .p4-day.is-today {
+      background: rgba(124, 47, 56, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(124, 47, 56, 0.35);
+    }
+    .p4-day.is-rain {
+      background: rgba(113, 136, 155, 0.16);
+    }
+    .p4-day.is-fog {
       background: rgba(124, 47, 56, 0.12);
-      color: var(--red);
-      font-weight: bold;
+    }
+    .p4-day.is-midnight {
+      background:
+        linear-gradient(rgba(124,47,56,0.18), rgba(41,38,44,0.12)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.08) 0 1px,
+          transparent 1px 5px
+        );
+    }
+    .p4-broadcast {
+      margin-top: 10px;
+      border: 1px solid #cbbcaf;
+      border-radius: 14px;
+      background:
+        linear-gradient(rgba(41,38,44,0.88), rgba(41,38,44,0.92)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.08) 0 1px,
+          transparent 1px 6px
+        );
+      color: #fffaf4;
+      overflow: hidden;
+    }
+    .p4-broadcast-title {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,250,244,0.22);
+      color: #e2c36b;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .p4-broadcast-body {
+      padding: 11px 12px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .p4-broadcast-body strong {
+      color: #fff0c7;
+    }
+    .p4-broadcast-small {
+      display: block;
+      margin-top: 7px;
+      color: rgba(255,250,244,0.72);
+      font-size: 11px;
+    }
+    .p4-legend {
+      margin-top: 8px;
+      color: #857c78;
+      font-size: 11px;
+      line-height: 1.6;
     }
     .audio-box {
       padding: 12px;
@@ -719,8 +861,13 @@
       }
       .notice-box,
       .archive-grid,
-      .gallery-strip {
+      .gallery-strip,
+      .rules-inner {
         grid-template-columns: 1fr;
+      }
+      .rules-lang:first-child {
+        border-right: 0;
+        border-bottom: 1px dashed rgba(124, 47, 56, 0.25);
       }
       .gallery-item {
         min-height: 190px;
@@ -783,12 +930,10 @@
       <div class="kicker">room 203 / rainy midnight / personal backup</div>
       <h1 class="hero-title">
         朝霧 ROUTE
-        <small>朝霧美雨 × 足立透</small>
+        <small>足立透 × 朝霧美雨</small>
       </h1>
       <p class="hero-text">
         個人夢創作・OC保管庫。設定、文章、イラスト記録、依頼資料、日記の断片を置いています。
-        <br>
-        A small personal archive for yume, OC notes, writing fragments, commissioned artwork records, and quiet route memories.
       </p>
       <div class="button-row">
         <a class="route-button" href="/profile/">profile</a>
@@ -836,19 +981,19 @@
         </span>
       </div>
       <section class="section">
-        <h2>はじめに / welcome</h2>
+        <h2>はじめに</h2>
         <div class="notice-box">
           <div class="notice-copy">
             <p>
-              ここは <strong>朝霧美雨 × 足立透</strong> を中心にした個人夢創作・OC保管サイトです。
+              ここは <strong>足立透 × 朝霧美雨</strong> を中心にした個人夢創作・OC保管サイトです。
               キャラクター設定、関係性メモ、文章、イラスト記録、依頼資料、日記のような断片を静かに置いています。
             </p>
             <p>
-              This site is a personal yume / OC archive for <strong>Miu Asagiri × Tohru Adachi</strong>.
-              It contains profiles, route notes, writing fragments, commissioned artwork records, and backup materials.
+              非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
+              掲載物はすべて個人観賞・記録用のものです。
             </p>
             <p>
-              非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
+              閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
             </p>
           </div>
           <div class="stamp-card">
@@ -910,16 +1055,33 @@
       <section class="section" id="rules">
         <h2>site rules / 禁止事項</h2>
         <div class="rules-box">
-          <strong>Please read before browsing.</strong><br>
-          当サイト内の文章・画像・キャラクター設定・依頼資料はすべて個人観賞用です。
-          <ul>
-            <li>Do not repost, reupload, copy, trace, edit, redistribute, or claim as your own.</li>
-            <li>Do not use my OC designs, writing, relationship notes, or commissioned artworks.</li>
-            <li>Do not feed, scrape, train, reference, or use any content from this site for AI generation, AI datasets, AI model training, or AI image/text prompts.</li>
-            <li>無断転載・無断使用・加工・トレス・自作発言・AI学習利用を禁止します。</li>
-            <li>Commissioned artworks belong to their respective artists. Please follow each artist’s rules.</li>
-            <li>This is an unofficial, non-commercial personal fan/yume archive.</li>
-          </ul>
+          <div class="rules-head">
+            ご閲覧前にご確認ください / Please read before browsing.
+          </div>
+          <div class="rules-inner">
+            <div class="rules-lang">
+              <h3>日本語</h3>
+              <ol>
+                <li>当サイト内の文章・画像・キャラクター設定・依頼資料はすべて個人観賞用です。</li>
+                <li>無断転載、無断使用、加工、トレス、自作発言、再配布を禁止します。</li>
+                <li>OC設定、文章、関係性メモ、依頼イラストを第三者が使用することを禁止します。</li>
+                <li>AI学習、AI生成、AIデータセット、AIプロンプトへの利用を禁止します。</li>
+                <li>依頼イラストの著作権は各イラストレーター様に帰属します。各作家様の規約も必ずご確認ください。</li>
+                <li>当サイトは非公式・非営利の個人夢創作サイトです。公式作品・企業・権利者とは関係ありません。</li>
+              </ol>
+            </div>
+            <div class="rules-lang">
+              <h3>English</h3>
+              <ol>
+                <li>All writing, images, character notes, and request materials on this site are for personal viewing and archiving only.</li>
+                <li>Do not repost, reupload, copy, trace, edit, redistribute, or claim anything as your own.</li>
+                <li>Do not use my OC designs, writing, relationship notes, or commissioned artworks.</li>
+                <li>Do not feed, scrape, train, reference, or use any content from this site for AI generation, AI datasets, AI model training, or AI prompts.</li>
+                <li>Commissioned artworks belong to their respective artists. Please follow each artist’s own rules as well.</li>
+                <li>This is an unofficial, non-commercial personal fan/yume archive and is not affiliated with the official creators, companies, or rights holders.</li>
+              </ol>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -934,52 +1096,36 @@
       </section>
       <section class="section">
         <h2>calendar</h2>
-        <div class="calendar">
-          <div class="cal-head">JUNE 2026 / 八十神</div>
-          <div class="cal-grid">
-            <div class="cal-dayname">月</div>
-            <div class="cal-dayname">火</div>
-            <div class="cal-dayname">水</div>
-            <div class="cal-dayname">木</div>
-            <div class="cal-dayname">金</div>
-            <div class="cal-dayname">土</div>
-            <div class="cal-dayname">日</div>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div class="cal-rain">4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-            <div>8</div>
-            <div class="cal-rain">9</div>
-            <div>10</div>
-            <div>11</div>
-            <div>12</div>
-            <div>13</div>
-            <div>14</div>
-            <div>15</div>
-            <div>16</div>
-            <div class="cal-fog">17</div>
-            <div>18</div>
-            <div>19</div>
-            <div>20</div>
-            <div>21</div>
-            <div>22</div>
-            <div>23</div>
-            <div>24</div>
-            <div class="cal-rain">25</div>
-            <div>26</div>
-            <div>27</div>
-            <div>28</div>
-            <div>29</div>
-            <div>30</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="p4-calendar-box">
+          <div class="p4-calendar-top">
+            八十神 weather calendar
           </div>
+          <div class="p4-calendar-controls">
+            <button type="button" id="prevMonth">prev</button>
+            <div class="p4-calendar-month" id="calendarMonthLabel">loading...</div>
+            <button type="button" id="nextMonth">next</button>
+          </div>
+          <div class="p4-weekdays">
+            <div>月</div>
+            <div>火</div>
+            <div>水</div>
+            <div>木</div>
+            <div>金</div>
+            <div>土</div>
+            <div>日</div>
+          </div>
+          <div class="p4-days" id="p4CalendarDays"></div>
+        </div>
+        <div class="p4-broadcast">
+          <div class="p4-broadcast-title">
+            midnight weather broadcast
+          </div>
+          <div class="p4-broadcast-body" id="p4Broadcast">
+            Loading broadcast...
+          </div>
+        </div>
+        <div class="p4-legend">
+          ☀ clear　☂ rain　☁ cloudy　霧 fog　📺 midnight channel
         </div>
       </section>
       <section class="section">
@@ -1052,6 +1198,148 @@
         }
       });
     }
+    const calendarDays = document.getElementById("p4CalendarDays");
+    const calendarMonthLabel = document.getElementById("calendarMonthLabel");
+    const prevMonthBtn = document.getElementById("prevMonth");
+    const nextMonthBtn = document.getElementById("nextMonth");
+    const p4Broadcast = document.getElementById("p4Broadcast");
+    let calendarDate = new Date();
+    const monthNames = [
+      "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+    ];
+    function seededWeather(year, month, day) {
+      const seed = year * 10000 + (month + 1) * 100 + day;
+      const value = (seed * 9301 + 49297) % 233280;
+      const roll = value / 233280;
+      if (roll < 0.12) {
+        return {
+          type: "midnight",
+          icon: "📺",
+          className: "is-midnight",
+          label: "Midnight Channel signal detected"
+        };
+      }
+      if (roll < 0.28) {
+        return {
+          type: "fog",
+          icon: "霧",
+          className: "is-fog",
+          label: "Heavy fog warning"
+        };
+      }
+      if (roll < 0.52) {
+        return {
+          type: "rain",
+          icon: "☂",
+          className: "is-rain",
+          label: "Rain expected after sunset"
+        };
+      }
+      if (roll < 0.76) {
+        return {
+          type: "cloud",
+          icon: "☁",
+          className: "",
+          label: "Cloudy and quiet"
+        };
+      }
+      return {
+        type: "clear",
+        icon: "☀",
+        className: "",
+        label: "Clear weather"
+      };
+    }
+    function renderCalendar() {
+      if (!calendarDays || !calendarMonthLabel) return;
+      const year = calendarDate.getFullYear();
+      const month = calendarDate.getMonth();
+      calendarMonthLabel.textContent = `${monthNames[month]} ${year}`;
+      calendarDays.innerHTML = "";
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const today = new Date();
+      let startOffset = firstDay.getDay() - 1;
+      if (startOffset < 0) startOffset = 6;
+      for (let i = 0; i < startOffset; i++) {
+        const emptyCell = document.createElement("div");
+        emptyCell.className = "p4-day is-empty";
+        calendarDays.appendChild(emptyCell);
+      }
+      for (let day = 1; day <= lastDay.getDate(); day++) {
+        const weather = seededWeather(year, month, day);
+        const dayCell = document.createElement("div");
+        dayCell.className = `p4-day ${weather.className}`;
+        const isToday =
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear();
+        if (isToday) {
+          dayCell.classList.add("is-today");
+        }
+        dayCell.innerHTML = `
+          <span class="p4-day-number">${day}</span>
+          <span class="p4-day-icon">${weather.icon}</span>
+        `;
+        dayCell.title = weather.label;
+        calendarDays.appendChild(dayCell);
+      }
+      renderBroadcast();
+    }
+    function renderBroadcast() {
+      if (!p4Broadcast) return;
+      const today = new Date();
+      const weather = seededWeather(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+      const broadcastLines = {
+        clear: {
+          title: "Clear weather",
+          text: "The sky over Inaba is unusually calm today. No strange signal has been confirmed."
+        },
+        cloud: {
+          title: "Cloudy weather",
+          text: "Cloud cover remains over the shopping district. Visibility is stable, but the air feels heavy."
+        },
+        rain: {
+          title: "Rain expected",
+          text: "Rain is expected after sunset. Please avoid staying too close to switched-off televisions at midnight."
+        },
+        fog: {
+          title: "Fog warning",
+          text: "Heavy fog may spread through town. Visibility is poor. Please return home early."
+        },
+        midnight: {
+          title: "Midnight Channel signal",
+          text: "A weak broadcast pattern has been detected. The screen may flicker around midnight."
+        }
+      };
+      const line = broadcastLines[weather.type];
+      p4Broadcast.innerHTML = `
+        <strong>${weather.icon} ${line.title}</strong><br>
+        ${line.text}
+        <span class="p4-broadcast-small">
+          today: ${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")}
+          / generated route forecast
+        </span>
+      `;
+    }
+    if (prevMonthBtn) {
+      prevMonthBtn.addEventListener("click", function () {
+        calendarDate.setMonth(calendarDate.getMonth() - 1);
+        renderCalendar();
+      });
+    }
+    if (nextMonthBtn) {
+      nextMonthBtn.addEventListener("click", function () {
+        calendarDate.setMonth(calendarDate.getMonth() + 1);
+        renderCalendar();
+      });
+    }
+    renderCalendar();
   </script>
 </body>
 </html>
