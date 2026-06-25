@@ -20,6 +20,7 @@
       --blue: #71889b;
       --dark: #29262c;
       --shadow: rgba(50, 37, 35, 0.18);
+
       --page-pattern: url("/assets/images/bg-page.png");
       --panel-pattern: url("/assets/images/bg-panel.png");
     }
@@ -65,14 +66,6 @@
     img {
       display: block;
       max-width: 100%;
-    }
-
-    code {
-      background: #f1e6dd;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 1px 5px;
-      font-size: 12px;
     }
 
     .route-shell {
@@ -124,7 +117,7 @@
       overflow: hidden;
       background:
         linear-gradient(90deg, rgba(41, 38, 44, 0.74), rgba(41, 38, 44, 0.20)),
-        url("/assets/images/header-banner.gif");
+        url("/assets/images/header-banner-v2.gif?v=2");
       background-size: cover;
       background-position: center;
     }
@@ -184,24 +177,57 @@
       line-height: 1.85;
     }
 
-    /* MAIN VISUAL IMAGE SLOT - clear image, no filter, no frame, no label */
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .route-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 15px;
+      border: 1px solid var(--red);
+      border-radius: 999px;
+      background: var(--red);
+      color: #fffaf4 !important;
+      font-size: 13px;
+    }
+
+    .route-button:hover {
+      background: var(--red-soft);
+      text-decoration: none;
+    }
+
+    .route-button.secondary {
+      background: #fffaf4;
+      color: var(--red) !important;
+    }
+
+    .route-button.secondary:hover {
+      background: #f3e1dc;
+    }
+
+    /* MAIN VISUAL IMAGE - clear, no label, no border, no overlay */
     .hero-art-card {
       position: relative;
       z-index: 1;
       align-self: stretch;
       min-height: 280px;
-      border: 0;
-      border-radius: 0;
-      background:
-        url("/assets/images/mini-art.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      box-shadow: none;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background-image: url("/assets/images/mini-art.png?v=2") !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center bottom !important;
+      box-shadow: none !important;
     }
 
     .hero-art-card::after {
-      display: none;
+      content: none !important;
+      display: none !important;
     }
 
     .route-layout {
@@ -263,7 +289,7 @@
       border-radius: 24px;
       background:
         linear-gradient(rgba(255,250,244,0.05), rgba(255,250,244,0.20)),
-        url("/assets/images/profile-icon.png");
+        url("/assets/images/profile-icon.png?v=2");
       background-size: cover;
       background-position: center;
       box-shadow: 0 10px 20px rgba(50, 37, 35, 0.14);
@@ -392,74 +418,6 @@
       overflow-wrap: normal;
     }
 
-    .notice-box {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
-      gap: 16px;
-    }
-
-    .notice-copy {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.64);
-      word-break: normal;
-      overflow-wrap: normal;
-    }
-
-    /* WELCOME BANNER IMAGE - clear image, no filter, no frame, no label */
-    .stamp-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 240px;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background:
-        url("/assets/images/banner-main.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    .stamp-card span {
-      display: none;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .route-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 15px;
-      border: 1px solid var(--red);
-      border-radius: 999px;
-      background: var(--red);
-      color: #fffaf4 !important;
-      font-size: 13px;
-    }
-
-    .route-button:hover {
-      background: var(--red-soft);
-      text-decoration: none;
-    }
-
-    .route-button.secondary {
-      background: #fffaf4;
-      color: var(--red) !important;
-    }
-
-    .route-button.secondary:hover {
-      background: #f3e1dc;
-    }
-
     .ticker {
       overflow: hidden;
       margin-bottom: 18px;
@@ -480,6 +438,41 @@
     @keyframes tickerMove {
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
+    }
+
+    .notice-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+      gap: 16px;
+    }
+
+    .notice-copy {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.64);
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+
+    /* WELCOME BANNER IMAGE - clear, no label, no border, no overlay */
+    .stamp-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background-image: url("/assets/images/banner-main.png?v=2") !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      box-shadow: none !important;
+    }
+
+    .stamp-card span {
+      display: none !important;
     }
 
     .archive-grid {
@@ -550,19 +543,19 @@
     .gallery-item:nth-child(1) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
-        url("/assets/images/gallery-1.png");
+        url("/assets/images/gallery-1.png?v=2");
     }
 
     .gallery-item:nth-child(2) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
-        url("/assets/images/gallery-2.png");
+        url("/assets/images/gallery-2.png?v=2");
     }
 
     .gallery-item:nth-child(3) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
-        url("/assets/images/gallery-3.png");
+        url("/assets/images/gallery-3.png?v=2");
     }
 
     .gallery-item span {
@@ -1148,9 +1141,7 @@
             </p>
           </div>
 
-          <div class="stamp-card">
-            <span>/assets/images/banner-main.png</span>
-          </div>
+          <div class="stamp-card"></div>
         </div>
       </section>
 
@@ -1346,11 +1337,11 @@
 
         <div class="image-links">
           <a class="image-link" href="https://p-atlus.jp/p4g/" target="_blank" rel="noopener">
-            <img src="/assets/images/link-official-1.png" alt="official link 1">
+            <img src="/assets/images/link-official-1.png?v=2" alt="official link 1">
           </a>
 
           <a class="image-link" href="https://www.atlus.com/" target="_blank" rel="noopener">
-            <img src="/assets/images/link-official-2.png" alt="official link 2">
+            <img src="/assets/images/link-official-2.png?v=2" alt="official link 2">
           </a>
         </div>
       </section>
