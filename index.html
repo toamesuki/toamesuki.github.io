@@ -210,7 +210,6 @@
       background: #f3e1dc;
     }
 
-    /* MAIN VISUAL IMAGE - clear, no label, no border, no overlay */
     .hero-art-card {
       position: relative;
       z-index: 1;
@@ -455,7 +454,6 @@
       overflow-wrap: normal;
     }
 
-    /* WELCOME BANNER IMAGE - clear, no label, no border, no overlay */
     .stamp-card {
       display: flex;
       align-items: center;
@@ -657,7 +655,6 @@
       text-align: center;
       font-size: 12px;
       letter-spacing: 0.14em;
-      text-transform: uppercase;
       border-bottom: 1px solid #cbbcaf;
     }
 
@@ -1265,13 +1262,13 @@
 
         <div class="p4-calendar-box">
           <div class="p4-calendar-top">
-            八十神 weather calendar
+            八十神町 天気カレンダー
           </div>
 
           <div class="p4-calendar-controls">
-            <button type="button" id="prevMonth">prev</button>
-            <div class="p4-calendar-month" id="calendarMonthLabel">loading...</div>
-            <button type="button" id="nextMonth">next</button>
+            <button type="button" id="prevMonth">前月</button>
+            <div class="p4-calendar-month" id="calendarMonthLabel">読み込み中...</div>
+            <button type="button" id="nextMonth">次月</button>
           </div>
 
           <div class="p4-weekdays">
@@ -1403,8 +1400,8 @@
     let calendarDate = new Date();
 
     const monthNames = [
-      "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+      "1月", "2月", "3月", "4月", "5月", "6月",
+      "7月", "8月", "9月", "10月", "11月", "12月"
     ];
 
     function seededWeather(year, month, day) {
@@ -1462,7 +1459,7 @@
       const year = calendarDate.getFullYear();
       const month = calendarDate.getMonth();
 
-      calendarMonthLabel.textContent = `${monthNames[month]} ${year}`;
+      calendarMonthLabel.textContent = `${year}年 ${monthNames[month]}`;
       calendarDays.innerHTML = "";
 
       const firstDay = new Date(year, month, 1);
@@ -1545,7 +1542,6 @@
         ${line.text}
         <span class="p4-broadcast-small">
           today: ${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")}
-          / generated route forecast
         </span>
       `;
     }
