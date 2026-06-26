@@ -1044,76 +1044,33 @@
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
     }
-.notice-box {
-display: grid;
-grid-template-columns: minmax(270px, 1fr) 230px;
-gap: 18px;
-align-items: stretch;
-}
-
-.notice-copy {
-position: relative;
-min-height: 300px;
-padding: 22px 22px 20px;
-border: 1px solid var(--line);
-border-radius: 22px;
-background:
-linear-gradient(to bottom, rgba(124, 47, 56, 0.055) 0 48px, transparent 48px),
-repeating-linear-gradient(
-to bottom,
-transparent 0 31px,
-rgba(216, 201, 189, 0.50) 31px 32px
-),
-#fffdfa;
-box-shadow:
-0 10px 22px rgba(50, 37, 35, 0.08),
-inset 0 0 18px rgba(124, 47, 56, 0.025);
-word-break: normal;
-overflow-wrap: normal;
-}
-
-.notice-copy::before {
-content: "site note";
-display: inline-block;
-margin-bottom: 13px;
-padding: 5px 11px;
-border: 1px solid rgba(124, 47, 56, 0.22);
-border-radius: 999px;
-background: rgba(255, 250, 244, 0.90);
-color: var(--red);
-font-size: 10px;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-}
-
-.notice-copy p {
-margin: 0 0 12px;
-color: var(--ink);
-font-size: 13px;
-line-height: 1.78;
-}
-
-.notice-copy p:last-child {
-margin-bottom: 0;
-}
-
-.stamp-card {
-display: block;
-width: 100%;
-min-height: 300px;
-padding: 0 !important;
-border: 0 !important;
-border-radius: 0 !important;
-background-image: url("/assets/images/banner-main.png?v=2") !important;
-background-size: contain !important;
-background-repeat: no-repeat !important;
-background-position: center center !important;
-box-shadow: none !important;
-}
-
-.stamp-card span {
-display: none !important;
-}
+    .notice-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+      gap: 16px;
+    }
+    .notice-copy {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.64);
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .stamp-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background-image: url("/assets/images/banner-main.png?v=2") !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      box-shadow: none !important;
+    }
     .stamp-card span {
       display: none !important;
     }
@@ -1202,24 +1159,63 @@ display: none !important;
     }
     .rules-box {
       padding: 0;
-      border: 1px solid rgba(124, 47, 56, 0.36);
+      border: 1px solid rgba(124, 47, 56, 0.32);
       border-radius: 18px;
       background: #fff5f3;
       overflow: hidden;
       font-size: 13px;
       line-height: 1.75;
+      box-shadow: 0 8px 18px rgba(50, 37, 35, 0.06);
+    }
+    .rules-box summary {
+      list-style: none;
+      cursor: pointer;
+    }
+    .rules-box summary::-webkit-details-marker {
+      display: none;
     }
     .rules-head {
-      padding: 12px 16px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 16px;
       background: rgba(124, 47, 56, 0.12);
-      border-bottom: 1px solid rgba(124, 47, 56, 0.22);
+      border-bottom: 1px solid rgba(124, 47, 56, 0.18);
       color: var(--red);
       letter-spacing: 0.08em;
+    }
+    .rules-head::after {
+      content: "open";
+      flex: 0 0 auto;
+      padding: 4px 10px;
+      border: 1px solid rgba(124, 47, 56, 0.25);
+      border-radius: 999px;
+      background: rgba(255, 250, 244, 0.82);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .rules-box[open] .rules-head::after {
+      content: "close";
+    }
+    .rules-preview {
+      padding: 13px 16px 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      background: rgba(255, 250, 244, 0.50);
+    }
+    .rules-box[open] .rules-preview {
+      display: none;
     }
     .rules-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
+      border-top: 1px solid rgba(124, 47, 56, 0.16);
     }
     .rules-lang {
       padding: 16px;
@@ -1685,9 +1681,13 @@ display: none !important;
         </section>
         <section class="section" id="rules">
           <h2>site rules / 禁止事項</h2>
-          <div class="rules-box">
-            <div class="rules-head">
+          <details class="rules-box">
+            <summary class="rules-head">
               ご閲覧前にご確認ください / Please read before browsing.
+            </summary>
+            <div class="rules-preview">
+              無断転載・無断使用・AI学習利用は禁止です。クリックで詳しい規約を開きます。<br>
+              Repost, reuse, editing, redistribution, and AI use are not allowed. Click to open the full rules.
             </div>
             <div class="rules-inner">
               <div class="rules-lang">
@@ -1713,7 +1713,7 @@ display: none !important;
                 </ol>
               </div>
             </div>
-          </div>
+          </details>
         </section>
       </main>
       <aside class="panel right-panel">
