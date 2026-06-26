@@ -21,6 +21,9 @@
       --shadow: rgba(50, 37, 35, 0.18);
       --page-pattern: url("/assets/images/bg-page-v2.png");
       --panel-pattern: url("/assets/images/bg-panel.png");
+
+      /* intro/start screen background image or gif behind the static */
+      --intro-bg-image: url("/assets/images/intro-bg.gif");
     }
     * {
       box-sizing: border-box;
@@ -89,9 +92,19 @@
       overflow: hidden;
       color: #fff8ea;
       background:
-        radial-gradient(circle at 78% 12%, rgba(194, 37, 46, 0.42), transparent 17%),
-        radial-gradient(circle at 18% 74%, rgba(226, 195, 107, 0.10), transparent 24%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.035) 0px,
+          rgba(255,255,255,0.035) 1px,
+          transparent 1px,
+          transparent 6px
+        ),
+        linear-gradient(rgba(0,0,0,0.46), rgba(0,0,0,0.66)),
+        var(--intro-bg-image),
         linear-gradient(180deg, #070609 0%, #16090e 48%, #050507 100%);
+      background-size: auto, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-repeat: repeat, no-repeat, no-repeat, no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -169,19 +182,25 @@
     }
     .intro-rain {
       position: absolute;
-      inset: -15%;
+      inset: 0;
       z-index: 2;
       pointer-events: none;
-      opacity: 0.18;
-      background-image:
-        linear-gradient(transparent 0%, rgba(255,255,255,0.70) 50%, transparent 55%);
-      background-size: 3px 28px;
-      transform: rotate(12deg);
-      animation: rainMove 0.42s linear infinite;
+      opacity: 0.10;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.045) 0px,
+          rgba(255,255,255,0.045) 1px,
+          transparent 1px,
+          transparent 8px
+        );
+      background-size: auto;
+      transform: none;
+      animation: rainMove 1.2s linear infinite;
     }
     @keyframes rainMove {
       from { background-position: 0 0; }
-      to { background-position: 0 36px; }
+      to { background-position: 0 8px; }
     }
     .intro-fog {
       position: absolute;
@@ -208,30 +227,7 @@
       to { transform: translateX(5%) scale(1.08); }
     }
     .intro-moon {
-      position: absolute;
-      right: 8%;
-      top: 7%;
-      z-index: 1;
-      width: 190px;
-      height: 190px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 36% 30%, #ff6f68 0%, #b82636 35%, #4b0710 74%);
-      box-shadow:
-        0 0 42px rgba(184, 38, 54, 0.55),
-        0 0 120px rgba(184, 38, 54, 0.24);
-      opacity: 0.76;
-      animation: moonPulse 3.4s ease-in-out infinite alternate;
-    }
-    @keyframes moonPulse {
-      from {
-        filter: brightness(0.95);
-        transform: scale(1);
-      }
-      to {
-        filter: brightness(1.18);
-        transform: scale(1.035);
-      }
+      display: none !important;
     }
     .intro-tv-frame {
       position: relative;
@@ -293,17 +289,20 @@
     .intro-tv-screen::before {
       content: "";
       position: absolute;
-      inset: -12%;
+      inset: 0;
       pointer-events: none;
-      opacity: 0.22;
+      opacity: 0.14;
       background:
-        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.26) 50%, transparent 100%);
-      transform: translateX(-90%) rotate(8deg);
-      animation: tvGlare 4.4s ease-in-out infinite;
-    }
-    @keyframes tvGlare {
-      0%, 18% { transform: translateX(-120%) rotate(8deg); }
-      40%, 100% { transform: translateX(120%) rotate(8deg); }
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.055) 0px,
+          rgba(255,255,255,0.055) 1px,
+          transparent 1px,
+          transparent 7px
+        );
+      transform: none;
+      animation: none;
+      mix-blend-mode: screen;
     }
     .intro-content {
       position: relative;
@@ -1283,7 +1282,6 @@
     <div class="intro-rain"></div>
     <div class="intro-fog intro-fog-a"></div>
     <div class="intro-fog intro-fog-b"></div>
-    <div class="intro-moon"></div>
     <div class="intro-vignette"></div>
     <div class="intro-scanlines"></div>
 <div class="intro-tv-frame">
