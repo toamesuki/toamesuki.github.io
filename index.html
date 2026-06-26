@@ -21,6 +21,12 @@
       --shadow: rgba(50, 37, 35, 0.18);
       --page-pattern: url("/assets/images/bg-page-v2.png");
       --panel-pattern: url("/assets/images/bg-panel.png");
+
+      /* Intro/start-screen optional background.
+         Upload a GIF/PNG here later if you want the TV static to sit over an image:
+         assets/images/intro-bg.gif
+         To use only black static, change this to: none;
+      */
       --intro-bg-image: url("/assets/images/intro-bg.gif");
     }
     * {
@@ -1044,74 +1050,58 @@
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
     }
-.notice-box {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-  align-items: start;
-}
-
-.notice-copy {
-  position: relative;
-  padding: 26px 24px 24px;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background:
-    linear-gradient(to bottom, rgba(124, 47, 56, 0.05) 0 52px, transparent 52px),
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0 33px,
-      rgba(216, 201, 189, 0.58) 33px 34px
-    ),
-    #fffdfa;
-  box-shadow: 0 10px 24px rgba(50, 37, 35, 0.08);
-  word-break: normal;
-  overflow-wrap: normal;
-}
-
-.notice-copy::before {
-  content: "site note";
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 6px 12px;
-  border: 1px solid rgba(124, 47, 56, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 250, 244, 0.88);
-  color: var(--red);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.notice-copy p {
-  margin: 0 0 18px;
-  font-size: 15px;
-  line-height: 2.05;
-}
-
-.notice-copy p:last-child {
-  margin-bottom: 0;
-}
-
-.stamp-card {
-  display: block;
-  width: 100%;
-  min-height: 300px;
-  max-width: 460px;
-  margin: 0 auto;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background-image: url("/assets/images/banner-main.png?v=2") !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
-  background-position: center top !important;
-  box-shadow: none !important;
-}
-
-.stamp-card span {
-  display: none !important;
-}
+    .notice-box {
+      display: grid;
+      grid-template-columns: minmax(360px, 1fr) 245px;
+      gap: 18px;
+      align-items: center;
+    }
+    .notice-copy {
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,250,244,0.82)),
+        var(--panel-pattern);
+      background-repeat: repeat;
+      box-shadow:
+        0 8px 18px rgba(50, 37, 35, 0.08),
+        inset 0 0 18px rgba(124, 47, 56, 0.035);
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .notice-copy::before {
+      display: none !important;
+      content: none !important;
+    }
+    .notice-copy p {
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.82;
+    }
+    .notice-copy p:last-child {
+      margin-bottom: 0;
+    }
+    .stamp-card {
+      display: block;
+      width: 100%;
+      min-height: 270px;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background-image: url("/assets/images/banner-main.png?v=2") !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center center !important;
+      box-shadow: none !important;
+    }
+    .stamp-card span {
+      display: none !important;
+    }
     .archive-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(230px, 1fr));
