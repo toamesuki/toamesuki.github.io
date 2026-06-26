@@ -3,9 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=1280">
   <title>朝霧 ROUTE</title>
-
   <style>
     :root {
       --page-bg: #ece5dc;
@@ -20,22 +19,20 @@
       --blue: #71889b;
       --dark: #29262c;
       --shadow: rgba(50, 37, 35, 0.18);
-
       --page-pattern: url("/assets/images/bg-page-v2.png");
       --panel-pattern: url("/assets/images/bg-panel.png");
     }
-
     * {
       box-sizing: border-box;
     }
-
     html {
       scroll-behavior: smooth;
+      min-width: 1280px;
     }
-
     body {
       margin: 0;
       padding: 0;
+      min-width: 1280px;
       min-height: 100vh;
       color: var(--ink);
       background:
@@ -52,66 +49,527 @@
         "Noto Serif JP",
         serif;
     }
-
+    body.intro-lock {
+      overflow: hidden;
+    }
     a {
       color: var(--red);
       text-decoration: none;
     }
-
     a:hover {
       color: var(--red-soft);
       text-decoration: underline;
     }
-
     img {
       display: block;
       max-width: 100%;
     }
-
+    .page-reveal {
+      min-width: 1280px;
+      opacity: 0;
+      transform: translateY(36px);
+      filter: blur(5px);
+      transition:
+        opacity 1.1s ease,
+        transform 1.1s ease,
+        filter 1.1s ease;
+    }
+    .page-reveal.page-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    /* =========================
+       CHIGIRI TV INTRO SCREEN
+       ========================= */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      overflow: hidden;
+      color: #fff8ea;
+      background:
+        radial-gradient(circle at 78% 12%, rgba(194, 37, 46, 0.42), transparent 17%),
+        radial-gradient(circle at 18% 74%, rgba(226, 195, 107, 0.10), transparent 24%),
+        linear-gradient(180deg, #070609 0%, #16090e 48%, #050507 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transform-origin: center;
+    }
+    .intro-overlay.is-entering {
+      animation: tvPowerOff 1.05s cubic-bezier(.77,0,.18,1) forwards;
+      pointer-events: none;
+    }
+    @keyframes tvPowerOff {
+      0% {
+        transform: scaleY(1);
+        filter: brightness(1) contrast(1);
+        opacity: 1;
+      }
+      25% {
+        transform: scaleY(1.03);
+        filter: brightness(1.8) contrast(1.25);
+        opacity: 1;
+      }
+      55% {
+        transform: scaleY(0.045);
+        filter: brightness(3.2) contrast(1.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scaleY(0);
+        filter: brightness(4) contrast(2);
+        opacity: 0;
+      }
+    }
+    .intro-vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.20) 46%, rgba(0,0,0,0.72) 100%);
+      z-index: 2;
+    }
+    .intro-noise {
+      position: absolute;
+      inset: -20%;
+      z-index: 1;
+      opacity: 0.16;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.28) 0.7px, transparent 0.8px),
+        radial-gradient(circle, rgba(226,195,107,0.20) 0.5px, transparent 0.7px);
+      background-size: 7px 7px, 11px 11px;
+      animation: noiseMove 0.22s steps(3) infinite;
+      mix-blend-mode: screen;
+    }
+    @keyframes noiseMove {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1.2%, 0.8%); }
+      50% { transform: translate(1%, -1%); }
+      75% { transform: translate(-0.4%, 1.4%); }
+      100% { transform: translate(0, 0); }
+    }
+    .intro-scanlines {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.05) 0px,
+          rgba(255,255,255,0.05) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.28;
+    }
+    .intro-rain {
+      position: absolute;
+      inset: -15%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(transparent 0%, rgba(255,255,255,0.70) 50%, transparent 55%);
+      background-size: 3px 28px;
+      transform: rotate(12deg);
+      animation: rainMove 0.42s linear infinite;
+    }
+    @keyframes rainMove {
+      from { background-position: 0 0; }
+      to { background-position: 0 36px; }
+    }
+    .intro-fog {
+      position: absolute;
+      left: -25%;
+      width: 150%;
+      height: 44%;
+      z-index: 2;
+      pointer-events: none;
+      filter: blur(34px);
+      background:
+        radial-gradient(circle at center, rgba(238, 232, 222, 0.20), rgba(238, 232, 222, 0.05) 55%, transparent 70%);
+      animation: fogDrift 14s ease-in-out infinite alternate;
+    }
+    .intro-fog-a {
+      bottom: -8%;
+    }
+    .intro-fog-b {
+      bottom: 16%;
+      opacity: 0.58;
+      animation-duration: 19s;
+    }
+    @keyframes fogDrift {
+      from { transform: translateX(-3%) scale(1); }
+      to { transform: translateX(5%) scale(1.08); }
+    }
+    .intro-moon {
+      position: absolute;
+      right: 8%;
+      top: 7%;
+      z-index: 1;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 36% 30%, #ff6f68 0%, #b82636 35%, #4b0710 74%);
+      box-shadow:
+        0 0 42px rgba(184, 38, 54, 0.55),
+        0 0 120px rgba(184, 38, 54, 0.24);
+      opacity: 0.76;
+      animation: moonPulse 3.4s ease-in-out infinite alternate;
+    }
+    @keyframes moonPulse {
+      from {
+        filter: brightness(0.95);
+        transform: scale(1);
+      }
+      to {
+        filter: brightness(1.18);
+        transform: scale(1.035);
+      }
+    }
+    .intro-tv-frame {
+      position: relative;
+      z-index: 5;
+      width: 880px;
+      min-height: 520px;
+      padding: 18px;
+      border: 2px solid rgba(226, 195, 107, 0.48);
+      border-radius: 32px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 22%),
+        linear-gradient(180deg, rgba(20, 15, 17, 0.92), rgba(5, 5, 7, 0.98));
+      box-shadow:
+        0 0 0 6px rgba(0,0,0,0.32),
+        0 26px 70px rgba(0,0,0,0.62),
+        inset 0 0 28px rgba(226,195,107,0.08),
+        0 0 44px rgba(124,47,56,0.26);
+      animation: tvPowerOn 1.45s cubic-bezier(.25,.8,.2,1) both;
+    }
+    @keyframes tvPowerOn {
+      0% {
+        transform: scaleY(0.02) scaleX(0.82);
+        opacity: 0;
+        filter: blur(16px) brightness(3);
+      }
+      18% {
+        transform: scaleY(0.08) scaleX(1.05);
+        opacity: 1;
+        filter: blur(10px) brightness(3.2);
+      }
+      38% {
+        transform: scaleY(1.08) scaleX(1);
+        filter: blur(8px) brightness(1.8);
+      }
+      62% {
+        transform: scaleY(0.96) scaleX(1);
+        filter: blur(4px) brightness(1.2);
+      }
+      100% {
+        transform: scaleY(1) scaleX(1);
+        opacity: 1;
+        filter: blur(0) brightness(1);
+      }
+    }
+    .intro-tv-screen {
+      position: relative;
+      overflow: hidden;
+      min-height: 486px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 240, 200, 0.20);
+      background:
+        radial-gradient(circle at 50% 35%, rgba(226,195,107,0.13), transparent 32%),
+        linear-gradient(180deg, rgba(65, 14, 20, 0.82), rgba(8, 7, 10, 0.96));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px;
+    }
+    .intro-tv-screen::before {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      pointer-events: none;
+      opacity: 0.22;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.26) 50%, transparent 100%);
+      transform: translateX(-90%) rotate(8deg);
+      animation: tvGlare 4.4s ease-in-out infinite;
+    }
+    @keyframes tvGlare {
+      0%, 18% { transform: translateX(-120%) rotate(8deg); }
+      40%, 100% { transform: translateX(120%) rotate(8deg); }
+    }
+    .intro-content {
+      position: relative;
+      z-index: 8;
+      width: 700px;
+      text-align: center;
+      animation: screenFocus 2.4s ease both;
+    }
+    @keyframes screenFocus {
+      0% {
+        opacity: 0;
+        filter: blur(14px);
+        transform: translateY(10px);
+      }
+      38% {
+        opacity: 0.52;
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+    .intro-topline {
+      margin-bottom: 12px;
+      color: var(--yellow);
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(226,195,107,0.45);
+      animation: neonFlicker 3s steps(1) infinite;
+    }
+    .intro-alert {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 6px 13px;
+      border: 1px solid rgba(226,195,107,0.42);
+      border-radius: 999px;
+      background: rgba(10, 8, 12, 0.68);
+      color: #fff0c7;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      box-shadow:
+        0 0 18px rgba(226,195,107,0.10),
+        inset 0 0 14px rgba(226,195,107,0.06);
+    }
+    .intro-title {
+      margin: 0;
+      color: #fffaf0;
+      font-size: 92px;
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      font-weight: normal;
+      text-shadow:
+        0 0 4px rgba(255,255,255,0.22),
+        0 0 22px rgba(194,37,46,0.58),
+        3px 0 0 rgba(226,195,107,0.16),
+        -3px 0 0 rgba(124,47,56,0.26);
+      animation: titleGlitch 4.7s steps(1) infinite;
+    }
+    .intro-subtitle {
+      margin-top: 12px;
+      color: #f3dfbd;
+      font-size: 15px;
+      letter-spacing: 0.20em;
+    }
+    .intro-signal {
+      margin: 22px auto 20px;
+      width: 420px;
+      height: 8px;
+      border: 1px solid rgba(226,195,107,0.34);
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, rgba(226,195,107,0.20), rgba(194,37,46,0.62), rgba(226,195,107,0.20));
+      box-shadow: 0 0 16px rgba(194,37,46,0.28);
+      animation: signalBlink 1.6s ease-in-out infinite;
+    }
+    @keyframes signalBlink {
+      0%, 100% {
+        opacity: 0.62;
+        filter: brightness(0.9);
+      }
+      50% {
+        opacity: 1;
+        filter: brightness(1.35);
+      }
+    }
+    @keyframes neonFlicker {
+      0%, 5%, 7%, 13%, 100% { opacity: 1; }
+      6%, 12% { opacity: 0.55; }
+    }
+    @keyframes titleGlitch {
+      0%, 88%, 100% {
+        transform: translate(0,0);
+        filter: none;
+      }
+      90% {
+        transform: translate(2px,-1px);
+        filter: blur(0.4px);
+      }
+      92% {
+        transform: translate(-3px,1px);
+      }
+      94% {
+        transform: translate(1px,0);
+      }
+    }
+    .intro-dialog {
+      position: relative;
+      margin: 0 auto;
+      width: 610px;
+      padding: 17px 18px 16px;
+      border: 2px solid rgba(226,195,107,0.74);
+      border-radius: 12px;
+      background:
+        linear-gradient(180deg, rgba(24, 20, 24, 0.94), rgba(8, 7, 10, 0.96));
+      box-shadow:
+        0 12px 28px rgba(0,0,0,0.42),
+        0 0 20px rgba(226,195,107,0.13),
+        inset 0 0 16px rgba(124,47,56,0.12);
+      text-align: left;
+    }
+    .intro-dialog::before {
+      content: "!";
+      position: absolute;
+      left: 14px;
+      top: -15px;
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #1f1b1d;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: #1b1215;
+      font-weight: bold;
+      box-shadow: 0 0 16px rgba(226,195,107,0.48);
+    }
+    .dialog-name {
+      margin-bottom: 7px;
+      color: var(--yellow);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .dialog-text {
+      color: #fff8ea;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    .dialog-subtext {
+      margin-top: 5px;
+      color: rgba(255,248,234,0.62);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .intro-options {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .intro-choice {
+      min-width: 112px;
+      padding: 9px 14px;
+      border: 1px solid rgba(226,195,107,0.45);
+      border-radius: 999px;
+      background: rgba(10,8,12,0.72);
+      color: #fff8ea;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+    .intro-choice:hover,
+    .intro-choice:focus {
+      outline: 0;
+      background: rgba(226,195,107,0.86);
+      color: #1c1518;
+      box-shadow: 0 0 18px rgba(226,195,107,0.32);
+      transform: translateY(-1px);
+    }
+    .intro-choice.yes {
+      background: rgba(124,47,56,0.86);
+      border-color: rgba(226,195,107,0.66);
+    }
+    .intro-choice.yes:hover,
+    .intro-choice.yes:focus {
+      background: var(--yellow);
+      color: #1c1518;
+    }
+    .intro-choice.no {
+      color: rgba(255,248,234,0.72);
+    }
+    .intro-response {
+      min-height: 18px;
+      margin-top: 12px;
+      color: #eac66d;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-align: right;
+    }
+    .intro-dialog.is-refusing {
+      animation: refuseShake 0.34s ease;
+    }
+    @keyframes refuseShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-2px); }
+    }
+    .intro-small {
+      margin-top: 18px;
+      color: rgba(255,248,234,0.46);
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    /* =========================
+       FIXED OLD-WEB DESKTOP LAYOUT
+       ========================= */
     .route-shell {
       width: 100%;
+      min-width: 1280px;
       margin: 0;
       padding: 0;
     }
-
     .route-frame {
       position: relative;
       overflow: hidden;
+      min-width: 1280px;
       min-height: 100vh;
       border: 0;
       border-radius: 0;
       background: transparent;
       box-shadow: none;
     }
-
     .top-ribbon {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      min-width: 1280px;
       padding: 10px 48px;
       background: var(--dark);
       color: #fffaf4;
       font-size: 12px;
       letter-spacing: 0.08em;
     }
-
     .top-ribbon a {
       color: #fffaf4;
       opacity: 0.9;
     }
-
     .top-ribbon a:hover {
       color: var(--yellow);
       text-decoration: none;
     }
-
     .hero {
       position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 380px;
       gap: 32px;
       align-items: end;
+      min-width: 1280px;
       min-height: 430px;
       padding: 52px 64px;
       overflow: hidden;
@@ -121,7 +579,6 @@
       background-size: cover;
       background-position: center;
     }
-
     .hero::before {
       content: "";
       position: absolute;
@@ -135,7 +592,6 @@
         );
       mix-blend-mode: screen;
     }
-
     .hero-titlebox {
       position: relative;
       z-index: 1;
@@ -147,14 +603,12 @@
       color: #fffaf4;
       backdrop-filter: blur(5px);
     }
-
     .kicker {
       font-size: 12px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: #eadfce;
     }
-
     .hero-title {
       margin: 10px 0 8px;
       font-size: clamp(46px, 7vw, 84px);
@@ -162,7 +616,6 @@
       letter-spacing: 0.04em;
       font-weight: normal;
     }
-
     .hero-title small {
       display: block;
       margin-top: 12px;
@@ -170,20 +623,17 @@
       font-size: 17px;
       letter-spacing: 0.22em;
     }
-
     .hero-text {
       margin: 16px 0 0;
       font-size: 15px;
       line-height: 1.85;
     }
-
     .button-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 16px;
     }
-
     .route-button {
       display: inline-flex;
       align-items: center;
@@ -195,21 +645,17 @@
       color: #fffaf4 !important;
       font-size: 13px;
     }
-
     .route-button:hover {
       background: var(--red-soft);
       text-decoration: none;
     }
-
     .route-button.secondary {
       background: #fffaf4;
       color: var(--red) !important;
     }
-
     .route-button.secondary:hover {
       background: #f3e1dc;
     }
-
     .hero-art-card {
       position: relative;
       z-index: 1;
@@ -223,20 +669,20 @@
       background-position: center bottom !important;
       box-shadow: none !important;
     }
-
     .hero-art-card::after {
       content: none !important;
       display: none !important;
     }
-
     .route-layout {
       display: grid;
-      grid-template-columns: 280px minmax(620px, 1fr) 300px;
+      grid-template-columns: 280px 1fr 300px;
       gap: 22px;
       align-items: start;
+      width: 1280px;
+      min-width: 1280px;
+      margin: 0 auto;
       padding: 28px 48px 56px;
     }
-
     .panel,
     .main-card {
       border: 1px solid var(--line);
@@ -247,19 +693,21 @@
       background-repeat: repeat;
       box-shadow: 0 8px 18px rgba(50, 37, 35, 0.08);
     }
-
     .panel {
       position: sticky;
       top: 16px;
       padding: 16px;
     }
-
     .main-card {
       position: relative;
       overflow: hidden;
       padding: 24px;
     }
-
+    .left-panel,
+    .right-panel {
+      display: block !important;
+      grid-column: auto !important;
+    }
     .panel-title {
       display: flex;
       align-items: center;
@@ -274,12 +722,10 @@
       text-transform: uppercase;
       font-weight: normal;
     }
-
     .panel-title::before {
       content: "✦";
       color: var(--yellow);
     }
-
     .profile-icon {
       width: 180px;
       height: 180px;
@@ -293,7 +739,6 @@
       background-position: center;
       box-shadow: 0 10px 20px rgba(50, 37, 35, 0.14);
     }
-
     .name-plate {
       margin-bottom: 14px;
       padding: 12px;
@@ -302,26 +747,22 @@
       background: rgba(248, 239, 231, 0.78);
       text-align: center;
     }
-
     .name-plate strong {
       display: block;
       color: var(--red);
       font-size: 18px;
       letter-spacing: 0.08em;
     }
-
     .name-plate span {
       display: block;
       margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
     }
-
     .category-list {
       display: grid;
       gap: 8px;
     }
-
     .category-list a {
       display: flex;
       justify-content: space-between;
@@ -335,20 +776,17 @@
       font-size: 13px;
       transition: 0.16s ease;
     }
-
     .category-list a:hover {
       transform: translateX(2px);
       background: #f3e1dc;
       color: var(--red);
       text-decoration: none;
     }
-
     .category-list em {
       color: var(--muted);
       font-size: 11px;
       font-style: normal;
     }
-
     .mini-note {
       margin-top: 14px;
       padding: 12px;
@@ -359,7 +797,6 @@
       font-size: 12px;
       line-height: 1.7;
     }
-
     .tiny-banner {
       margin-top: 14px;
       overflow: hidden;
@@ -367,13 +804,11 @@
       border-radius: 14px;
       background: #fff;
     }
-
     .tiny-banner img {
       width: 100%;
       height: 72px;
       object-fit: cover;
     }
-
     .clap-button {
       display: block;
       margin-top: 10px;
@@ -385,20 +820,16 @@
       text-align: center;
       font-size: 12px;
     }
-
     .clap-button:hover {
       background: var(--red-soft);
       text-decoration: none;
     }
-
     .section {
       margin-bottom: 24px;
     }
-
     .section:last-child {
       margin-bottom: 0;
     }
-
     .section h2 {
       margin: 0 0 14px;
       padding-bottom: 8px;
@@ -408,7 +839,6 @@
       letter-spacing: 0.08em;
       font-weight: normal;
     }
-
     .section p {
       margin: 0 0 12px;
       font-size: 14px;
@@ -416,7 +846,6 @@
       word-break: normal;
       overflow-wrap: normal;
     }
-
     .ticker {
       overflow: hidden;
       margin-bottom: 18px;
@@ -424,7 +853,6 @@
       border-radius: 999px;
       background: #fffdf9;
     }
-
     .ticker span {
       display: inline-block;
       white-space: nowrap;
@@ -433,18 +861,15 @@
       font-size: 12px;
       animation: tickerMove 22s linear infinite;
     }
-
     @keyframes tickerMove {
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
     }
-
     .notice-box {
       display: grid;
       grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
       gap: 16px;
     }
-
     .notice-copy {
       padding: 18px;
       border: 1px solid var(--line);
@@ -453,7 +878,6 @@
       word-break: normal;
       overflow-wrap: normal;
     }
-
     .stamp-card {
       display: flex;
       align-items: center;
@@ -468,17 +892,14 @@
       background-position: center !important;
       box-shadow: none !important;
     }
-
     .stamp-card span {
       display: none !important;
     }
-
     .archive-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(230px, 1fr));
       gap: 14px;
     }
-
     .archive-card {
       position: relative;
       min-height: 118px;
@@ -491,13 +912,11 @@
       word-break: normal;
       overflow-wrap: normal;
     }
-
     a.archive-card:hover {
       text-decoration: none;
       transform: translateY(-1px);
       box-shadow: 0 8px 16px rgba(50, 37, 35, 0.10);
     }
-
     .archive-card::after {
       content: "";
       position: absolute;
@@ -508,26 +927,22 @@
       border-radius: 50%;
       background: rgba(124, 47, 56, 0.08);
     }
-
     .archive-card strong {
       display: block;
       margin-bottom: 6px;
       color: var(--red);
     }
-
     .archive-card p {
       margin: 0;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.65;
     }
-
     .gallery-strip {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr;
       gap: 14px;
     }
-
     .gallery-item {
       position: relative;
       min-height: 220px;
@@ -537,25 +952,21 @@
       background-size: cover;
       background-position: center;
     }
-
     .gallery-item:nth-child(1) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
         url("/assets/images/gallery-1.png?v=2");
     }
-
     .gallery-item:nth-child(2) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
         url("/assets/images/gallery-2.png?v=2");
     }
-
     .gallery-item:nth-child(3) {
       background-image:
         linear-gradient(rgba(255,250,244,0.10), rgba(41,38,44,0.36)),
         url("/assets/images/gallery-3.png?v=2");
     }
-
     .gallery-item span {
       position: absolute;
       left: 10px;
@@ -567,7 +978,6 @@
       color: var(--muted);
       font-size: 11px;
     }
-
     .rules-box {
       padding: 0;
       border: 1px solid rgba(124, 47, 56, 0.36);
@@ -577,7 +987,6 @@
       font-size: 13px;
       line-height: 1.75;
     }
-
     .rules-head {
       padding: 12px 16px;
       background: rgba(124, 47, 56, 0.12);
@@ -585,21 +994,17 @@
       color: var(--red);
       letter-spacing: 0.08em;
     }
-
     .rules-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
     }
-
     .rules-lang {
       padding: 16px;
     }
-
     .rules-lang:first-child {
       border-right: 1px dashed rgba(124, 47, 56, 0.25);
     }
-
     .rules-lang h3 {
       margin: 0 0 10px;
       color: var(--red);
@@ -607,16 +1012,13 @@
       letter-spacing: 0.08em;
       font-weight: normal;
     }
-
     .rules-lang ol {
       margin: 0 0 0 20px;
       padding: 0;
     }
-
     .rules-lang li {
       margin-bottom: 8px;
     }
-
     .search-input {
       width: 100%;
       padding: 10px 12px;
@@ -626,14 +1028,12 @@
       color: var(--ink);
       font-family: inherit;
     }
-
     .search-help {
       margin: 8px 0 0;
       color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
     }
-
     .p4-calendar-box {
       border: 1px solid #cbbcaf;
       border-radius: 14px;
@@ -647,7 +1047,6 @@
       overflow: hidden;
       box-shadow: inset 0 0 20px rgba(50, 37, 35, 0.05);
     }
-
     .p4-calendar-top {
       padding: 11px 10px;
       background: linear-gradient(90deg, #27232b, #3b343b);
@@ -657,7 +1056,6 @@
       letter-spacing: 0.14em;
       border-bottom: 1px solid #cbbcaf;
     }
-
     .p4-calendar-controls {
       display: flex;
       justify-content: space-between;
@@ -667,7 +1065,6 @@
       background: rgba(243, 235, 226, 0.8);
       border-bottom: 1px solid #dfd2c8;
     }
-
     .p4-calendar-controls button {
       border: 1px solid #cbbcaf;
       border-radius: 999px;
@@ -678,23 +1075,19 @@
       padding: 5px 9px;
       cursor: pointer;
     }
-
     .p4-calendar-controls button:hover {
       background: #f3e1dc;
     }
-
     .p4-calendar-month {
       color: #7c2f38;
       font-size: 12px;
       letter-spacing: 0.08em;
     }
-
     .p4-weekdays,
     .p4-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
     }
-
     .p4-weekdays div {
       padding: 7px 2px;
       background: #f3ebe2;
@@ -705,11 +1098,9 @@
       border-right: 1px solid #eadfd6;
       border-bottom: 1px solid #eadfd6;
     }
-
     .p4-weekdays div:last-child {
       border-right: 0;
     }
-
     .p4-day {
       min-height: 36px;
       padding: 5px 3px;
@@ -720,40 +1111,32 @@
       font-size: 11px;
       position: relative;
     }
-
     .p4-day:nth-child(7n) {
       border-right: 0;
     }
-
     .p4-day.is-empty {
       background: rgba(243, 235, 226, 0.35);
     }
-
     .p4-day-number {
       display: block;
       color: #403a3c;
     }
-
     .p4-day-icon {
       display: block;
       margin-top: 2px;
       font-size: 12px;
       opacity: 0.82;
     }
-
     .p4-day.is-today {
       background: rgba(124, 47, 56, 0.14);
       box-shadow: inset 0 0 0 1px rgba(124, 47, 56, 0.35);
     }
-
     .p4-day.is-rain {
       background: rgba(113, 136, 155, 0.16);
     }
-
     .p4-day.is-fog {
       background: rgba(124, 47, 56, 0.12);
     }
-
     .p4-day.is-midnight {
       background:
         linear-gradient(rgba(124,47,56,0.18), rgba(41,38,44,0.12)),
@@ -763,7 +1146,6 @@
           transparent 1px 5px
         );
     }
-
     .p4-broadcast {
       margin-top: 10px;
       border: 1px solid #cbbcaf;
@@ -778,7 +1160,6 @@
       color: #fffaf4;
       overflow: hidden;
     }
-
     .p4-broadcast-title {
       padding: 8px 10px;
       border-bottom: 1px solid rgba(255,250,244,0.22);
@@ -787,74 +1168,62 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-
     .p4-broadcast-body {
       padding: 11px 12px;
       font-size: 12px;
       line-height: 1.7;
     }
-
     .p4-broadcast-body strong {
       color: #fff0c7;
     }
-
     .p4-broadcast-small {
       display: block;
       margin-top: 7px;
       color: rgba(255,250,244,0.72);
       font-size: 11px;
     }
-
     .p4-legend {
       margin-top: 8px;
       color: #857c78;
       font-size: 11px;
       line-height: 1.6;
     }
-
     .audio-box {
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 16px;
       background: #fffdf9;
     }
-
     .audio-box audio,
     .video-box video {
       width: 100%;
     }
-
     .track-title {
       margin-bottom: 8px;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
     }
-
     .video-box {
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 16px;
       background: #fffdf9;
     }
-
     .video-box video {
       display: block;
       background: #1f1d22;
     }
-
     .video-caption {
       padding: 9px 10px;
       color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
     }
-
     .image-links {
       display: grid;
       gap: 9px;
     }
-
     .image-link {
       display: block;
       overflow: hidden;
@@ -862,18 +1231,15 @@
       border-radius: 12px;
       background: #fffdf9;
     }
-
     .image-link:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 16px rgba(50, 37, 35, 0.12);
     }
-
     .image-link img {
       width: 100%;
       height: 56px;
       object-fit: cover;
     }
-
     .footer {
       padding: 20px 20px 24px;
       border-top: 1px solid var(--line);
@@ -882,533 +1248,410 @@
       text-align: center;
       font-size: 12px;
     }
-
     .deco {
       position: absolute;
       z-index: 2;
       pointer-events: none;
       filter: drop-shadow(0 8px 8px rgba(50, 37, 35, 0.18));
     }
-
     .deco-tv {
       width: 96px;
       right: 28px;
       top: 470px;
       opacity: 0.94;
     }
-
     .deco-rain {
       width: 78px;
       left: 26px;
       top: 520px;
       opacity: 0.88;
     }
-
     .empty-result {
       display: none;
       margin-top: 10px;
       color: var(--red);
       font-size: 12px;
     }
-
     .is-hidden {
       display: none !important;
     }
-
-    @media (max-width: 1240px) {
-      .route-layout {
-        grid-template-columns: 260px minmax(0, 1fr);
-      }
-
-      .right-panel {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .right-panel .panel-title {
-        grid-column: 1 / -1;
-      }
-
-      .panel {
-        position: relative;
-        top: auto;
-      }
-
-      .deco {
-        display: none;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .top-ribbon {
-        padding: 10px 18px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 28px 18px;
-      }
-
-      .hero-art-card {
-        min-height: 230px;
-      }
-
-      .route-layout {
-        grid-template-columns: 1fr;
-        padding: 16px;
-      }
-
-      .right-panel {
-        display: block;
-      }
-
-      .notice-box,
-      .archive-grid,
-      .gallery-strip,
-      .rules-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .rules-lang:first-child {
-        border-right: 0;
-        border-bottom: 1px dashed rgba(124, 47, 56, 0.25);
-      }
-
-      .gallery-item {
-        min-height: 190px;
-      }
-
-      .profile-icon {
-        width: 150px;
-        height: 150px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .top-ribbon {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 9px 12px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 16px;
-      }
-
-      .hero-titlebox {
-        padding: 18px;
-      }
-
-      .hero-title {
-        font-size: 42px;
-      }
-
-      .hero-title small {
-        font-size: 12px;
-      }
-
-      .route-layout {
-        gap: 12px;
-        padding: 12px;
-      }
-
-      .main-card,
-      .panel {
-        padding: 12px;
-        border-radius: 16px;
-      }
-
-      .category-list a {
-        padding: 11px 12px;
-      }
-
-      .ticker span {
-        animation-duration: 16s;
-      }
-    }
   </style>
-
 </head>
-
-<body>
-  <div class="route-shell">
-    <div class="route-frame">
-
-```
-  <div class="top-ribbon">
-    <div>朝霧 ROUTE　/　personal dream archive</div>
-    <div>
-      <a href="/notice/">notice</a> ·
-      <a href="/channel/">link</a> ·
-      <a href="#rules">rules</a>
-    </div>
-  </div>
-
-  <header class="hero">
-    <div class="hero-titlebox">
-      <div class="kicker">room 203 / rainy midnight / personal backup</div>
-
-      <h1 class="hero-title">
-        朝霧 ROUTE
-        <small>足立透 × 朝霧美雨</small>
-      </h1>
-
-      <p class="hero-text">
-        個人夢創作・OC保管庫。設定、文章、イラスト記録、依頼資料、日記の断片を置いています。
-      </p>
-
-      <div class="button-row">
-        <a class="route-button" href="/profile/">profile</a>
-        <a class="route-button secondary" href="/text/">text archive</a>
-        <a class="route-button secondary" href="/image/">gallery</a>
-        <a class="route-button secondary" href="/channel/">channel</a>
+<body class="intro-lock">
+  <div id="introOverlay" class="intro-overlay">
+    <div class="intro-noise"></div>
+    <div class="intro-rain"></div>
+    <div class="intro-fog intro-fog-a"></div>
+    <div class="intro-fog intro-fog-b"></div>
+    <div class="intro-moon"></div>
+    <div class="intro-vignette"></div>
+    <div class="intro-scanlines"></div>
+<div class="intro-tv-frame">
+  <div class="intro-tv-screen">
+    <div class="intro-content">
+      <div class="intro-topline">RAINY MIDNIGHT / TV WORLD / PRIVATE ARCHIVE</div>
+      <div class="intro-alert">SIGNAL DETECTED_ 雨 / 霧 / 深夜テレビ</div>
+      <h1 class="intro-title">朝霧 ROUTE</h1>
+      <div class="intro-subtitle">足立透 × 朝霧美雨</div>
+      <div class="intro-signal"></div>
+      <div id="introDialog" class="intro-dialog">
+        <div class="dialog-name">TV WORLD SYSTEM</div>
+        <div class="dialog-text">
+          朝霧先輩が行方不明です。<br>
+          今すぐテレビの中に入りますか？
+        </div>
+        <div class="dialog-subtext">
+          Asagiri-senpai is missing. Enter the TV now?
+        </div>
+        <div class="intro-options">
+          <button id="introYes" class="intro-choice yes" type="button">はい / YES</button>
+          <button id="introNo" class="intro-choice no" type="button">いいえ / NO</button>
+        </div>
+        <div id="introResponse" class="intro-response"></div>
+      </div>
+      <div class="intro-small">
+        PERSONAL DREAM ARCHIVE / DO NOT REPOST / DO NOT USE FOR AI TRAINING
       </div>
     </div>
-
-    <div class="hero-art-card"></div>
-  </header>
-
-  <img class="deco deco-tv" src="/assets/images/deco-tv.png" alt="">
-  <img class="deco deco-rain" src="/assets/images/deco-rain.png" alt="">
-
-  <div class="route-layout">
-
-    <aside class="panel left-panel">
-      <h2 class="panel-title">category</h2>
-
-      <div class="profile-icon"></div>
-
-      <div class="name-plate">
-        <strong>朝霧美雨</strong>
-        <span>Asagiri Miu / dream OC</span>
-      </div>
-
-      <nav class="category-list">
-        <a href="/notice/">notice <em>はじめに</em></a>
-        <a href="/profile/">profile <em>設定</em></a>
-        <a href="/image/">image <em>絵置き場</em></a>
-        <a href="/text/">text <em>文章</em></a>
-        <a href="/diary/">diary <em>日記</em></a>
-        <a href="/backup/">backup <em>保管</em></a>
-        <a href="/channel/">channel <em>リンク</em></a>
-      </nav>
-
-      <div class="mini-note">
-        <strong>site memo</strong><br>
-        Web view recommended.<br>
-        個人観賞用の夢創作・OC archive.<br>
-        Please read rules before using or sharing links.
-      </div>
-
-      <div class="tiny-banner">
-        <img src="/assets/images/banner-small.png" alt="small banner">
-      </div>
-
-      <a class="clap-button" href="/channel/">guestbook / banner exchange</a>
-    </aside>
-
-    <main class="main-card">
-
-      <div class="ticker">
-        <span>
-          ♪ welcome to 朝霧 ROUTE　—　do not repost / do not use for AI training　—　profile, image, text, diary, backup, channel　　
-        </span>
-      </div>
-
-      <section class="section">
-        <h2>はじめに</h2>
-
-        <div class="notice-box">
-          <div class="notice-copy">
-            <p>
-              ここは <strong>足立透 × 朝霧美雨</strong> を中心にした個人夢創作・OC保管サイトです。
-              キャラクター設定、関係性メモ、文章、イラスト記録、依頼資料、日記のような断片を静かに置いています。
-            </p>
-
-            <p>
-              非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
-              掲載物はすべて個人観賞・記録用のものです。
-            </p>
-
-            <p>
-              閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
-            </p>
-          </div>
-
-          <div class="stamp-card"></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>route menu</h2>
-
-        <div class="archive-grid">
-          <a class="archive-card searchable" href="/profile/" data-search="profile miu adachi relationship ship names setting character">
-            <strong>profile</strong>
-            <p>OC profile, relationship summary, name notes, route setting, and character references.</p>
-          </a>
-
-          <a class="archive-card searchable" href="/image/" data-search="image gallery commission art icon reference sheet">
-            <strong>image</strong>
-            <p>Commission gallery, icons, banners, reference sheets, artist credits, and visual archive.</p>
-          </a>
-
-          <a class="archive-card searchable" href="/text/" data-search="text writing scene headcanon timeline route domestic jealousy">
-            <strong>text</strong>
-            <p>Writing archive, short scenes, headcanons, emotional notes, and timeline fragments.</p>
-          </a>
-
-          <a class="archive-card searchable" href="/backup/" data-search="backup old drafts private notes">
-            <strong>backup</strong>
-            <p>Old drafts, unused ideas, translation notes, and private scraps.</p>
-          </a>
-        </div>
-
-        <div id="emptyResult" class="empty-result">
-          No matching item on this homepage.
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>image preview</h2>
-
-        <div class="gallery-strip">
-          <a class="gallery-item" href="/image/">
-            <span>gallery-1.png</span>
-          </a>
-
-          <a class="gallery-item" href="/image/">
-            <span>gallery-2.png</span>
-          </a>
-
-          <a class="gallery-item" href="/image/">
-            <span>gallery-3.png</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>updates</h2>
-
-        <div class="archive-grid">
-          <div class="archive-card searchable" data-search="2026 site opened update">
-            <strong>2026.06</strong>
-            <p>Site opened. Homepage layout preparing. Profile, gallery, and writing archive will be added later.</p>
-          </div>
-
-          <div class="archive-card searchable" data-search="todo profile gallery banner commission credit">
-            <strong>todo</strong>
-            <p>Add profile pages, commission credits, banner exchange, image buttons, and writing index.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="rules">
-        <h2>site rules / 禁止事項</h2>
-
-        <div class="rules-box">
-          <div class="rules-head">
-            ご閲覧前にご確認ください / Please read before browsing.
-          </div>
-
-          <div class="rules-inner">
-            <div class="rules-lang">
-              <h3>日本語</h3>
-              <ol>
-                <li>当サイト内の文章・画像・キャラクター設定・依頼資料はすべて個人観賞用です。</li>
-                <li>無断転載、無断使用、加工、トレス、自作発言、再配布を禁止します。</li>
-                <li>OC設定、文章、関係性メモ、依頼イラストを第三者が使用することを禁止します。</li>
-                <li>AI学習、AI生成、AIデータセット、AIプロンプトへの利用を禁止します。</li>
-                <li>依頼イラストの著作権は各イラストレーター様に帰属します。各作家様の規約も必ずご確認ください。</li>
-                <li>当サイトは非公式・非営利の個人夢創作サイトです。公式作品・企業・権利者とは関係ありません。</li>
-              </ol>
-            </div>
-
-            <div class="rules-lang">
-              <h3>English</h3>
-              <ol>
-                <li>All writing, images, character notes, and request materials on this site are for personal viewing and archiving only.</li>
-                <li>Do not repost, reupload, copy, trace, edit, redistribute, or claim anything as your own.</li>
-                <li>Do not use my OC designs, writing, relationship notes, or commissioned artworks.</li>
-                <li>Do not feed, scrape, train, reference, or use any content from this site for AI generation, AI datasets, AI model training, or AI prompts.</li>
-                <li>Commissioned artworks belong to their respective artists. Please follow each artist’s own rules as well.</li>
-                <li>This is an unofficial, non-commercial personal fan/dream archive and is not affiliated with the official creators, companies, or rights holders.</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <aside class="panel right-panel">
-      <h2 class="panel-title">side tools</h2>
-
-      <section class="section">
-        <h2>search</h2>
-
-        <input id="routeSearch" class="search-input" type="search" placeholder="search: profile, text, gallery...">
-
-        <p class="search-help">
-          This search filters the homepage cards only. Later, you can replace it with full-site search.
-        </p>
-      </section>
-
-      <section class="section">
-        <h2>calendar</h2>
-
-        <div class="p4-calendar-box">
-          <div class="p4-calendar-top">
-            八十神町 天気カレンダー
-          </div>
-
-          <div class="p4-calendar-controls">
-            <button type="button" id="prevMonth">前月</button>
-            <div class="p4-calendar-month" id="calendarMonthLabel">読み込み中...</div>
-            <button type="button" id="nextMonth">次月</button>
-          </div>
-
-          <div class="p4-weekdays">
-            <div>月</div>
-            <div>火</div>
-            <div>水</div>
-            <div>木</div>
-            <div>金</div>
-            <div>土</div>
-            <div>日</div>
-          </div>
-
-          <div class="p4-days" id="p4CalendarDays"></div>
-        </div>
-
-        <div class="p4-broadcast">
-          <div class="p4-broadcast-title">
-            midnight weather broadcast
-          </div>
-
-          <div class="p4-broadcast-body" id="p4Broadcast">
-            Loading broadcast...
-          </div>
-        </div>
-
-        <div class="p4-legend">
-          ☀ clear　☂ rain　☁ cloudy　霧 fog　📺 midnight channel
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>music</h2>
-
-        <div class="audio-box">
-          <div class="track-title">
-            ♪ route bgm / replace with your own permitted audio file
-          </div>
-
-          <audio controls preload="metadata" controlslist="nodownload">
-            <source src="/assets/audio/bgm.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>video</h2>
-
-        <div class="video-box">
-          <video controls preload="metadata" poster="/assets/images/video-poster.png">
-            <source src="/assets/video/preview.mp4" type="video/mp4">
-            Your browser does not support the video element.
-          </video>
-
-          <div class="video-caption">
-            Put a short edit, trailer, PV, or commission showcase here.
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>official / links</h2>
-
-        <div class="image-links">
-          <a class="image-link" href="https://p-atlus.jp/p4g/" target="_blank" rel="noopener">
-            <img src="/assets/images/link-official-1.png?v=2" alt="official link 1">
-          </a>
-
-          <a class="image-link" href="https://www.atlus.com/" target="_blank" rel="noopener">
-            <img src="/assets/images/link-official-2.png?v=2" alt="official link 2">
-          </a>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>banner</h2>
-
-        <div class="mini-note">
-          Banner exchange welcome.<br>
-          バナー交換・リンク報告などお気軽に。
-        </div>
-      </section>
-    </aside>
-
   </div>
-
-  <footer class="footer">
-    朝霧 ROUTE © personal dream / OC archive. Do not repost, copy, trace, edit, redistribute, or use for AI training.
-  </footer>
-
 </div>
-```
-
   </div>
-
+  <div id="pageReveal" class="page-reveal">
+    <div class="route-shell">
+      <div class="route-frame">
+    <div class="top-ribbon">
+      <div>朝霧 ROUTE　/　personal dream archive</div>
+      <div>
+        <a href="/notice/">notice</a> ·
+        <a href="/channel/">link</a> ·
+        <a href="#rules">rules</a>
+      </div>
+    </div>
+    <header class="hero">
+      <div class="hero-titlebox">
+        <div class="kicker">room 203 / rainy midnight / personal backup</div>
+        <h1 class="hero-title">
+          朝霧 ROUTE
+          <small>足立透 × 朝霧美雨</small>
+        </h1>
+        <p class="hero-text">
+          個人夢創作・OC保管庫。設定、文章、イラスト記録、依頼資料、日記の断片を置いています。
+        </p>
+        <div class="button-row">
+          <a class="route-button" href="/profile/">profile</a>
+          <a class="route-button secondary" href="/text/">text archive</a>
+          <a class="route-button secondary" href="/image/">gallery</a>
+          <a class="route-button secondary" href="/channel/">channel</a>
+        </div>
+      </div>
+      <div class="hero-art-card"></div>
+    </header>
+    <img class="deco deco-tv" src="/assets/images/deco-tv.png" alt="">
+    <img class="deco deco-rain" src="/assets/images/deco-rain.png" alt="">
+    <div class="route-layout">
+      <aside class="panel left-panel">
+        <h2 class="panel-title">category</h2>
+        <div class="profile-icon"></div>
+        <div class="name-plate">
+          <strong>朝霧美雨</strong>
+          <span>Asagiri Miu / dream OC</span>
+        </div>
+        <nav class="category-list">
+          <a href="/notice/">notice <em>はじめに</em></a>
+          <a href="/profile/">profile <em>設定</em></a>
+          <a href="/image/">image <em>絵置き場</em></a>
+          <a href="/text/">text <em>文章</em></a>
+          <a href="/diary/">diary <em>日記</em></a>
+          <a href="/backup/">backup <em>保管</em></a>
+          <a href="/channel/">channel <em>リンク</em></a>
+        </nav>
+        <div class="mini-note">
+          <strong>site memo</strong><br>
+          Web view recommended.<br>
+          個人観賞用の夢創作・OC archive.<br>
+          Please read rules before using or sharing links.
+        </div>
+        <div class="tiny-banner">
+          <img src="/assets/images/banner-small.png" alt="small banner">
+        </div>
+        <a class="clap-button" href="/channel/">guestbook / banner exchange</a>
+      </aside>
+      <main class="main-card">
+        <div class="ticker">
+          <span>
+            ♪ welcome to 朝霧 ROUTE　—　do not repost / do not use for AI training　—　profile, image, text, diary, backup, channel　　
+          </span>
+        </div>
+        <section class="section">
+          <h2>はじめに</h2>
+          <div class="notice-box">
+            <div class="notice-copy">
+              <p>
+                ここは <strong>足立透 × 朝霧美雨</strong> を中心にした個人夢創作・OC保管サイトです。
+                キャラクター設定、関係性メモ、文章、イラスト記録、依頼資料、日記のような断片を静かに置いています。
+              </p>
+              <p>
+                非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
+                掲載物はすべて個人観賞・記録用のものです。
+              </p>
+              <p>
+                閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
+              </p>
+            </div>
+            <div class="stamp-card"></div>
+          </div>
+        </section>
+        <section class="section">
+          <h2>route menu</h2>
+          <div class="archive-grid">
+            <a class="archive-card searchable" href="/profile/" data-search="profile miu adachi relationship ship names setting character">
+              <strong>profile</strong>
+              <p>OC profile, relationship summary, name notes, route setting, and character references.</p>
+            </a>
+            <a class="archive-card searchable" href="/image/" data-search="image gallery commission art icon reference sheet">
+              <strong>image</strong>
+              <p>Commission gallery, icons, banners, reference sheets, artist credits, and visual archive.</p>
+            </a>
+            <a class="archive-card searchable" href="/text/" data-search="text writing scene headcanon timeline route domestic jealousy">
+              <strong>text</strong>
+              <p>Writing archive, short scenes, headcanons, emotional notes, and timeline fragments.</p>
+            </a>
+            <a class="archive-card searchable" href="/backup/" data-search="backup old drafts private notes">
+              <strong>backup</strong>
+              <p>Old drafts, unused ideas, translation notes, and private scraps.</p>
+            </a>
+          </div>
+          <div id="emptyResult" class="empty-result">
+            No matching item on this homepage.
+          </div>
+        </section>
+        <section class="section">
+          <h2>image preview</h2>
+          <div class="gallery-strip">
+            <a class="gallery-item" href="/image/">
+              <span>gallery-1.png</span>
+            </a>
+            <a class="gallery-item" href="/image/">
+              <span>gallery-2.png</span>
+            </a>
+            <a class="gallery-item" href="/image/">
+              <span>gallery-3.png</span>
+            </a>
+          </div>
+        </section>
+        <section class="section">
+          <h2>updates</h2>
+          <div class="archive-grid">
+            <div class="archive-card searchable" data-search="2026 site opened update">
+              <strong>2026.06</strong>
+              <p>Site opened. Homepage layout preparing. Profile, gallery, and writing archive will be added later.</p>
+            </div>
+            <div class="archive-card searchable" data-search="todo profile gallery banner commission credit">
+              <strong>todo</strong>
+              <p>Add profile pages, commission credits, banner exchange, image buttons, and writing index.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section" id="rules">
+          <h2>site rules / 禁止事項</h2>
+          <div class="rules-box">
+            <div class="rules-head">
+              ご閲覧前にご確認ください / Please read before browsing.
+            </div>
+            <div class="rules-inner">
+              <div class="rules-lang">
+                <h3>日本語</h3>
+                <ol>
+                  <li>当サイト内の文章・画像・キャラクター設定・依頼資料はすべて個人観賞用です。</li>
+                  <li>無断転載、無断使用、加工、トレス、自作発言、再配布を禁止します。</li>
+                  <li>OC設定、文章、関係性メモ、依頼イラストを第三者が使用することを禁止します。</li>
+                  <li>AI学習、AI生成、AIデータセット、AIプロンプトへの利用を禁止します。</li>
+                  <li>依頼イラストの著作権は各イラストレーター様に帰属します。各作家様の規約も必ずご確認ください。</li>
+                  <li>当サイトは非公式・非営利の個人夢創作サイトです。公式作品・企業・権利者とは関係ありません。</li>
+                </ol>
+              </div>
+              <div class="rules-lang">
+                <h3>English</h3>
+                <ol>
+                  <li>All writing, images, character notes, and request materials on this site are for personal viewing and archiving only.</li>
+                  <li>Do not repost, reupload, copy, trace, edit, redistribute, or claim anything as your own.</li>
+                  <li>Do not use my OC designs, writing, relationship notes, or commissioned artworks.</li>
+                  <li>Do not feed, scrape, train, reference, or use any content from this site for AI generation, AI datasets, AI model training, or AI prompts.</li>
+                  <li>Commissioned artworks belong to their respective artists. Please follow each artist’s own rules as well.</li>
+                  <li>This is an unofficial, non-commercial personal fan/dream archive and is not affiliated with the official creators, companies, or rights holders.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <aside class="panel right-panel">
+        <h2 class="panel-title">side tools</h2>
+        <section class="section">
+          <h2>search</h2>
+          <input id="routeSearch" class="search-input" type="search" placeholder="search: profile, text, gallery...">
+          <p class="search-help">
+            This search filters the homepage cards only. Later, you can replace it with full-site search.
+          </p>
+        </section>
+        <section class="section">
+          <h2>calendar</h2>
+          <div class="p4-calendar-box">
+            <div class="p4-calendar-top">
+              八十神町 天気カレンダー
+            </div>
+            <div class="p4-calendar-controls">
+              <button type="button" id="prevMonth">前月</button>
+              <div class="p4-calendar-month" id="calendarMonthLabel">読み込み中...</div>
+              <button type="button" id="nextMonth">次月</button>
+            </div>
+            <div class="p4-weekdays">
+              <div>月</div>
+              <div>火</div>
+              <div>水</div>
+              <div>木</div>
+              <div>金</div>
+              <div>土</div>
+              <div>日</div>
+            </div>
+            <div class="p4-days" id="p4CalendarDays"></div>
+          </div>
+          <div class="p4-broadcast">
+            <div class="p4-broadcast-title">
+              midnight weather broadcast
+            </div>
+            <div class="p4-broadcast-body" id="p4Broadcast">
+              Loading broadcast...
+            </div>
+          </div>
+          <div class="p4-legend">
+            ☀ clear　☂ rain　☁ cloudy　霧 fog　📺 midnight channel
+          </div>
+        </section>
+        <section class="section">
+          <h2>music</h2>
+          <div class="audio-box">
+            <div class="track-title">
+              ♪ route bgm / replace with your own permitted audio file
+            </div>
+            <audio controls preload="metadata" controlslist="nodownload">
+              <source src="/assets/audio/bgm.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </section>
+        <section class="section">
+          <h2>video</h2>
+          <div class="video-box">
+            <video controls preload="metadata" poster="/assets/images/video-poster.png">
+              <source src="/assets/video/preview.mp4" type="video/mp4">
+              Your browser does not support the video element.
+            </video>
+            <div class="video-caption">
+              Put a short edit, trailer, PV, or commission showcase here.
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2>official / links</h2>
+          <div class="image-links">
+            <a class="image-link" href="https://p-atlus.jp/p4g/" target="_blank" rel="noopener">
+              <img src="/assets/images/link-official-1.png?v=2" alt="official link 1">
+            </a>
+            <a class="image-link" href="https://www.atlus.com/" target="_blank" rel="noopener">
+              <img src="/assets/images/link-official-2.png?v=2" alt="official link 2">
+            </a>
+          </div>
+        </section>
+        <section class="section">
+          <h2>banner</h2>
+          <div class="mini-note">
+            Banner exchange welcome.<br>
+            バナー交換・リンク報告などお気軽に。
+          </div>
+        </section>
+      </aside>
+    </div>
+    <footer class="footer">
+      朝霧 ROUTE © personal dream / OC archive. Do not repost, copy, trace, edit, redistribute, or use for AI training.
+    </footer>
+  </div>
+</div>
+  </div>
   <script>
+    const introOverlay = document.getElementById("introOverlay");
+    const pageReveal = document.getElementById("pageReveal");
+    const introYes = document.getElementById("introYes");
+    const introNo = document.getElementById("introNo");
+    const introDialog = document.getElementById("introDialog");
+    const introResponse = document.getElementById("introResponse");
+    function enterTvWorld() {
+      if (!introOverlay || !pageReveal) return;
+      if (introResponse) {
+        introResponse.textContent = "ENTERING TV WORLD...";
+      }
+      pageReveal.classList.add("page-visible");
+      document.body.classList.remove("intro-lock");
+      introOverlay.classList.add("is-entering");
+      setTimeout(function () {
+        introOverlay.remove();
+      }, 1150);
+    }
+    function refuseEnter() {
+      if (introDialog) {
+        introDialog.classList.remove("is-refusing");
+        void introDialog.offsetWidth;
+        introDialog.classList.add("is-refusing");
+      }
+      if (introResponse) {
+        introResponse.textContent = "The screen keeps calling. You cannot leave her there.";
+      }
+    }
+    if (introYes) {
+      introYes.addEventListener("click", enterTvWorld);
+    }
+    if (introNo) {
+      introNo.addEventListener("click", refuseEnter);
+    }
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && introOverlay && document.body.classList.contains("intro-lock")) {
+        enterTvWorld();
+      }
+    });
     const routeSearch = document.getElementById("routeSearch");
     const searchableCards = document.querySelectorAll(".searchable");
     const emptyResult = document.getElementById("emptyResult");
-
     if (routeSearch) {
       routeSearch.addEventListener("input", function () {
         const query = routeSearch.value.toLowerCase().trim();
         let visibleCount = 0;
-
         searchableCards.forEach(function (card) {
           const text = (card.textContent + " " + (card.dataset.search || "")).toLowerCase();
           const shouldShow = text.includes(query);
-
           card.classList.toggle("is-hidden", !shouldShow);
-
           if (shouldShow) {
             visibleCount++;
           }
         });
-
         if (emptyResult) {
           emptyResult.style.display = visibleCount === 0 ? "block" : "none";
         }
       });
     }
-
     const calendarDays = document.getElementById("p4CalendarDays");
     const calendarMonthLabel = document.getElementById("calendarMonthLabel");
     const prevMonthBtn = document.getElementById("prevMonth");
     const nextMonthBtn = document.getElementById("nextMonth");
     const p4Broadcast = document.getElementById("p4Broadcast");
-
     let calendarDate = new Date();
-
     const monthNames = [
       "1月", "2月", "3月", "4月", "5月", "6月",
       "7月", "8月", "9月", "10月", "11月", "12月"
     ];
-
     function seededWeather(year, month, day) {
       const seed = year * 10000 + (month + 1) * 100 + day;
       const value = (seed * 9301 + 49297) % 233280;
       const roll = value / 233280;
-
       if (roll < 0.12) {
         return {
           type: "midnight",
@@ -1417,7 +1660,6 @@
           label: "Midnight Channel signal detected"
         };
       }
-
       if (roll < 0.28) {
         return {
           type: "fog",
@@ -1426,7 +1668,6 @@
           label: "Heavy fog warning"
         };
       }
-
       if (roll < 0.52) {
         return {
           type: "rain",
@@ -1435,7 +1676,6 @@
           label: "Rain expected after sunset"
         };
       }
-
       if (roll < 0.76) {
         return {
           type: "cloud",
@@ -1444,7 +1684,6 @@
           label: "Cloudy and quiet"
         };
       }
-
       return {
         type: "clear",
         icon: "☀",
@@ -1452,66 +1691,50 @@
         label: "Clear weather"
       };
     }
-
     function renderCalendar() {
       if (!calendarDays || !calendarMonthLabel) return;
-
       const year = calendarDate.getFullYear();
       const month = calendarDate.getMonth();
-
       calendarMonthLabel.textContent = `${year}年 ${monthNames[month]}`;
       calendarDays.innerHTML = "";
-
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
       const today = new Date();
-
       let startOffset = firstDay.getDay() - 1;
       if (startOffset < 0) startOffset = 6;
-
       for (let i = 0; i < startOffset; i++) {
         const emptyCell = document.createElement("div");
         emptyCell.className = "p4-day is-empty";
         calendarDays.appendChild(emptyCell);
       }
-
       for (let day = 1; day <= lastDay.getDate(); day++) {
         const weather = seededWeather(year, month, day);
         const dayCell = document.createElement("div");
-
         dayCell.className = `p4-day ${weather.className}`;
-
         const isToday =
           day === today.getDate() &&
           month === today.getMonth() &&
           year === today.getFullYear();
-
         if (isToday) {
           dayCell.classList.add("is-today");
         }
-
         dayCell.innerHTML = `
           <span class="p4-day-number">${day}</span>
           <span class="p4-day-icon">${weather.icon}</span>
         `;
-
         dayCell.title = weather.label;
         calendarDays.appendChild(dayCell);
       }
-
       renderBroadcast();
     }
-
     function renderBroadcast() {
       if (!p4Broadcast) return;
-
       const today = new Date();
       const weather = seededWeather(
         today.getFullYear(),
         today.getMonth(),
         today.getDate()
       );
-
       const broadcastLines = {
         clear: {
           title: "Clear weather",
@@ -1534,9 +1757,7 @@
           text: "A weak broadcast pattern has been detected. The screen may flicker around midnight."
         }
       };
-
       const line = broadcastLines[weather.type];
-
       p4Broadcast.innerHTML = `
         <strong>${weather.icon} ${line.title}</strong><br>
         ${line.text}
@@ -1545,23 +1766,19 @@
         </span>
       `;
     }
-
     if (prevMonthBtn) {
       prevMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() - 1);
         renderCalendar();
       });
     }
-
     if (nextMonthBtn) {
       nextMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() + 1);
         renderCalendar();
       });
     }
-
     renderCalendar();
   </script>
-
 </body>
 </html>
