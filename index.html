@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1280">
@@ -21,8 +21,6 @@
       --shadow: rgba(50, 37, 35, 0.18);
       --page-pattern: url("/assets/images/bg-page-v2.png");
       --panel-pattern: url("/assets/images/bg-panel.png");
-
-      /* intro/start screen background image or gif behind the static */
       --intro-bg-image: url("/assets/images/intro-bg.gif");
     }
     * {
@@ -94,17 +92,29 @@
       background:
         repeating-linear-gradient(
           0deg,
-          rgba(255,255,255,0.035) 0px,
-          rgba(255,255,255,0.035) 1px,
+          rgba(255,255,255,0.032) 0px,
+          rgba(255,255,255,0.032) 1px,
           transparent 1px,
-          transparent 6px
+          transparent 5px
         ),
-        linear-gradient(rgba(0,0,0,0.46), rgba(0,0,0,0.66)),
+        linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.76)),
         var(--intro-bg-image),
-        linear-gradient(180deg, #070609 0%, #16090e 48%, #050507 100%);
-      background-size: auto, cover, cover, cover;
-      background-position: center, center, center, center;
-      background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+        linear-gradient(180deg, #050507 0%, #111015 45%, #030304 100%);
+      background-size:
+        auto,
+        cover,
+        cover,
+        cover;
+      background-position:
+        center,
+        center,
+        center,
+        center;
+      background-repeat:
+        repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,12 +159,13 @@
       position: absolute;
       inset: -20%;
       z-index: 1;
-      opacity: 0.16;
+      opacity: 0.34;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,0.28) 0.7px, transparent 0.8px),
-        radial-gradient(circle, rgba(226,195,107,0.20) 0.5px, transparent 0.7px);
-      background-size: 7px 7px, 11px 11px;
-      animation: noiseMove 0.22s steps(3) infinite;
+        radial-gradient(circle, rgba(255,255,255,0.34) 0.7px, transparent 0.9px),
+        radial-gradient(circle, rgba(255,248,234,0.18) 0.5px, transparent 0.8px),
+        radial-gradient(circle, rgba(226,195,107,0.14) 0.6px, transparent 0.9px);
+      background-size: 4px 4px, 7px 7px, 11px 11px;
+      animation: noiseMove 0.16s steps(2) infinite;
       mix-blend-mode: screen;
     }
     @keyframes noiseMove {
@@ -185,22 +196,30 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      opacity: 0.10;
+      opacity: 0.20;
       background:
         repeating-linear-gradient(
           0deg,
-          rgba(255,255,255,0.045) 0px,
-          rgba(255,255,255,0.045) 1px,
+          rgba(255,255,255,0.065) 0px,
+          rgba(255,255,255,0.065) 1px,
           transparent 1px,
-          transparent 8px
+          transparent 12px
+        ),
+        linear-gradient(
+          180deg,
+          transparent 0%,
+          transparent 44%,
+          rgba(226,195,107,0.16) 45%,
+          transparent 46%,
+          transparent 100%
         );
-      background-size: auto;
       transform: none;
-      animation: rainMove 1.2s linear infinite;
+      animation: rainMove 0.55s steps(2) infinite;
+      mix-blend-mode: screen;
     }
     @keyframes rainMove {
-      from { background-position: 0 0; }
-      to { background-position: 0 8px; }
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 0 18px, 0 0; }
     }
     .intro-fog {
       position: absolute;
@@ -229,6 +248,16 @@
     .intro-moon {
       display: none !important;
     }
+
+    @keyframes moonPulse {
+      from { opacity: 0; }
+      to { opacity: 0; }
+    }
+      to {
+        filter: brightness(1.18);
+        transform: scale(1.035);
+      }
+    }
     .intro-tv-frame {
       position: relative;
       z-index: 5;
@@ -245,7 +274,7 @@
         0 26px 70px rgba(0,0,0,0.62),
         inset 0 0 28px rgba(226,195,107,0.08),
         0 0 44px rgba(124,47,56,0.26);
-      animation: tvPowerOn 1.45s cubic-bezier(.25,.8,.2,1) both;
+      animation: tvPowerOn 1.45s cubic-bezier(.25,.8,.2,1) 2.55s both;
     }
     @keyframes tvPowerOn {
       0% {
@@ -289,27 +318,24 @@
     .intro-tv-screen::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -12%;
       pointer-events: none;
-      opacity: 0.14;
+      opacity: 0.22;
       background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.055) 0px,
-          rgba(255,255,255,0.055) 1px,
-          transparent 1px,
-          transparent 7px
-        );
-      transform: none;
-      animation: none;
-      mix-blend-mode: screen;
+        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.26) 50%, transparent 100%);
+      transform: translateX(-90%) rotate(8deg);
+      animation: tvGlare 4.4s ease-in-out infinite;
+    }
+    @keyframes tvGlare {
+      0%, 18% { transform: translateX(-120%) rotate(8deg); }
+      40%, 100% { transform: translateX(120%) rotate(8deg); }
     }
     .intro-content {
       position: relative;
       z-index: 8;
       width: 700px;
       text-align: center;
-      animation: screenFocus 2.4s ease both;
+      animation: screenFocus 1.6s ease 3.15s both;
     }
     @keyframes screenFocus {
       0% {
@@ -523,6 +549,160 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
+
+    /* =========================
+       FIRST TV STATIC BOOT ANIMATION
+       ========================= */
+    .intro-boot {
+      position: absolute;
+      inset: 0;
+      z-index: 9;
+      pointer-events: none;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at center, rgba(255,248,220,0.10), transparent 30%),
+        linear-gradient(180deg, #020203 0%, #09090b 52%, #020203 100%);
+      animation: bootFade 3.05s ease forwards;
+    }
+
+    .intro-boot::before,
+    .intro-boot::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.42) 0.6px, transparent 0.9px),
+        radial-gradient(circle, rgba(235,220,162,0.20) 0.5px, transparent 0.8px),
+        radial-gradient(circle, rgba(255,255,255,0.18) 0.8px, transparent 1px);
+      background-size: 3px 3px, 6px 6px, 10px 10px;
+      mix-blend-mode: screen;
+      animation: bootNoise 0.12s steps(2) infinite;
+    }
+
+    .intro-boot::after {
+      opacity: 0.35;
+      filter: blur(1px);
+      animation-duration: 0.19s;
+    }
+
+    .boot-lines {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.09) 0px,
+          rgba(255,255,255,0.09) 1px,
+          transparent 1px,
+          transparent 5px
+        ),
+        linear-gradient(
+          180deg,
+          transparent 0%,
+          transparent 10%,
+          rgba(226,195,107,0.40) 10.4%,
+          transparent 10.8%,
+          transparent 82%,
+          rgba(226,195,107,0.30) 82.4%,
+          transparent 82.8%,
+          transparent 100%
+        );
+      mix-blend-mode: screen;
+      opacity: 0.46;
+      animation: bootLineJump 0.36s steps(2) infinite;
+    }
+
+    .boot-text {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      z-index: 3;
+      text-align: center;
+      color: rgba(239, 226, 157, 0.88);
+      text-shadow:
+        0 0 8px rgba(226,195,107,0.36),
+        2px 0 0 rgba(124,47,56,0.35),
+        -2px 0 0 rgba(255,255,255,0.08);
+      animation: bootTextFade 2.78s ease forwards;
+    }
+
+    .boot-logo {
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: 0.20em;
+      filter: blur(5px);
+      animation: bootLogoFocus 2.1s steps(3) forwards;
+    }
+
+    .boot-sub {
+      margin-top: 16px;
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    @keyframes bootNoise {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1.5%, 1%); }
+      50% { transform: translate(1.2%, -0.8%); }
+      75% { transform: translate(-0.5%, -1.2%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes bootLineJump {
+      0%, 100% { transform: translateY(0); opacity: 0.46; }
+      50% { transform: translateY(6px); opacity: 0.62; }
+    }
+
+    @keyframes bootLogoFocus {
+      0% {
+        opacity: 0;
+        filter: blur(12px);
+        transform: scale(0.98);
+      }
+      28% {
+        opacity: 0.46;
+        filter: blur(8px);
+      }
+      56% {
+        opacity: 0.88;
+        filter: blur(3px);
+        transform: scale(1.01);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bootTextFade {
+      0%, 72% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes bootFade {
+      0%, 70% {
+        opacity: 1;
+        filter: brightness(1) contrast(1);
+      }
+      88% {
+        opacity: 1;
+        filter: brightness(2.6) contrast(1.5);
+      }
+      100% {
+        opacity: 0;
+        filter: brightness(3.5) contrast(2);
+        visibility: hidden;
+      }
+    }
+
     /* =========================
        FIXED OLD-WEB DESKTOP LAYOUT
        ========================= */
@@ -1282,8 +1462,18 @@
     <div class="intro-rain"></div>
     <div class="intro-fog intro-fog-a"></div>
     <div class="intro-fog intro-fog-b"></div>
+    <div class="intro-moon"></div>
     <div class="intro-vignette"></div>
     <div class="intro-scanlines"></div>
+    <div class="intro-boot">
+      <div class="boot-lines"></div>
+      <div class="boot-text">
+        <div>
+          <div class="boot-logo">マヨナカテレビ</div>
+          <div class="boot-sub">ただいま受信中_</div>
+        </div>
+      </div>
+    </div>
 <div class="intro-tv-frame">
   <div class="intro-tv-screen">
     <div class="intro-content">
