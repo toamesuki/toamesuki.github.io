@@ -1052,12 +1052,12 @@
     }
     .notice-box {
       display: grid;
-      grid-template-columns: minmax(360px, 1fr) 245px;
+      grid-template-columns: minmax(0, 1fr) 230px;
       gap: 18px;
       align-items: center;
     }
     .notice-copy {
-      min-height: 270px;
+      min-height: 260px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1081,23 +1081,32 @@
     .notice-copy p {
       margin: 0 0 10px;
       font-size: 13px;
-      line-height: 1.82;
+      line-height: 1.78;
     }
     .notice-copy p:last-child {
       margin-bottom: 0;
     }
     .stamp-card {
-      display: block;
-      width: 100%;
-      min-height: 270px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 230px;
+      min-height: 260px;
       padding: 0 !important;
       border: 0 !important;
       border-radius: 0 !important;
-      background-image: url("/assets/images/banner-main.png?v=2") !important;
-      background-size: contain !important;
-      background-repeat: no-repeat !important;
-      background-position: center center !important;
+      background: none !important;
       box-shadow: none !important;
+      overflow: visible;
+    }
+    .stamp-card img {
+      display: block;
+      width: 100%;
+      max-width: 230px;
+      height: auto;
+      max-height: 260px;
+      object-fit: contain;
+      object-position: center;
     }
     .stamp-card span {
       display: none !important;
@@ -1653,7 +1662,7 @@
                 閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
               </p>
             </div>
-            <div class="stamp-card"></div>
+            <div class="stamp-card"><img src="/assets/images/banner-main.png?v=3" alt="banner art"></div>
           </div>
         </section>
         <section class="section">
