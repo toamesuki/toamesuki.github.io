@@ -1044,33 +1044,76 @@
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
     }
-    .notice-box {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
-      gap: 16px;
-    }
-    .notice-copy {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.64);
-      word-break: normal;
-      overflow-wrap: normal;
-    }
-    .stamp-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 240px;
-      padding: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background-image: url("/assets/images/banner-main.png?v=2") !important;
-      background-size: contain !important;
-      background-repeat: no-repeat !important;
-      background-position: center !important;
-      box-shadow: none !important;
-    }
+.notice-box {
+display: grid;
+grid-template-columns: minmax(270px, 1fr) 230px;
+gap: 18px;
+align-items: stretch;
+}
+
+.notice-copy {
+position: relative;
+min-height: 300px;
+padding: 22px 22px 20px;
+border: 1px solid var(--line);
+border-radius: 22px;
+background:
+linear-gradient(to bottom, rgba(124, 47, 56, 0.055) 0 48px, transparent 48px),
+repeating-linear-gradient(
+to bottom,
+transparent 0 31px,
+rgba(216, 201, 189, 0.50) 31px 32px
+),
+#fffdfa;
+box-shadow:
+0 10px 22px rgba(50, 37, 35, 0.08),
+inset 0 0 18px rgba(124, 47, 56, 0.025);
+word-break: normal;
+overflow-wrap: normal;
+}
+
+.notice-copy::before {
+content: "site note";
+display: inline-block;
+margin-bottom: 13px;
+padding: 5px 11px;
+border: 1px solid rgba(124, 47, 56, 0.22);
+border-radius: 999px;
+background: rgba(255, 250, 244, 0.90);
+color: var(--red);
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+}
+
+.notice-copy p {
+margin: 0 0 12px;
+color: var(--ink);
+font-size: 13px;
+line-height: 1.78;
+}
+
+.notice-copy p:last-child {
+margin-bottom: 0;
+}
+
+.stamp-card {
+display: block;
+width: 100%;
+min-height: 300px;
+padding: 0 !important;
+border: 0 !important;
+border-radius: 0 !important;
+background-image: url("/assets/images/banner-main.png?v=2") !important;
+background-size: contain !important;
+background-repeat: no-repeat !important;
+background-position: center center !important;
+box-shadow: none !important;
+}
+
+.stamp-card span {
+display: none !important;
+}
     .stamp-card span {
       display: none !important;
     }
