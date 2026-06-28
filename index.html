@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=1280">
   <title>朝霧 ROUTE</title>
-  <style>
+  <style>SIGNAL DETECTED_
     :root {
       --page-bg: #ece5dc;
       --paper: #fffaf4;
@@ -1530,6 +1530,269 @@
     .is-hidden {
       display: none !important;
     }
+
+
+    /* =========================
+       DESKTOP APP-LIKE SCROLL PANELS
+       ========================= */
+    .left-panel,
+    .main-card,
+    .right-panel {
+      max-height: calc(100vh - 56px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(124, 47, 56, 0.32) rgba(255, 250, 244, 0.52);
+    }
+
+    .left-panel::-webkit-scrollbar,
+    .main-card::-webkit-scrollbar,
+    .right-panel::-webkit-scrollbar {
+      width: 9px;
+    }
+
+    .left-panel::-webkit-scrollbar-track,
+    .main-card::-webkit-scrollbar-track,
+    .right-panel::-webkit-scrollbar-track {
+      background: rgba(255, 250, 244, 0.58);
+      border-radius: 999px;
+    }
+
+    .left-panel::-webkit-scrollbar-thumb,
+    .main-card::-webkit-scrollbar-thumb,
+    .right-panel::-webkit-scrollbar-thumb {
+      background: rgba(124, 47, 56, 0.32);
+      border: 2px solid rgba(255, 250, 244, 0.70);
+      border-radius: 999px;
+    }
+
+    .left-panel::-webkit-scrollbar-thumb:hover,
+    .main-card::-webkit-scrollbar-thumb:hover,
+    .right-panel::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 47, 56, 0.52);
+    }
+
+    .left-panel,
+    .right-panel {
+      align-self: start;
+    }
+
+    .main-card {
+      align-self: start;
+    }
+
+    /* =========================
+       FULL-SITE SEARCH RESULT BOX
+       ========================= */
+    .search-results {
+      display: none;
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 253, 249, 0.88);
+      overflow: hidden;
+    }
+
+    .search-results.is-active {
+      display: block;
+    }
+
+    .search-result-item {
+      display: block;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(216, 201, 189, 0.65);
+      color: var(--ink);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: 0;
+    }
+
+    .search-result-item:hover {
+      background: #f3e1dc;
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .search-result-item strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--red);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .search-result-item span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .search-result-empty {
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       BANNER NOTE MOVED LEFT
+       ========================= */
+    .banner-left-note {
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    /* =========================
+       PERSONA 4 / OLD SONY MP3 PLAYER
+       ========================= */
+    .mp3-player {
+      overflow: hidden;
+      border: 1px solid #cbbcaf;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(41, 38, 44, 0.96), rgba(25, 23, 28, 0.98)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.045) 0 1px,
+          transparent 1px 5px
+        );
+      color: #fffaf4;
+      box-shadow:
+        inset 0 0 22px rgba(255,255,255,0.035),
+        0 8px 18px rgba(50, 37, 35, 0.14);
+    }
+
+    .mp3-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 11px;
+      border-bottom: 1px solid rgba(255,250,244,0.16);
+      color: var(--yellow);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .mp3-screen {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 10px;
+      padding: 12px;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(226,195,107,0.12), transparent 36%),
+        linear-gradient(180deg, rgba(255,250,244,0.045), rgba(0,0,0,0.08));
+    }
+
+    .mp3-cover {
+      width: 58px;
+      height: 58px;
+      border: 1px solid rgba(255,250,244,0.22);
+      border-radius: 12px;
+      background:
+        linear-gradient(rgba(255,250,244,0.08), rgba(255,250,244,0.02)),
+        url("/assets/images/music-cover.png?v=2");
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 14px rgba(0,0,0,0.22);
+    }
+
+    .mp3-info {
+      min-width: 0;
+      padding-top: 2px;
+    }
+
+    .mp3-song-title {
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: #fff0c7;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .mp3-song-credit {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: rgba(255,250,244,0.66);
+      font-size: 11px;
+    }
+
+    .mp3-progress {
+      position: relative;
+      height: 7px;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,250,244,0.18);
+      border: 1px solid rgba(255,250,244,0.12);
+    }
+
+    .mp3-progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red-soft), var(--yellow));
+      transition: width 0.1s linear;
+    }
+
+    .mp3-time {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      color: rgba(255,250,244,0.52);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mp3-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-top: 1px solid rgba(255,250,244,0.12);
+      background: rgba(0,0,0,0.16);
+    }
+
+    .mp3-control {
+      width: 38px;
+      height: 32px;
+      border: 1px solid rgba(255,250,244,0.24);
+      border-radius: 999px;
+      background: rgba(255,250,244,0.08);
+      color: #fffaf4;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .mp3-control:hover {
+      background: rgba(226,195,107,0.22);
+      border-color: rgba(226,195,107,0.45);
+      transform: translateY(-1px);
+    }
+
+    .mp3-control.is-main {
+      width: 46px;
+      background: rgba(124, 47, 56, 0.88);
+      border-color: rgba(226,195,107,0.55);
+    }
+
+    .mp3-note {
+      padding: 0 12px 12px;
+      color: rgba(255,250,244,0.58);
+      font-size: 10px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body class="intro-lock">
@@ -1639,6 +1902,11 @@
           <img src="/assets/images/banner-small.png" alt="small banner">
         </div>
         <a class="clap-button" href="/channel/">guestbook / banner exchange</a>
+
+        <div class="mini-note banner-left-note">
+          Banner exchange welcome.<br>
+          バナー交換・リンク報告などお気軽に。
+        </div>
       </aside>
       <main class="main-card">
         <div class="ticker">
@@ -1757,10 +2025,8 @@
         <h2 class="panel-title">side tools</h2>
         <section class="section">
           <h2>search</h2>
-          <input id="routeSearch" class="search-input" type="search" placeholder="search: profile, text, gallery...">
-          <p class="search-help">
-            This search filters the homepage cards only. Later, you can replace it with full-site search.
-          </p>
+          <input id="routeSearch" class="search-input" type="search" placeholder="full-site search...">
+          <div id="searchResults" class="search-results" aria-live="polite"></div>
         </section>
         <section class="section">
           <h2>calendar</h2>
@@ -1796,15 +2062,41 @@
             ☀ clear　☂ rain　☁ cloudy　霧 fog　📺 midnight channel
           </div>
         </section>
-        <section class="section">
+        <section class="section music-section">
           <h2>music</h2>
-          <div class="audio-box">
-            <div class="track-title">
-              ♪ route bgm / replace with your own permitted audio file
+          <div class="mp3-player">
+            <div class="mp3-top">
+              <span>now playing</span>
+              <span>♪ 01</span>
             </div>
-            <audio controls preload="metadata" controlslist="nodownload">
+
+            <div class="mp3-screen">
+              <div class="mp3-cover" aria-hidden="true"></div>
+              <div class="mp3-info">
+                <span class="mp3-song-title">Your song title</span>
+                <span class="mp3-song-credit">credit / artist name</span>
+                <div class="mp3-progress">
+                  <div id="musicProgress" class="mp3-progress-fill"></div>
+                </div>
+                <div class="mp3-time">
+                  <span id="musicCurrent">0:00</span>
+                  <span id="musicDuration">0:00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mp3-controls">
+              <button class="mp3-control" type="button" aria-label="previous">◁</button>
+              <button id="musicPlay" class="mp3-control is-main" type="button" aria-label="play">▶</button>
+              <button class="mp3-control" type="button" aria-label="next">▷</button>
+            </div>
+
+            <div class="mp3-note">
+              old mp3 player mode / persona-style private archive
+            </div>
+
+            <audio id="bgmPlayer" preload="metadata">
               <source src="/assets/audio/bgm.mp3" type="audio/mpeg">
-              Your browser does not support the audio element.
             </audio>
           </div>
         </section>
@@ -1831,13 +2123,7 @@
             </a>
           </div>
         </section>
-        <section class="section">
-          <h2>banner</h2>
-          <div class="mini-note">
-            Banner exchange welcome.<br>
-            バナー交換・リンク報告などお気軽に。
-          </div>
-        </section>
+
       </aside>
     </div>
     <footer class="footer">
@@ -1887,25 +2173,103 @@
       }
     });
     const routeSearch = document.getElementById("routeSearch");
-    const searchableCards = document.querySelectorAll(".searchable");
-    const emptyResult = document.getElementById("emptyResult");
+    const searchResults = document.getElementById("searchResults");
+
+    const siteSearchIndex = [
+      {
+        title: "profile",
+        url: "/profile/",
+        description: "OC profile, relationship summary, name notes, and route setting.",
+        keywords: "profile miu asagiri adachi tohru relationship ship names setting character"
+      },
+      {
+        title: "image",
+        url: "/image/",
+        description: "Commission gallery, icons, banners, reference sheets, and visual archive.",
+        keywords: "image gallery commission art icon banner reference sheet"
+      },
+      {
+        title: "text",
+        url: "/text/",
+        description: "Writing archive, short scenes, headcanons, route fragments, and domestic notes.",
+        keywords: "text writing scene headcanon timeline route domestic jealousy"
+      },
+      {
+        title: "diary",
+        url: "/diary/",
+        description: "Diary-style updates, small logs, and personal notes.",
+        keywords: "diary log update personal memo"
+      },
+      {
+        title: "backup",
+        url: "/backup/",
+        description: "Old drafts, unused ideas, translation notes, and private scraps.",
+        keywords: "backup old drafts private notes translation"
+      },
+      {
+        title: "notice / rules",
+        url: "#rules",
+        description: "Site rules, repost policy, AI-use restriction, and browsing notice.",
+        keywords: "notice rules ai repost credit 禁止事項 はじめに"
+      },
+      {
+        title: "channel / links",
+        url: "/channel/",
+        description: "Links, guestbook, banner exchange, and outside pages.",
+        keywords: "channel links guestbook banner exchange official"
+      }
+    ];
+
+    function renderSearchResults(query) {
+      if (!searchResults) return;
+
+      const normalizedQuery = query.toLowerCase().trim();
+
+      if (!normalizedQuery) {
+        searchResults.classList.remove("is-active");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      const matches = siteSearchIndex.filter(function (item) {
+        const haystack = [item.title, item.description, item.keywords, item.url]
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(normalizedQuery);
+      });
+
+      searchResults.classList.add("is-active");
+
+      if (!matches.length) {
+        searchResults.innerHTML = '<div class="search-result-empty">No page found. Try: profile, image, text, diary, backup, rules.</div>';
+        return;
+      }
+
+      searchResults.innerHTML = matches.slice(0, 6).map(function (item) {
+        return `
+          <a class="search-result-item" href="${item.url}">
+            <strong>${item.title}</strong>
+            <span>${item.description}</span>
+          </a>
+        `;
+      }).join("");
+    }
+
     if (routeSearch) {
       routeSearch.addEventListener("input", function () {
-        const query = routeSearch.value.toLowerCase().trim();
-        let visibleCount = 0;
-        searchableCards.forEach(function (card) {
-          const text = (card.textContent + " " + (card.dataset.search || "")).toLowerCase();
-          const shouldShow = text.includes(query);
-          card.classList.toggle("is-hidden", !shouldShow);
-          if (shouldShow) {
-            visibleCount++;
+        renderSearchResults(routeSearch.value);
+      });
+
+      routeSearch.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          const firstResult = searchResults ? searchResults.querySelector(".search-result-item") : null;
+          if (firstResult) {
+            window.location.href = firstResult.getAttribute("href");
           }
-        });
-        if (emptyResult) {
-          emptyResult.style.display = visibleCount === 0 ? "block" : "none";
         }
       });
     }
+
     const calendarDays = document.getElementById("p4CalendarDays");
     const calendarMonthLabel = document.getElementById("calendarMonthLabel");
     const prevMonthBtn = document.getElementById("prevMonth");
@@ -2037,15 +2401,156 @@
     if (prevMonthBtn) {
       prevMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() - 1);
-        renderCalendar();
+    
+
+    const bgmPlayer = document.getElementById("bgmPlayer");
+    const musicPlay = document.getElementById("musicPlay");
+    const musicProgress = document.getElementById("musicProgress");
+    const musicCurrent = document.getElementById("musicCurrent");
+    const musicDuration = document.getElementById("musicDuration");
+
+    function formatMusicTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
+    if (bgmPlayer && musicPlay) {
+      musicPlay.addEventListener("click", function () {
+        if (bgmPlayer.paused) {
+          bgmPlayer.play().then(function () {
+            musicPlay.textContent = "Ⅱ";
+          }).catch(function () {
+            musicPlay.textContent = "▶";
+          });
+        } else {
+          bgmPlayer.pause();
+          musicPlay.textContent = "▶";
+        }
+      });
+
+      bgmPlayer.addEventListener("loadedmetadata", function () {
+        if (musicDuration) musicDuration.textContent = formatMusicTime(bgmPlayer.duration);
+      });
+
+      bgmPlayer.addEventListener("timeupdate", function () {
+        if (musicCurrent) musicCurrent.textContent = formatMusicTime(bgmPlayer.currentTime);
+        if (musicProgress && bgmPlayer.duration) {
+          const percent = (bgmPlayer.currentTime / bgmPlayer.duration) * 100;
+          musicProgress.style.width = `${percent}%`;
+        }
+      });
+
+      bgmPlayer.addEventListener("ended", function () {
+        musicPlay.textContent = "▶";
+        if (musicProgress) musicProgress.style.width = "0%";
+      });
+    }
+
+    renderCalendar();
       });
     }
     if (nextMonthBtn) {
       nextMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() + 1);
-        renderCalendar();
+    
+
+    const bgmPlayer = document.getElementById("bgmPlayer");
+    const musicPlay = document.getElementById("musicPlay");
+    const musicProgress = document.getElementById("musicProgress");
+    const musicCurrent = document.getElementById("musicCurrent");
+    const musicDuration = document.getElementById("musicDuration");
+
+    function formatMusicTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
+    if (bgmPlayer && musicPlay) {
+      musicPlay.addEventListener("click", function () {
+        if (bgmPlayer.paused) {
+          bgmPlayer.play().then(function () {
+            musicPlay.textContent = "Ⅱ";
+          }).catch(function () {
+            musicPlay.textContent = "▶";
+          });
+        } else {
+          bgmPlayer.pause();
+          musicPlay.textContent = "▶";
+        }
+      });
+
+      bgmPlayer.addEventListener("loadedmetadata", function () {
+        if (musicDuration) musicDuration.textContent = formatMusicTime(bgmPlayer.duration);
+      });
+
+      bgmPlayer.addEventListener("timeupdate", function () {
+        if (musicCurrent) musicCurrent.textContent = formatMusicTime(bgmPlayer.currentTime);
+        if (musicProgress && bgmPlayer.duration) {
+          const percent = (bgmPlayer.currentTime / bgmPlayer.duration) * 100;
+          musicProgress.style.width = `${percent}%`;
+        }
+      });
+
+      bgmPlayer.addEventListener("ended", function () {
+        musicPlay.textContent = "▶";
+        if (musicProgress) musicProgress.style.width = "0%";
       });
     }
+
+    renderCalendar();
+      });
+    }
+
+
+    const bgmPlayer = document.getElementById("bgmPlayer");
+    const musicPlay = document.getElementById("musicPlay");
+    const musicProgress = document.getElementById("musicProgress");
+    const musicCurrent = document.getElementById("musicCurrent");
+    const musicDuration = document.getElementById("musicDuration");
+
+    function formatMusicTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
+    if (bgmPlayer && musicPlay) {
+      musicPlay.addEventListener("click", function () {
+        if (bgmPlayer.paused) {
+          bgmPlayer.play().then(function () {
+            musicPlay.textContent = "Ⅱ";
+          }).catch(function () {
+            musicPlay.textContent = "▶";
+          });
+        } else {
+          bgmPlayer.pause();
+          musicPlay.textContent = "▶";
+        }
+      });
+
+      bgmPlayer.addEventListener("loadedmetadata", function () {
+        if (musicDuration) musicDuration.textContent = formatMusicTime(bgmPlayer.duration);
+      });
+
+      bgmPlayer.addEventListener("timeupdate", function () {
+        if (musicCurrent) musicCurrent.textContent = formatMusicTime(bgmPlayer.currentTime);
+        if (musicProgress && bgmPlayer.duration) {
+          const percent = (bgmPlayer.currentTime / bgmPlayer.duration) * 100;
+          musicProgress.style.width = `${percent}%`;
+        }
+      });
+
+      bgmPlayer.addEventListener("ended", function () {
+        musicPlay.textContent = "▶";
+        if (musicProgress) musicProgress.style.width = "0%";
+      });
+    }
+
     renderCalendar();
   </script>
 </body>
