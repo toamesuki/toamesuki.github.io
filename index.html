@@ -45,71 +45,259 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--ink);
-  background-color: #170709;
-  /* Persona 4-inspired retro graphics, in Adachi/Miu colors */
-  background-image:
-    radial-gradient(circle at 7% 16%, #f4ce45 0 5px, transparent 6px),
-    radial-gradient(circle at 93% 28%, #fff0a8 0 4px, transparent 5px),
-    radial-gradient(circle at 82% 82%, #c53037 0 6px, transparent 7px),
-    radial-gradient(circle at 7% 75%, transparent 0 32px, rgba(238,197,39,.95) 33px 42px, transparent 43px 57px, rgba(139,22,29,.95) 58px 72px, transparent 73px),
-    radial-gradient(circle at 91% 13%, transparent 0 25px, rgba(194,36,45,.78) 26px 38px, transparent 39px 53px, rgba(239,201,50,.78) 54px 64px, transparent 65px),
-    radial-gradient(circle at 19% 92%, rgba(15,10,12,.88) 0 82px, transparent 83px),
-    radial-gradient(circle at 78% 4%, rgba(16,11,13,.8) 0 105px, transparent 106px),
-    radial-gradient(circle at 103% 62%, rgba(159,20,30,.8) 0 180px, transparent 181px),
-    radial-gradient(circle at -5% 39%, rgba(119,18,24,.78) 0 145px, transparent 146px),
-    repeating-linear-gradient(151deg, transparent 0 62px, rgba(242,204,48,.95) 62px 67px, rgba(255,237,146,.88) 67px 71px, rgba(137,22,29,.9) 71px 79px, rgba(39,23,27,.92) 79px 84px, rgba(213,48,52,.9) 84px 89px, rgba(242,204,48,.78) 89px 94px, transparent 94px 178px),
-    repeating-linear-gradient(29deg, transparent 0 92px, rgba(238,199,49,.17) 92px 95px, rgba(255,255,255,.08) 95px 97px, rgba(124,19,27,.22) 97px 102px, transparent 102px 188px),
-    radial-gradient(circle, rgba(244,211,95,.16) 0 1.5px, transparent 1.8px),
-    repeating-linear-gradient(0deg, rgba(255,229,131,.045) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(90deg, rgba(255,229,131,.045) 0 1px, transparent 1px 34px),
-    var(--page-pattern),
-    linear-gradient(135deg, #090607 0%, #24090d 18%, #6f1119 42%, #9d1720 52%, #4a0b11 70%, #120708 100%);
-  background-size: auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, 14px 14px, auto, auto, auto, auto;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat, repeat, repeat, repeat, no-repeat;
+  overflow-x: hidden;
+
+  /* Deep Adachi/Miu base. The actual retro motifs are in .retro-bg-decor. */
+  background:
+    radial-gradient(circle at 18% 28%, rgba(188, 24, 34, .22), transparent 24%),
+    radial-gradient(circle at 82% 72%, rgba(244, 201, 48, .08), transparent 20%),
+    radial-gradient(circle, rgba(255, 219, 88, .11) 0 1.2px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(135deg, #070506 0%, #25070b 24%, #751019 51%, #32080d 77%, #090506 100%);
+
   background-attachment: fixed;
   font-family: Georgia, "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
 }
-/* Decorative police tapes: positioned behind the website content */
-body::before, body::after {
+
+/* =========================================================
+   RETRO / FRUTIGER-P4 BACKGROUND DECOR
+   Strong graphic ribbons, concentric rings, flowers, sparkles,
+   arrows and police tape in red / black / yellow.
+   ========================================================= */
+.retro-bg-decor {
   position: fixed;
-  left: -8%;
-  width: 118%;
-  height: 36px;
+  inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
+  isolation: isolate;
+}
+
+.retro-bg-decor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* soft red/yellow rays instead of random crossing lines */
+    conic-gradient(
+      from 205deg at 7% 74%,
+      transparent 0deg 8deg,
+      rgba(241, 190, 38, .18) 8deg 11deg,
+      transparent 11deg 17deg,
+      rgba(188, 25, 34, .22) 17deg 22deg,
+      transparent 22deg 30deg,
+      rgba(255, 232, 146, .12) 30deg 32deg,
+      transparent 32deg 360deg
+    ),
+    conic-gradient(
+      from 18deg at 94% 12%,
+      transparent 0deg 9deg,
+      rgba(238, 196, 44, .16) 9deg 13deg,
+      transparent 13deg 20deg,
+      rgba(149, 18, 28, .24) 20deg 26deg,
+      transparent 26deg 360deg
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 229, 126, .035) 0 1px,
+      transparent 1px 32px
+    );
+  opacity: .95;
+}
+
+/* P4-like multistripe trails */
+.retro-ribbon {
+  position: absolute;
+  left: -260px;
+  width: 1900px;
+  border-top: 2px solid rgba(255, 243, 184, .72);
+  border-bottom: 2px solid rgba(15, 9, 11, .88);
+  background:
+    linear-gradient(
+      to bottom,
+      #f3ca2f 0 9px,
+      #fff0a7 9px 13px,
+      #a9131d 13px 22px,
+      #171114 22px 30px,
+      #d42f38 30px 38px,
+      #f0bb25 38px 45px,
+      #721019 45px 51px,
+      #fff0b0 51px 55px,
+      #221419 55px 61px
+    );
+  box-shadow:
+    0 3px 0 rgba(0,0,0,.28),
+    0 10px 24px rgba(0,0,0,.20);
+  opacity: .94;
+  transform-origin: center;
+}
+
+.ribbon-a {
+  top: 19%;
+  height: 61px;
+  transform: rotate(-8deg);
+}
+
+.ribbon-b {
+  top: 52%;
+  height: 61px;
+  transform: rotate(7deg);
+  opacity: .82;
+}
+
+.ribbon-c {
+  top: 76%;
+  height: 47px;
+  transform: rotate(-11deg);
+  opacity: .88;
+}
+
+/* Concentric target/rainbow rings from the P4 visual language */
+.retro-ring {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 15px solid #edc128;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 11px #8f111a,
+    0 0 0 20px #171014,
+    0 0 0 30px #f7df83,
+    0 0 0 39px #c62832,
+    0 0 0 47px rgba(255,255,255,.18);
+  opacity: .96;
+}
+
+.ring-a {
+  left: 26px;
+  top: 60%;
+  transform: rotate(-10deg);
+}
+
+.ring-b {
+  right: 34px;
+  top: 11%;
+  transform: scale(.72) rotate(13deg);
+  opacity: .80;
+}
+
+.ring-c {
+  right: 7%;
+  bottom: 4%;
+  transform: scale(.48);
+  opacity: .64;
+}
+
+/* Large retro flower/asterisk symbols */
+.retro-symbol {
+  position: absolute;
+  z-index: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 2px 3px 0 rgba(0,0,0,.22);
+  user-select: none;
+}
+
+.flower-a {
+  left: 7%;
+  top: 37%;
+  color: #f1c62c;
+  font-size: 76px;
+  transform: rotate(18deg);
+}
+
+.flower-b {
+  right: 9%;
+  top: 43%;
+  color: #b31a25;
+  font-size: 92px;
+  transform: rotate(-12deg);
+}
+
+.spark-a {
+  left: 16%;
+  top: 12%;
+  color: #fff0a4;
+  font-size: 50px;
+}
+
+.spark-b {
+  right: 18%;
+  top: 67%;
+  color: #edc128;
+  font-size: 62px;
+}
+
+.star-a {
+  right: 4%;
+  top: 29%;
+  color: #c92833;
+  font-size: 58px;
+  transform: rotate(14deg);
+}
+
+/* Up-right arrows: recognisable P4/retro graphic motif */
+.retro-arrows {
+  position: absolute;
+  right: 5%;
+  top: 56%;
+  color: #f1c52b;
+  font: 900 58px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: -.18em;
+  transform: rotate(-8deg);
+  text-shadow: 3px 3px 0 #721019;
+  opacity: .88;
+}
+
+/* Multiple thicker police tapes. Kept behind the content so they remain wallpaper. */
+.police-tape {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-top: 2px solid #1c1718;
-  border-bottom: 2px solid #1c1718;
-  background: repeating-linear-gradient(135deg, #e6bd25 0 28px, #f5d953 28px 52px);
-  color: #171214;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: .28em;
+  border-top: 3px solid #171114;
+  border-bottom: 3px solid #171114;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #f0c426 0 34px,
+      #ffdc4e 34px 68px
+    );
+  color: #171114;
+  box-shadow:
+    inset 0 2px rgba(255,255,255,.25),
+    inset 0 -2px rgba(0,0,0,.22),
+    0 9px 20px rgba(0,0,0,.30);
+  font: 900 17px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .25em;
   white-space: nowrap;
-  box-shadow: 0 2px 0 rgba(255,255,255,.16) inset, 0 -2px 0 rgba(0,0,0,.22) inset, 0 6px 16px rgba(0,0,0,.28);
-  opacity: .88;
+  opacity: .98;
 }
-body::before {
-  content: "POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT";
-  top: 210px;
-  transform: rotate(-7deg);
+
+.police-tape.dark {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #151014 0 34px,
+      #21161a 34px 68px
+    );
+  border-color: #e0b621;
+  color: #efc72c;
 }
-body::after {
-  content: "CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS";
-  bottom: 105px;
-  transform: rotate(5deg);
-  background: repeating-linear-gradient(135deg, #161214 0 28px, #21191b 28px 52px);
-  border-color: #d9ac23;
-  color: #e8c53d;
-  opacity: .72;
+
+.tape-a { top: 28%; transform: rotate(-6deg); }
+.tape-b { top: 43%; transform: rotate(5deg); opacity: .86; }
+.tape-c { top: 61%; transform: rotate(-8deg); }
+.tape-d { top: 78%; transform: rotate(4deg); opacity: .90; }
+.tape-e { top: 92%; transform: rotate(-4deg); }
+
+body.intro-lock {
+  overflow: hidden;
 }
-    body.intro-lock {
-      overflow: hidden;
-    }
     a {
       color: var(--red);
       text-decoration: none;
@@ -126,9 +314,6 @@ body::after {
       position: relative;
       z-index: 1;
       min-width: 1280px;
-      flex: 1 0 auto;
-      display: flex;
-      flex-direction: column;
       opacity: 0;
       transform: translateY(36px);
       filter: blur(5px);
@@ -768,19 +953,12 @@ body::after {
       min-width: 1280px;
       margin: 0;
       padding: 0;
-      flex: 1 0 auto;
-      display: flex;
-      flex-direction: column;
     }
     .route-frame {
       position: relative;
       overflow: hidden;
       min-width: 1280px;
       min-height: 100vh;
-      min-height: 100dvh;
-      flex: 1 0 auto;
-      display: flex;
-      flex-direction: column;
       border: 0;
       border-radius: 0;
       background: transparent;
@@ -919,7 +1097,6 @@ body::after {
     .route-layout {
       display: grid;
       grid-template-columns: 280px 1fr 300px;
-      flex: 1 0 auto;
       gap: 22px;
       align-items: start;
       width: 1280px;
@@ -1548,9 +1725,6 @@ body::after {
       object-fit: cover;
     }
     .footer {
-      width: 100%;
-      margin-top: auto;
-      flex-shrink: 0;
       padding: 20px 20px 24px;
       border-top: 1px solid var(--line);
       background: rgba(243, 235, 226, 0.82);
@@ -1884,9 +2058,66 @@ body::after {
       }
     }
 
-  </style>
+  
+
+    /* =========================================
+       TRUE-BOTTOM FOOTER FIX
+       Keeps the footer at the bottom on phone without fixing it over content.
+       ========================================= */
+    .page-reveal {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .route-shell {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .route-frame {
+      flex: 1 0 auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .route-layout {
+      flex: 1 0 auto;
+    }
+
+    .footer {
+      width: 100%;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+</style>
 </head>
 <body class="intro-lock">
+  <div class="retro-bg-decor" aria-hidden="true">
+    <div class="retro-ribbon ribbon-a"></div>
+    <div class="retro-ribbon ribbon-b"></div>
+    <div class="retro-ribbon ribbon-c"></div>
+
+    <div class="retro-ring ring-a"></div>
+    <div class="retro-ring ring-b"></div>
+    <div class="retro-ring ring-c"></div>
+
+    <div class="retro-symbol flower-a">✿</div>
+    <div class="retro-symbol flower-b">✱</div>
+    <div class="retro-symbol spark-a">✦</div>
+    <div class="retro-symbol spark-b">✧</div>
+    <div class="retro-symbol star-a">★</div>
+    <div class="retro-arrows">↗ ↗ ↗</div>
+
+    <div class="police-tape tape-a">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT</div>
+    <div class="police-tape dark tape-b">CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION</div>
+    <div class="police-tape tape-c">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE</div>
+    <div class="police-tape dark tape-d">CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION</div>
+    <div class="police-tape tape-e">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE</div>
+  </div>
   <div id="introOverlay" class="intro-overlay">
     <div class="intro-noise"></div>
     <div class="intro-rain"></div>
