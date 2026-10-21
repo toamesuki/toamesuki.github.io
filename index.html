@@ -36,26 +36,144 @@
       scroll-behavior: smooth;
       min-width: 1280px;
     }
-    body {
-      margin: 0;
-      padding: 0;
-      min-width: 1280px;
-      min-height: 100vh;
-      color: var(--ink);
-      background:
-        var(--page-pattern),
-        radial-gradient(circle at 10% 0%, rgba(124, 47, 56, 0.18), transparent 26%),
-        radial-gradient(circle at 100% 20%, rgba(113, 136, 155, 0.18), transparent 25%),
-        linear-gradient(180deg, #f7f0e8 0%, var(--page-bg) 100%);
-      background-repeat: repeat, no-repeat, no-repeat, no-repeat;
-      font-family:
-        Georgia,
-        "Times New Roman",
-        "Yu Mincho",
-        "Hiragino Mincho ProN",
-        "Noto Serif JP",
-        serif;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 1280px;
+  min-height: 100vh;
+  color: var(--ink);
+
+  background-color: #26090c;
+
+  background-image:
+
+    /* tiny pale/yellow bubbles */
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 226, 125, 0.75) 0 6px,
+      transparent 7px
+    ),
+
+    radial-gradient(
+      circle at 86% 14%,
+      rgba(255, 239, 170, 0.45) 0 12px,
+      transparent 13px
+    ),
+
+    radial-gradient(
+      circle at 76% 76%,
+      rgba(226, 195, 107, 0.48) 0 8px,
+      transparent 9px
+    ),
+
+    /* larger red Persona / Frutiger bubbles */
+    radial-gradient(
+      circle at 5% 68%,
+      rgba(192, 41, 50, 0.55) 0 95px,
+      transparent 97px
+    ),
+
+    radial-gradient(
+      circle at 96% 48%,
+      rgba(124, 47, 56, 0.60) 0 135px,
+      transparent 137px
+    ),
+
+    /* yellow curved / sun-like accent */
+    radial-gradient(
+      ellipse at -4% 88%,
+      rgba(226, 195, 107, 0.90) 0 65px,
+      rgba(226, 195, 107, 0.32) 66px 92px,
+      transparent 94px
+    ),
+
+    /* subtle black circles */
+    radial-gradient(
+      circle at 24% 88%,
+      rgba(12, 10, 12, 0.75) 0 55px,
+      transparent 57px
+    ),
+
+    radial-gradient(
+      circle at 73% 7%,
+      rgba(17, 13, 15, 0.68) 0 85px,
+      transparent 87px
+    ),
+
+    /* diagonal Persona-ish graphic pattern */
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 38px,
+      rgba(226, 195, 107, 0.065) 38px 42px,
+      transparent 42px 78px
+    ),
+
+    /* faint Y2K grid */
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 236, 184, 0.045) 0 1px,
+      transparent 1px 32px
+    ),
+
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 236, 184, 0.045) 0 1px,
+      transparent 1px 32px
+    ),
+
+    /* your existing background texture */
+    var(--page-pattern),
+
+    /* dark red base */
+    linear-gradient(
+      135deg,
+      #12090b 0%,
+      #451014 28%,
+      #75171e 50%,
+      #3b0b10 72%,
+      #12090b 100%
+    );
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    repeat,
+    repeat,
+    repeat,
+    repeat,
+    no-repeat;
+
+  background-size:
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    cover;
+
+  background-attachment: fixed;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+}
     body.intro-lock {
       overflow: hidden;
     }
