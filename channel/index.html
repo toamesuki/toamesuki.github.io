@@ -1332,6 +1332,19 @@
       border-color: #f7f7f7 #777f87 #777f87 #f7f7f7;
     }
 
+
+    /* Final banner adjustments: edge-to-edge artwork, compact sidebar strip */
+    .channel-hero {
+      background-size: cover, cover, cover;
+      background-position: center, center 46%, center;
+    }
+    .side-banner {
+      min-height: 0;
+      height: 40px;
+      margin-top: 9px;
+    }
+    .side-banner::before { inset: 4px; }
+    .side-banner::after { font-size: 11px; letter-spacing: .32em; }
   </style>
 </head>
 <body>
