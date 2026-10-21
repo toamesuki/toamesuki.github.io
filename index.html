@@ -42,137 +42,67 @@ body {
   min-width: 1280px;
   min-height: 100vh;
   color: var(--ink);
-
-  background-color: #26090c;
-
+  background-color: #170709;
+  /* Persona 4-inspired retro graphics, in Adachi/Miu colors */
   background-image:
-
-    /* tiny pale/yellow bubbles */
-    radial-gradient(
-      circle at 12% 18%,
-      rgba(255, 226, 125, 0.75) 0 6px,
-      transparent 7px
-    ),
-
-    radial-gradient(
-      circle at 86% 14%,
-      rgba(255, 239, 170, 0.45) 0 12px,
-      transparent 13px
-    ),
-
-    radial-gradient(
-      circle at 76% 76%,
-      rgba(226, 195, 107, 0.48) 0 8px,
-      transparent 9px
-    ),
-
-    /* larger red Persona / Frutiger bubbles */
-    radial-gradient(
-      circle at 5% 68%,
-      rgba(192, 41, 50, 0.55) 0 95px,
-      transparent 97px
-    ),
-
-    radial-gradient(
-      circle at 96% 48%,
-      rgba(124, 47, 56, 0.60) 0 135px,
-      transparent 137px
-    ),
-
-    /* yellow curved / sun-like accent */
-    radial-gradient(
-      ellipse at -4% 88%,
-      rgba(226, 195, 107, 0.90) 0 65px,
-      rgba(226, 195, 107, 0.32) 66px 92px,
-      transparent 94px
-    ),
-
-    /* subtle black circles */
-    radial-gradient(
-      circle at 24% 88%,
-      rgba(12, 10, 12, 0.75) 0 55px,
-      transparent 57px
-    ),
-
-    radial-gradient(
-      circle at 73% 7%,
-      rgba(17, 13, 15, 0.68) 0 85px,
-      transparent 87px
-    ),
-
-    /* diagonal Persona-ish graphic pattern */
-    repeating-linear-gradient(
-      135deg,
-      transparent 0 38px,
-      rgba(226, 195, 107, 0.065) 38px 42px,
-      transparent 42px 78px
-    ),
-
-    /* faint Y2K grid */
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 236, 184, 0.045) 0 1px,
-      transparent 1px 32px
-    ),
-
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 236, 184, 0.045) 0 1px,
-      transparent 1px 32px
-    ),
-
-    /* your existing background texture */
+    radial-gradient(circle at 7% 16%, #f4ce45 0 5px, transparent 6px),
+    radial-gradient(circle at 93% 28%, #fff0a8 0 4px, transparent 5px),
+    radial-gradient(circle at 82% 82%, #c53037 0 6px, transparent 7px),
+    radial-gradient(circle at 7% 75%, transparent 0 32px, rgba(238,197,39,.95) 33px 42px, transparent 43px 57px, rgba(139,22,29,.95) 58px 72px, transparent 73px),
+    radial-gradient(circle at 91% 13%, transparent 0 25px, rgba(194,36,45,.78) 26px 38px, transparent 39px 53px, rgba(239,201,50,.78) 54px 64px, transparent 65px),
+    radial-gradient(circle at 19% 92%, rgba(15,10,12,.88) 0 82px, transparent 83px),
+    radial-gradient(circle at 78% 4%, rgba(16,11,13,.8) 0 105px, transparent 106px),
+    radial-gradient(circle at 103% 62%, rgba(159,20,30,.8) 0 180px, transparent 181px),
+    radial-gradient(circle at -5% 39%, rgba(119,18,24,.78) 0 145px, transparent 146px),
+    repeating-linear-gradient(151deg, transparent 0 62px, rgba(242,204,48,.95) 62px 67px, rgba(255,237,146,.88) 67px 71px, rgba(137,22,29,.9) 71px 79px, rgba(39,23,27,.92) 79px 84px, rgba(213,48,52,.9) 84px 89px, rgba(242,204,48,.78) 89px 94px, transparent 94px 178px),
+    repeating-linear-gradient(29deg, transparent 0 92px, rgba(238,199,49,.17) 92px 95px, rgba(255,255,255,.08) 95px 97px, rgba(124,19,27,.22) 97px 102px, transparent 102px 188px),
+    radial-gradient(circle, rgba(244,211,95,.16) 0 1.5px, transparent 1.8px),
+    repeating-linear-gradient(0deg, rgba(255,229,131,.045) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(255,229,131,.045) 0 1px, transparent 1px 34px),
     var(--page-pattern),
-
-    /* dark red base */
-    linear-gradient(
-      135deg,
-      #12090b 0%,
-      #451014 28%,
-      #75171e 50%,
-      #3b0b10 72%,
-      #12090b 100%
-    );
-
-  background-repeat:
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    repeat,
-    repeat,
-    repeat,
-    repeat,
-    no-repeat;
-
-  background-size:
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    cover;
-
+    linear-gradient(135deg, #090607 0%, #24090d 18%, #6f1119 42%, #9d1720 52%, #4a0b11 70%, #120708 100%);
+  background-size: auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, 14px 14px, auto, auto, auto, auto;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat, repeat, repeat, repeat, no-repeat;
   background-attachment: fixed;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    "Yu Mincho",
-    "Hiragino Mincho ProN",
-    "Noto Serif JP",
-    serif;
+  font-family: Georgia, "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+}
+/* Decorative police tapes: positioned behind the website content */
+body::before, body::after {
+  position: fixed;
+  left: -8%;
+  width: 118%;
+  height: 36px;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-top: 2px solid #1c1718;
+  border-bottom: 2px solid #1c1718;
+  background: repeating-linear-gradient(135deg, #e6bd25 0 28px, #f5d953 28px 52px);
+  color: #171214;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .28em;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 rgba(255,255,255,.16) inset, 0 -2px 0 rgba(0,0,0,.22) inset, 0 6px 16px rgba(0,0,0,.28);
+  opacity: .88;
+}
+body::before {
+  content: "POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT  •  POLICE LINE  •  KEEP OUT";
+  top: 210px;
+  transform: rotate(-7deg);
+}
+body::after {
+  content: "CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS  •  CAUTION  •  DO NOT CROSS";
+  bottom: 105px;
+  transform: rotate(5deg);
+  background: repeating-linear-gradient(135deg, #161214 0 28px, #21191b 28px 52px);
+  border-color: #d9ac23;
+  color: #e8c53d;
+  opacity: .72;
 }
     body.intro-lock {
       overflow: hidden;
@@ -190,6 +120,8 @@ body {
       max-width: 100%;
     }
     .page-reveal {
+      position: relative;
+      z-index: 1;
       min-width: 1280px;
       opacity: 0;
       transform: translateY(36px);
