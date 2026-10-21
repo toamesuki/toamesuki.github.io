@@ -2576,35 +2576,27 @@
         moveCursor();
       }
 
-      function isTextCursorTarget(element) {
-        if (!(element instanceof Element)) return false;
+function isTextCursorTarget(element) {
+  if (!(element instanceof Element)) return false;
 
-        /*
-          Interactive controls stay on the NORMAL cursor even if they contain text.
-          Search/text fields are handled separately below.
-        */
-        if (element.closest(
-          'a, button, summary, select, option, video, audio, [role="button"], .mp3-control, .p4-calendar-controls button'
-        )) {
-          return false;
-        }
+  /*
+    SECOND CURSOR:
+    - search bar
+    - clickable buttons
+    - clickable links
+  */
+  if (element.closest(
+    '#routeSearch, a, button, summary, [role="button"]'
+  )) {
+    return true;
+  }
 
-        /* Typing/selecting fields use the TEXT cursor. */
-        if (element.closest(
-          'textarea, [contenteditable="true"], input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="number"]'
-        )) {
-          return true;
-        }
-
-        /* Normal readable/selectable text uses the TEXT cursor. */
-        if (element.closest(
-          'p, li, h1, h2, h3, h4, h5, h6, label, blockquote, dt, dd, figcaption, .dialog-name, .dialog-text, .dialog-subtext, .intro-topline, .intro-alert, .intro-subtitle, .intro-small, .kicker, .hero-text, .name-plate, .mini-note, .archive-card, .rules-preview, .rules-lang, .search-result-item span, .p4-calendar-month, .p4-broadcast-body, .p4-legend, .mp3-song-title, .mp3-song-credit, .mp3-note, .video-caption, .footer'
-        )) {
-          return true;
-        }
-
-        return false;
-      }
+  /*
+    Everything else keeps the NORMAL cursor,
+    including ordinary/selectable text.
+  */
+  return false;
+}
 
       function updateModeFromPoint(clientX, clientY) {
         const target = document.elementFromPoint(clientX, clientY);
