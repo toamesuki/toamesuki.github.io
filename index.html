@@ -259,11 +259,6 @@
       from { opacity: 0; }
       to { opacity: 0; }
     }
-      to {
-        filter: brightness(1.18);
-        transform: scale(1.035);
-      }
-    }
     .intro-tv-frame {
       position: relative;
       z-index: 5;
@@ -1793,6 +1788,42 @@
       text-align: center;
     }
 
+
+    /* =========================
+       TWO-STATE ANIMATED CUSTOM CURSOR
+       Upload these exact files:
+       assets/images/cursor-normal.gif
+       assets/images/cursor-text.gif
+       ========================= */
+    #customCursor {
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body.custom-cursor-active,
+      body.custom-cursor-active * {
+        cursor: none !important;
+      }
+
+      #customCursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        display: none;
+        object-fit: contain;
+        pointer-events: none !important;
+        user-select: none;
+        z-index: 2147483647;
+        will-change: transform;
+      }
+
+      body.custom-cursor-active #customCursor {
+        display: block;
+      }
+    }
+
   </style>
 </head>
 <body class="intro-lock">
@@ -1881,7 +1912,7 @@
         <div class="profile-icon"></div>
         <div class="name-plate">
           <strong>朝霧美雨</strong>
-          <span>Asagiri Miu</span>
+          <span>Asagiri Miu / dream OC</span>
         </div>
         <nav class="category-list">
           <a href="/notice/">notice <em>はじめに</em></a>
@@ -2132,6 +2163,15 @@
   </div>
 </div>
   </div>
+  <!-- Desktop-only animated cursor. It swaps between normal and text GIFs. -->
+  <img
+    id="customCursor"
+    src="/assets/images/cursor-normal.gif"
+    alt=""
+    aria-hidden="true"
+    draggable="false"
+  >
+
   <script>
     const introOverlay = document.getElementById("introOverlay");
     const pageReveal = document.getElementById("pageReveal");
@@ -2401,60 +2441,15 @@
     if (prevMonthBtn) {
       prevMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() - 1);
-    
-
-    const bgmPlayer = document.getElementById("bgmPlayer");
-    const musicPlay = document.getElementById("musicPlay");
-    const musicProgress = document.getElementById("musicProgress");
-    const musicCurrent = document.getElementById("musicCurrent");
-    const musicDuration = document.getElementById("musicDuration");
-
-    function formatMusicTime(seconds) {
-      if (!Number.isFinite(seconds)) return "0:00";
-      const minutes = Math.floor(seconds / 60);
-      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
-      return `${minutes}:${rest}`;
-    }
-
-    if (bgmPlayer && musicPlay) {
-      musicPlay.addEventListener("click", function () {
-        if (bgmPlayer.paused) {
-          bgmPlayer.play().then(function () {
-            musicPlay.textContent = "Ⅱ";
-          }).catch(function () {
-            musicPlay.textContent = "▶";
-          });
-        } else {
-          bgmPlayer.pause();
-          musicPlay.textContent = "▶";
-        }
-      });
-
-      bgmPlayer.addEventListener("loadedmetadata", function () {
-        if (musicDuration) musicDuration.textContent = formatMusicTime(bgmPlayer.duration);
-      });
-
-      bgmPlayer.addEventListener("timeupdate", function () {
-        if (musicCurrent) musicCurrent.textContent = formatMusicTime(bgmPlayer.currentTime);
-        if (musicProgress && bgmPlayer.duration) {
-          const percent = (bgmPlayer.currentTime / bgmPlayer.duration) * 100;
-          musicProgress.style.width = `${percent}%`;
-        }
-      });
-
-      bgmPlayer.addEventListener("ended", function () {
-        musicPlay.textContent = "▶";
-        if (musicProgress) musicProgress.style.width = "0%";
-      });
-    }
-
-    renderCalendar();
+        renderCalendar();
       });
     }
     if (nextMonthBtn) {
       nextMonthBtn.addEventListener("click", function () {
         calendarDate.setMonth(calendarDate.getMonth() + 1);
-    
+        renderCalendar();
+      });
+    }
 
     const bgmPlayer = document.getElementById("bgmPlayer");
     const musicPlay = document.getElementById("musicPlay");
@@ -2502,56 +2497,158 @@
     }
 
     renderCalendar();
-      });
-    }
+  </script>
+  <script>
+    /* =========================================================
+       TWO-STATE CUSTOM ANIMATED CURSOR
+       normal  -> cursor-normal.gif
+       text    -> cursor-text.gif
+       Desktop mouse only. Touch/mobile keeps the normal browser behavior.
+       ========================================================= */
+    (function () {
+      const cursorImage = document.getElementById("customCursor");
+      if (!cursorImage) return;
 
+      const NORMAL_CURSOR = "/assets/images/cursor-normal.gif";
+      const TEXT_CURSOR = "/assets/images/cursor-text.gif";
 
-    const bgmPlayer = document.getElementById("bgmPlayer");
-    const musicPlay = document.getElementById("musicPlay");
-    const musicProgress = document.getElementById("musicProgress");
-    const musicCurrent = document.getElementById("musicCurrent");
-    const musicDuration = document.getElementById("musicDuration");
+      const desktopPointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-    function formatMusicTime(seconds) {
-      if (!Number.isFinite(seconds)) return "0:00";
-      const minutes = Math.floor(seconds / 60);
-      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
-      return `${minutes}:${rest}`;
-    }
+      /*
+        Adjust these four numbers after you see your cursor artwork.
+        They are the pixel position of the clickable hotspot inside each GIF.
+      */
+      const hotspots = {
+        normal: { x: 8, y: 6 },
+        text:   { x: 24, y: 24 }
+      };
 
-    if (bgmPlayer && musicPlay) {
-      musicPlay.addEventListener("click", function () {
-        if (bgmPlayer.paused) {
-          bgmPlayer.play().then(function () {
-            musicPlay.textContent = "Ⅱ";
-          }).catch(function () {
-            musicPlay.textContent = "▶";
-          });
-        } else {
-          bgmPlayer.pause();
-          musicPlay.textContent = "▶";
+      let currentMode = "normal";
+      let mouseX = 0;
+      let mouseY = 0;
+      let normalReady = false;
+      let textReady = false;
+
+      /* Preload both GIFs so changing cursor state does not flash. */
+      const normalPreload = new Image();
+      const textPreload = new Image();
+
+      normalPreload.onload = function () {
+        normalReady = true;
+      };
+      normalPreload.onerror = function () {
+        normalReady = false;
+      };
+      normalPreload.src = NORMAL_CURSOR;
+
+      textPreload.onload = function () {
+        textReady = true;
+      };
+      textPreload.onerror = function () {
+        textReady = false;
+      };
+      textPreload.src = TEXT_CURSOR;
+
+      function cursorFilesReady() {
+        return normalReady && textReady;
+      }
+
+      function hideCustomCursor() {
+        document.body.classList.remove("custom-cursor-active");
+      }
+
+      function moveCursor() {
+        const hotspot = hotspots[currentMode];
+        cursorImage.style.transform =
+          `translate3d(${mouseX - hotspot.x}px, ${mouseY - hotspot.y}px, 0)`;
+      }
+
+      function setCursorMode(mode) {
+        if (mode !== "text") mode = "normal";
+        if (mode === currentMode) {
+          moveCursor();
+          return;
         }
-      });
 
-      bgmPlayer.addEventListener("loadedmetadata", function () {
-        if (musicDuration) musicDuration.textContent = formatMusicTime(bgmPlayer.duration);
-      });
+        currentMode = mode;
+        cursorImage.src = mode === "text" ? TEXT_CURSOR : NORMAL_CURSOR;
+        cursorImage.dataset.mode = mode;
+        moveCursor();
+      }
 
-      bgmPlayer.addEventListener("timeupdate", function () {
-        if (musicCurrent) musicCurrent.textContent = formatMusicTime(bgmPlayer.currentTime);
-        if (musicProgress && bgmPlayer.duration) {
-          const percent = (bgmPlayer.currentTime / bgmPlayer.duration) * 100;
-          musicProgress.style.width = `${percent}%`;
+      function isTextCursorTarget(element) {
+        if (!(element instanceof Element)) return false;
+
+        /*
+          Interactive controls stay on the NORMAL cursor even if they contain text.
+          Search/text fields are handled separately below.
+        */
+        if (element.closest(
+          'a, button, summary, select, option, video, audio, [role="button"], .mp3-control, .p4-calendar-controls button'
+        )) {
+          return false;
         }
-      });
 
-      bgmPlayer.addEventListener("ended", function () {
-        musicPlay.textContent = "▶";
-        if (musicProgress) musicProgress.style.width = "0%";
-      });
-    }
+        /* Typing/selecting fields use the TEXT cursor. */
+        if (element.closest(
+          'textarea, [contenteditable="true"], input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="number"]'
+        )) {
+          return true;
+        }
 
-    renderCalendar();
+        /* Normal readable/selectable text uses the TEXT cursor. */
+        if (element.closest(
+          'p, li, h1, h2, h3, h4, h5, h6, label, blockquote, dt, dd, figcaption, .dialog-name, .dialog-text, .dialog-subtext, .intro-topline, .intro-alert, .intro-subtitle, .intro-small, .kicker, .hero-text, .name-plate, .mini-note, .archive-card, .rules-preview, .rules-lang, .search-result-item span, .p4-calendar-month, .p4-broadcast-body, .p4-legend, .mp3-song-title, .mp3-song-credit, .mp3-note, .video-caption, .footer'
+        )) {
+          return true;
+        }
+
+        return false;
+      }
+
+      function updateModeFromPoint(clientX, clientY) {
+        const target = document.elementFromPoint(clientX, clientY);
+        setCursorMode(isTextCursorTarget(target) ? "text" : "normal");
+      }
+
+      function handlePointerMove(event) {
+        if (!desktopPointer.matches || event.pointerType !== "mouse") {
+          hideCustomCursor();
+          return;
+        }
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        /*
+          If a GIF is missing, leave the native browser cursor visible instead
+          of hiding it and leaving visitors with no pointer.
+        */
+        if (!cursorFilesReady()) {
+          hideCustomCursor();
+          return;
+        }
+
+        updateModeFromPoint(mouseX, mouseY);
+        moveCursor();
+        document.body.classList.add("custom-cursor-active");
+      }
+
+      document.addEventListener("pointermove", handlePointerMove, { passive: true });
+
+      /* Re-check immediately when moving between elements. */
+      document.addEventListener("pointerover", function (event) {
+        if (!desktopPointer.matches || event.pointerType !== "mouse") return;
+        setCursorMode(isTextCursorTarget(event.target) ? "text" : "normal");
+      }, { passive: true });
+
+      document.documentElement.addEventListener("mouseleave", hideCustomCursor);
+      window.addEventListener("blur", hideCustomCursor);
+
+      desktopPointer.addEventListener("change", function () {
+        hideCustomCursor();
+      });
+    })();
   </script>
 </body>
 </html>
