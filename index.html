@@ -1164,66 +1164,59 @@ body {
       to { transform: translateX(-100%); }
     }
     .notice-box {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 230px;
-      gap: 18px;
-      align-items: center;
-    }
-    .notice-copy {
-      min-height: 260px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 22px 24px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,250,244,0.82)),
-        var(--panel-pattern);
-      background-repeat: repeat;
-      box-shadow:
-        0 8px 18px rgba(50, 37, 35, 0.08),
-        inset 0 0 18px rgba(124, 47, 56, 0.035);
-      word-break: normal;
-      overflow-wrap: normal;
-    }
-    .notice-copy::before {
-      display: none !important;
-      content: none !important;
-    }
-    .notice-copy p {
-      margin: 0 0 10px;
-      font-size: 13px;
-      line-height: 1.78;
-    }
-    .notice-copy p:last-child {
-      margin-bottom: 0;
-    }
-    .stamp-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 230px;
-      min-height: 260px;
-      padding: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: none !important;
-      box-shadow: none !important;
-      overflow: visible;
-    }
-    .stamp-card img {
-      display: block;
-      width: 100%;
-      max-width: 230px;
-      height: auto;
-      max-height: 260px;
-      object-fit: contain;
-      object-position: center;
-    }
-    .stamp-card span {
-      display: none !important;
-    }
+  display: block;
+}
+
+.notice-copy {
+  min-height: auto;
+  padding: 24px 28px;
+  border: 1px solid #d7d2d8;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(246,246,250,0.95)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(195, 204, 216, 0.08) 0px,
+      rgba(195, 204, 216, 0.08) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+  box-shadow:
+    0 6px 16px rgba(70, 76, 92, 0.10),
+    inset 0 0 0 1px rgba(255,255,255,0.65);
+  word-break: normal;
+  overflow-wrap: normal;
+  position: relative;
+}
+
+.notice-copy::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  bottom: 18px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #b8c5d8 0%, #d8c6d3 100%);
+  opacity: 0.9;
+}
+
+.notice-copy p {
+  margin: 0 0 10px;
+  padding-left: 16px;
+  font-size: 13px;
+  line-height: 1.82;
+}
+
+.notice-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.stamp-card,
+.stamp-card img,
+.stamp-card span {
+  display: none !important;
+}
     .archive-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(230px, 1fr));
@@ -2065,22 +2058,21 @@ body {
         </div>
         <section class="section">
           <h2>はじめに</h2>
-          <div class="notice-box">
-            <div class="notice-copy">
-              <p>
-                ここは <strong>足立透 × 朝霧美雨</strong> を中心にした個人夢創作・OC保管サイトです。
-                キャラクター設定、関係性メモ、文章、イラスト記録、依頼資料、日記のような断片を静かに置いています。
-              </p>
-              <p>
-                非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
-                掲載物はすべて個人観賞・記録用のものです。
-              </p>
-              <p>
-                閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
-              </p>
-            </div>
-            <div class="stamp-card"><img src="/assets/images/banner-main.png?v=3" alt="banner art"></div>
-          </div>
+<div class="notice-box">
+  <div class="notice-copy">
+    <p>
+      ここは <strong>足立透 × 朝霧美雨</strong> を中心にした個人夢創作・OC保管サイトです。
+      キャラクター設定、関係性メモ、文章、イラスト記録、依頼資料、日記のような断片を静かに置いています。
+    </p>
+    <p>
+      非公式・非営利の個人サイトです。公式作品・企業・権利者とは関係ありません。
+      掲載物はすべて個人観賞・記録用のものです。
+    </p>
+    <p>
+      閲覧はPC・Web表示推奨です。無断転載、無断使用、加工、自作発言、AI学習利用はご遠慮ください。
+    </p>
+  </div>
+</div>
         </section>
         <section class="section">
           <h2>route menu</h2>
