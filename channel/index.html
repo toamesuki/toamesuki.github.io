@@ -1,14 +1,1390 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Channel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280">
+  <title>CHANNEL / 朝霧 ROUTE</title>
+  <style>
+    :root {
+      --page-bg: #ece5dc;
+      --paper: #fffaf4;
+      --paper-2: #f8efe7;
+      --ink: #2b292d;
+      --muted: #857c78;
+      --line: #d8c9bd;
+      --red: #7c2f38;
+      --red-soft: #b45f6a;
+      --yellow: #e2c36b;
+      --blue: #71889b;
+      --dark: #29262c;
+      --shadow: rgba(50,37,35,.16);
+      --page-pattern: url("/assets/images/bg-page-v2.png");
+      --panel-pattern: url("/assets/images/bg-panel.png");
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 1280px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 1280px;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        var(--page-pattern),
+        radial-gradient(circle at 12% 0%, rgba(124,47,56,.18), transparent 26%),
+        radial-gradient(circle at 100% 26%, rgba(113,136,155,.16), transparent 26%),
+        linear-gradient(180deg, #f7f0e8 0%, var(--page-bg) 100%);
+      font-family: Georgia, "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+    }
+
+    a { color: var(--red); text-decoration: none; }
+    a:hover { color: var(--red-soft); }
+    button, input, textarea { font: inherit; }
+
+    .top-ribbon {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: var(--dark);
+      color: #fffaf4;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    .top-ribbon a { color: #fffaf4; opacity: .9; }
+    .top-ribbon a:hover { color: var(--yellow); }
+
+    .channel-hero {
+      position: relative;
+      min-height: 230px;
+      display: flex;
+      align-items: flex-end;
+      padding: 42px 64px;
+      overflow: hidden;
+      color: #fffaf4;
+      background:
+        linear-gradient(90deg, rgba(41,38,44,.82), rgba(41,38,44,.24)),
+        url("/assets/images/header-banner-v2.gif?v=2") center/cover no-repeat;
+    }
+
+    .channel-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 6px);
+      mix-blend-mode: screen;
+    }
+
+    .hero-card {
+      position: relative;
+      z-index: 1;
+      width: 760px;
+      padding: 24px 28px;
+      border: 1px solid rgba(255,250,244,.36);
+      border-radius: 20px;
+      background: rgba(27,24,29,.72);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-kicker {
+      color: #eadfce;
+      font-size: 11px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 7px 0 5px;
+      font-size: 54px;
+      line-height: 1;
+      font-weight: normal;
+      letter-spacing: .06em;
+    }
+
+    .hero-sub {
+      color: #eadfce;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .lang-switch {
+      position: absolute;
+      z-index: 2;
+      right: 64px;
+      top: 42px;
+      display: flex;
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid rgba(255,250,244,.32);
+      border-radius: 999px;
+      background: rgba(27,24,29,.76);
+    }
+
+    .lang-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 14px;
+      background: transparent;
+      color: #fffaf4;
+      cursor: pointer;
+    }
+
+    .lang-btn.is-active {
+      background: var(--yellow);
+      color: #21181b;
+    }
+
+    .layout {
+      width: 1184px;
+      margin: 0 auto;
+      padding: 28px 0 56px;
+      display: grid;
+      grid-template-columns: 250px minmax(0,1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel, .content-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(rgba(255,250,244,.96), rgba(255,250,244,.96)),
+        var(--panel-pattern);
+      box-shadow: 0 8px 18px rgba(50,37,35,.08);
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 16px;
+      padding: 16px;
+    }
+
+    .panel-title {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--dark);
+      color: #fffaf4;
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: normal;
+    }
+
+    .panel-title::before { content: "✦ "; color: var(--yellow); }
+
+    .side-nav { display: grid; gap: 8px; }
+    .side-nav a {
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fffdf9;
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .side-nav a:hover { background: #f3e1dc; color: var(--red); }
+
+    .side-note {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid rgba(216,201,189,.75);
+      border-radius: 16px;
+      background: #f3ebe2;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .side-banner {
+      margin-top: 14px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .side-banner img { max-width: 100%; max-height: 72px; object-fit: contain; }
+
+    .content-card { padding: 24px; }
+
+    .section {
+      margin-bottom: 28px;
+      scroll-margin-top: 18px;
+    }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      margin: 0 0 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      color: var(--red);
+      font-size: 21px;
+      font-weight: normal;
+      letter-spacing: .07em;
+    }
+
+    .section-desc {
+      margin: -4px 0 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .soft-box {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,253,249,.84);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field { margin-bottom: 12px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--red);
+      font-size: 11px;
+      letter-spacing: .06em;
+    }
+
+    .field input, .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fffdf9;
+      color: var(--ink);
+      padding: 10px 11px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .field input:focus, .field textarea:focus {
+      border-color: rgba(124,47,56,.55);
+      box-shadow: 0 0 0 3px rgba(124,47,56,.08);
+    }
+
+    .submit-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 13px;
+    }
+
+    .p4-button {
+      border: 1px solid var(--red);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: var(--red);
+      color: #fffaf4;
+      cursor: pointer;
+      transition: .16s ease;
+    }
+
+    .p4-button:hover { background: var(--red-soft); transform: translateY(-1px); }
+    .p4-button.secondary { background: #fffaf4; color: var(--red); }
+    .p4-button.secondary:hover { background: #f3e1dc; }
+    .p4-button:disabled { opacity: .55; transform: none; }
+
+    .status {
+      min-height: 18px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .status.ok { color: #4d7053; }
+    .status.error { color: #9a3340; }
+
+    .guestbook-list, .banner-list, .drawing-gallery {
+      margin-top: 15px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .guest-entry {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffdf9;
+    }
+
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .entry-name { color: var(--red); font-size: 13px; }
+    .entry-message { white-space: pre-wrap; font-size: 12px; line-height: 1.7; }
+
+    .my-banner-grid {
+      display: grid;
+      grid-template-columns: 220px minmax(0,1fr);
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .my-banner-preview {
+      min-height: 92px;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border: 1px dashed var(--line);
+      border-radius: 15px;
+      background: #fff;
+    }
+    .my-banner-preview img { max-width: 100%; max-height: 75px; object-fit: contain; }
+
+    .codebox {
+      position: relative;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #29262c;
+      color: #fff0c7;
+      font: 11px/1.55 Consolas, "Courier New", monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .banner-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .banner-card {
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fffdf9;
+    }
+    .banner-card a.banner-image-wrap {
+      min-height: 60px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px dashed rgba(216,201,189,.85);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .banner-card img { max-width: 100%; max-height: 60px; object-fit: contain; }
+    .banner-site { color: var(--red); font-size: 12px; }
+    .banner-owner { color: var(--muted); font-size: 10px; }
+
+    .drawing-shell {
+      padding: 16px;
+      border: 1px solid rgba(124,47,56,.28);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(226,195,107,.12), transparent 28%),
+        #fff7f5;
+    }
+
+    .drawing-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .drawing-name {
+      margin: 0;
+      color: var(--red);
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    .drawing-sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #cdb9b2;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: inset 0 0 18px rgba(50,37,35,.06);
+    }
+
+    #drawingCanvas {
+      display: block;
+      width: 100%;
+      height: 500px;
+      background: #fff;
+      touch-action: none;
+    }
+
+    .canvas-hint {
+      position: absolute;
+      left: 14px;
+      top: 11px;
+      color: rgba(133,124,120,.4);
+      font-size: 10px;
+      pointer-events: none;
+    }
+
+    .draw-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 11px 0 14px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fffdf9;
+    }
+
+    .tool-label { color: var(--muted); font-size: 10px; margin-right: 2px; }
+
+    .tool-btn, .color-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .tool-btn {
+      min-width: 38px;
+      height: 31px;
+      padding: 0 9px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+    .tool-btn.is-active { background: #f3e1dc; border-color: rgba(124,47,56,.48); color: var(--red); }
+
+    .color-btn {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      padding: 0;
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+    .color-btn.is-active { outline: 2px solid var(--red); outline-offset: 1px; }
+
+    .drawing-gallery {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .drawing-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fffdf9;
+    }
+    .drawing-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .drawing-meta { padding: 10px; }
+    .drawing-author { color: var(--red); font-size: 11px; }
+    .drawing-message { margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.55; white-space: pre-wrap; }
+
+    .empty-note {
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 13px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .hp-field {
+      position: absolute !important;
+      left: -99999px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .footer {
+      padding: 20px;
+      border-top: 1px solid var(--line);
+      background: rgba(243,235,226,.82);
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+    }
+
+    /* Two-state animated cursor. Cursor #2 is ONLY for clickable controls/links. */
+    #customCursor { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      body.custom-cursor-active,
+      body.custom-cursor-active * { cursor: none !important; }
+      #customCursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        display: none;
+        object-fit: contain;
+        pointer-events: none !important;
+        user-select: none;
+        z-index: 2147483647;
+        will-change: transform;
+      }
+      body.custom-cursor-active #customCursor { display: block; }
+    }
+  </style>
 </head>
-
 <body>
-  <h1>Guestbook / Banner Exchange</h1>
-  <p>This page works!</p>
+  <div class="top-ribbon">
+    <div>朝霧 ROUTE　/　CHANNEL</div>
+    <div><a href="/">HOME</a> · <a href="#guestbook">GUESTBOOK</a> · <a href="#banner">BANNER</a> · <a href="#drawing">DRAWING BOOK</a></div>
+  </div>
 
-  <a href="/">Back to home</a>
+  <header class="channel-hero">
+    <div class="hero-card">
+      <div class="hero-kicker">visitor channel / guest log / link exchange</div>
+      <h1 class="hero-title">CHANNEL</h1>
+      <div class="hero-sub" data-ja="足あと、リンク交換、小さなお絵かきを残すための来客ページです。" data-en="A visitor page for guestbook notes, banner exchange, and little drawings for Miu-chan."></div>
+    </div>
+    <div class="lang-switch" aria-label="language switch">
+      <button class="lang-btn is-active" type="button" data-set-lang="ja">日本語</button>
+      <button class="lang-btn" type="button" data-set-lang="en">EN</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel side-panel">
+      <h2 class="panel-title">channel menu</h2>
+      <nav class="side-nav">
+        <a href="#guestbook" data-ja="足あと帳" data-en="Guestbook"></a>
+        <a href="#banner" data-ja="リンク・バナー交換" data-en="Banner Exchange"></a>
+        <a href="#drawing" data-ja="ミウちゃんのおえかき帳" data-en="Miu-chan's Drawing Book"></a>
+        <a href="/" data-ja="朝霧 ROUTE に戻る" data-en="Back to 朝霧 ROUTE"></a>
+      </nav>
+
+      <div class="side-note" data-ja="送信されたメッセージ・バナー・お絵かきは、管理人の確認後にこのページへ表示されます。" data-en="Messages, banners, and drawings appear here only after they have been reviewed and approved."></div>
+
+      <div class="side-banner">
+        <img src="/assets/images/banner-small.png" alt="朝霧 ROUTE banner">
+      </div>
+    </aside>
+
+    <main class="content-card">
+      <section id="guestbook" class="section">
+        <h2 class="section-title" data-ja="足あと帳" data-en="Guestbook"></h2>
+        <p class="section-desc" data-ja="ひとことでも長いメッセージでも、お気軽にどうぞ。URL は任意です。" data-en="Leave a short note or a longer message. Your website URL is optional."></p>
+
+        <div class="soft-box">
+          <form id="guestbookForm">
+            <div class="two-col">
+              <div class="field">
+                <label for="guestName" data-ja="おなまえ *" data-en="Name *"></label>
+                <input id="guestName" name="name" maxlength="40" required>
+              </div>
+              <div class="field">
+                <label for="guestWebsite" data-ja="サイト URL（任意）" data-en="Website URL (optional)"></label>
+                <input id="guestWebsite" name="website_url" type="url" maxlength="300" placeholder="https://">
+              </div>
+            </div>
+            <div class="field">
+              <label for="guestMessage" data-ja="メッセージ *" data-en="Message *"></label>
+              <textarea id="guestMessage" name="message" maxlength="700" required></textarea>
+            </div>
+            <input class="hp-field" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="submit-row">
+              <button id="guestSubmit" class="p4-button" type="submit" data-ja="足あとを残す" data-en="Leave a Message"></button>
+              <div id="guestStatus" class="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+
+        <div id="guestbookList" class="guestbook-list"></div>
+      </section>
+
+      <section id="banner" class="section">
+        <h2 class="section-title" data-ja="リンク・バナー交換" data-en="Link / Banner Exchange"></h2>
+        <p class="section-desc" data-ja="個人サイト・創作サイトのバナー交換歓迎です。まず朝霧 ROUTE の情報をどうぞ。" data-en="Banner exchange with personal and creative sites is welcome. Here is the 朝霧 ROUTE link information."></p>
+
+        <div class="soft-box">
+          <div class="my-banner-grid">
+            <div class="my-banner-preview">
+              <img src="/assets/images/banner-small.png" alt="朝霧 ROUTE banner">
+            </div>
+            <div>
+              <div class="field">
+                <label data-ja="サイト URL" data-en="Site URL"></label>
+                <div class="codebox">https://toamesuki.github.io/</div>
+              </div>
+              <div class="field">
+                <label data-ja="バナー直リンク" data-en="Banner URL"></label>
+                <div class="codebox">https://toamesuki.github.io/assets/images/banner-small.png</div>
+              </div>
+              <div class="field">
+                <label data-ja="リンク用 HTML" data-en="Link HTML"></label>
+                <div id="bannerCode" class="codebox">&lt;a href=&quot;https://toamesuki.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://toamesuki.github.io/assets/images/banner-small.png&quot; alt=&quot;朝霧 ROUTE&quot;&gt;&lt;/a&gt;</div>
+              </div>
+              <button id="copyBannerCode" class="p4-button secondary" type="button" data-ja="HTML をコピー" data-en="Copy HTML"></button>
+              <span id="copyStatus" class="status"></span>
+            </div>
+          </div>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:18px 0;">
+
+          <form id="bannerForm">
+            <div class="two-col">
+              <div class="field">
+                <label for="siteName" data-ja="サイト名 *" data-en="Site name *"></label>
+                <input id="siteName" maxlength="80" required>
+              </div>
+              <div class="field">
+                <label for="ownerName" data-ja="管理人名（任意）" data-en="Owner name (optional)"></label>
+                <input id="ownerName" maxlength="60">
+              </div>
+            </div>
+            <div class="field">
+              <label for="siteUrl" data-ja="サイト URL *" data-en="Site URL *"></label>
+              <input id="siteUrl" type="url" maxlength="300" placeholder="https://" required>
+            </div>
+            <div class="field">
+              <label for="bannerUrl" data-ja="バナー画像 URL *" data-en="Banner image URL *"></label>
+              <input id="bannerUrl" type="url" maxlength="500" placeholder="https://.../banner.png" required>
+            </div>
+            <div class="field">
+              <label for="bannerMessage" data-ja="ひとこと（任意）" data-en="Message (optional)"></label>
+              <textarea id="bannerMessage" maxlength="500"></textarea>
+            </div>
+            <input class="hp-field" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="submit-row">
+              <button id="bannerSubmit" class="p4-button" type="submit" data-ja="交換を申し込む" data-en="Request Exchange"></button>
+              <div id="bannerStatus" class="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+
+        <div id="bannerList" class="banner-list"></div>
+      </section>
+
+      <section id="drawing" class="section">
+        <div class="drawing-shell">
+          <div class="drawing-head">
+            <div>
+              <h2 class="drawing-name" data-ja="ミウちゃんのおえかき帳" data-en="Miu-chan's Drawing Book"></h2>
+              <div class="drawing-sub" data-ja="美雨ちゃんに小さならくがきやメッセージを残してね ♡　送信後、確認してから飾ります。" data-en="Leave Miu-chan a little doodle or message ♡ Submitted drawings are displayed after approval."></div>
+            </div>
+            <div style="color:var(--red-soft);font-size:26px;">♡</div>
+          </div>
+
+          <div class="canvas-wrap">
+            <canvas id="drawingCanvas" width="900" height="500" aria-label="drawing canvas"></canvas>
+            <div id="canvasHint" class="canvas-hint" data-ja="ここにおえかきしてね…" data-en="draw something here..."></div>
+          </div>
+
+          <div class="draw-toolbar">
+            <span class="tool-label" data-ja="色" data-en="color"></span>
+            <button class="color-btn is-active" type="button" data-color="#2b292d" style="background:#2b292d" aria-label="black"></button>
+            <button class="color-btn" type="button" data-color="#7c2f38" style="background:#7c2f38" aria-label="red"></button>
+            <button class="color-btn" type="button" data-color="#b45f6a" style="background:#b45f6a" aria-label="pink"></button>
+            <button class="color-btn" type="button" data-color="#71889b" style="background:#71889b" aria-label="blue"></button>
+            <button class="color-btn" type="button" data-color="#e2c36b" style="background:#e2c36b" aria-label="yellow"></button>
+
+            <span class="tool-label" style="margin-left:6px" data-ja="太さ" data-en="size"></span>
+            <button class="tool-btn" type="button" data-size="2">S</button>
+            <button class="tool-btn is-active" type="button" data-size="5">M</button>
+            <button class="tool-btn" type="button" data-size="10">L</button>
+
+            <button id="eraserBtn" class="tool-btn" type="button" data-ja="消しゴム" data-en="Eraser"></button>
+            <button id="undoBtn" class="tool-btn" type="button" data-ja="戻す" data-en="Undo"></button>
+            <button id="clearBtn" class="tool-btn" type="button" data-ja="全部消す" data-en="Clear"></button>
+          </div>
+
+          <form id="drawingForm">
+            <div class="two-col">
+              <div class="field">
+                <label for="drawingName" data-ja="おなまえ（任意）" data-en="Name (optional)"></label>
+                <input id="drawingName" maxlength="40">
+              </div>
+              <div class="field">
+                <label for="drawingMessage" data-ja="ひとこと（任意）" data-en="Message (optional)"></label>
+                <input id="drawingMessage" maxlength="180">
+              </div>
+            </div>
+            <input class="hp-field" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="submit-row">
+              <button id="drawingSubmit" class="p4-button" type="submit" data-ja="美雨ちゃんに見せる ♡" data-en="Show Miu-chan ♡"></button>
+              <div id="drawingStatus" class="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+
+        <div id="drawingGallery" class="drawing-gallery"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">朝霧 ROUTE © personal dream / OC archive. Do not repost, copy, trace, edit, redistribute, or use for AI training.</footer>
+
+  <img id="customCursor" src="/assets/images/cursor-normal.gif" alt="" aria-hidden="true" draggable="false">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    /* =========================================================
+       SUPABASE
+       The user-provided Data API URL ends in /rest/v1/.
+       Supabase JS needs the PROJECT ROOT, so /rest/v1/ is removed here.
+       ========================================================= */
+    const SUPABASE_URL = "https://fqltuswyigmszngwsogg.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_gOcK-yQGZv0f3VePlVIl-w_McG0QZ3z";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+    /* =========================================================
+       LANGUAGE
+       ========================================================= */
+    const translations = {
+      ja: {
+        loading: "読み込み中…",
+        emptyGuest: "まだ公開された足あとがありません。",
+        emptyBanner: "まだ公開された交換バナーがありません。",
+        emptyDrawing: "まだ公開されたおえかきがありません。",
+        submitGuest: "送信しました。確認後に表示されます ♡",
+        submitBanner: "交換申請を送りました。確認後に掲載されます。",
+        submitDrawing: "美雨ちゃんに届きました ♡　確認後におえかき帳へ飾ります。",
+        genericError: "送信できませんでした。少し時間をおいてもう一度試してください。",
+        invalidUrl: "URL は https:// または http:// から入力してください。",
+        blankDrawing: "先にキャンバスへ何か描いてね ♡",
+        copied: "コピーしました ♡",
+        anon: "ななしさん"
+      },
+      en: {
+        loading: "Loading...",
+        emptyGuest: "No approved guestbook messages yet.",
+        emptyBanner: "No approved exchange banners yet.",
+        emptyDrawing: "No approved drawings yet.",
+        submitGuest: "Message sent. It will appear after approval ♡",
+        submitBanner: "Exchange request sent. It will appear after approval.",
+        submitDrawing: "It reached Miu-chan ♡ It will join the drawing book after approval.",
+        genericError: "Something went wrong. Please try again in a moment.",
+        invalidUrl: "Please use a URL beginning with https:// or http://.",
+        blankDrawing: "Draw something on the canvas first ♡",
+        copied: "Copied ♡",
+        anon: "anonymous"
+      }
+    };
+
+    let currentLang = localStorage.getItem("asagiri-channel-lang") || "ja";
+    if (!translations[currentLang]) currentLang = "ja";
+
+    function t(key) { return translations[currentLang][key] || key; }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLang;
+      document.querySelectorAll("[data-ja][data-en]").forEach(function (el) {
+        el.textContent = el.dataset[currentLang];
+      });
+      document.querySelectorAll("[data-set-lang]").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.dataset.setLang === currentLang);
+      });
+      localStorage.setItem("asagiri-channel-lang", currentLang);
+      loadGuestbook();
+      loadBanners();
+      loadDrawings();
+    }
+
+    document.querySelectorAll("[data-set-lang]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        currentLang = btn.dataset.setLang;
+        applyLanguage();
+      });
+    });
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+    function safeHttpUrl(value, optional) {
+      const trimmed = String(value || "").trim();
+      if (!trimmed && optional) return "";
+      try {
+        const url = new URL(trimmed);
+        if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+        return url.href;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function setStatus(el, text, type) {
+      el.textContent = text || "";
+      el.classList.remove("ok", "error");
+      if (type) el.classList.add(type);
+    }
+
+    function formatDate(value) {
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return "";
+      return new Intl.DateTimeFormat(currentLang === "ja" ? "ja-JP" : "en-US", {
+        year: "numeric", month: "short", day: "numeric"
+      }).format(d);
+    }
+
+    function makeEmpty(container, text) {
+      container.textContent = "";
+      const div = document.createElement("div");
+      div.className = "empty-note";
+      div.textContent = text;
+      container.appendChild(div);
+    }
+
+    /* =========================================================
+       GUESTBOOK
+       ========================================================= */
+    const guestbookForm = document.getElementById("guestbookForm");
+    const guestStatus = document.getElementById("guestStatus");
+    const guestSubmit = document.getElementById("guestSubmit");
+    const guestbookList = document.getElementById("guestbookList");
+
+    async function loadGuestbook() {
+      if (!guestbookList) return;
+      makeEmpty(guestbookList, t("loading"));
+      const { data, error } = await db
+        .from("guestbook")
+        .select("id,created_at,name,website_url,message")
+        .eq("approved", true)
+        .order("created_at", { ascending: false })
+        .limit(30);
+
+      if (error || !data || !data.length) {
+        makeEmpty(guestbookList, t("emptyGuest"));
+        return;
+      }
+
+      guestbookList.textContent = "";
+      data.forEach(function (row) {
+        const card = document.createElement("article");
+        card.className = "guest-entry";
+
+        const top = document.createElement("div");
+        top.className = "entry-top";
+
+        const nameWrap = document.createElement("div");
+        const siteUrl = safeHttpUrl(row.website_url, true);
+        if (siteUrl) {
+          const link = document.createElement("a");
+          link.className = "entry-name";
+          link.href = siteUrl;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = row.name || t("anon");
+          nameWrap.appendChild(link);
+        } else {
+          const name = document.createElement("span");
+          name.className = "entry-name";
+          name.textContent = row.name || t("anon");
+          nameWrap.appendChild(name);
+        }
+
+        const date = document.createElement("span");
+        date.textContent = formatDate(row.created_at);
+        top.append(nameWrap, date);
+
+        const msg = document.createElement("div");
+        msg.className = "entry-message";
+        msg.textContent = row.message || "";
+
+        card.append(top, msg);
+        guestbookList.appendChild(card);
+      });
+    }
+
+    guestbookForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      if (guestbookForm.elements.company.value) return;
+
+      const name = document.getElementById("guestName").value.trim();
+      const rawWebsite = document.getElementById("guestWebsite").value.trim();
+      const message = document.getElementById("guestMessage").value.trim();
+      const website = safeHttpUrl(rawWebsite, true);
+
+      if (rawWebsite && !website) {
+        setStatus(guestStatus, t("invalidUrl"), "error");
+        return;
+      }
+
+      guestSubmit.disabled = true;
+      setStatus(guestStatus, t("loading"));
+
+      const { error } = await db.from("guestbook").insert({
+        name: name,
+        website_url: website || null,
+        message: message,
+        approved: false
+      });
+
+      guestSubmit.disabled = false;
+      if (error) {
+        console.error(error);
+        setStatus(guestStatus, t("genericError"), "error");
+        return;
+      }
+
+      guestbookForm.reset();
+      setStatus(guestStatus, t("submitGuest"), "ok");
+    });
+
+    /* =========================================================
+       BANNER EXCHANGE
+       ========================================================= */
+    const bannerForm = document.getElementById("bannerForm");
+    const bannerStatus = document.getElementById("bannerStatus");
+    const bannerSubmit = document.getElementById("bannerSubmit");
+    const bannerList = document.getElementById("bannerList");
+
+    async function loadBanners() {
+      if (!bannerList) return;
+      makeEmpty(bannerList, t("loading"));
+      const { data, error } = await db
+        .from("banner_exchange")
+        .select("id,created_at,site_name,owner_name,site_url,banner_url,message")
+        .eq("approved", true)
+        .order("created_at", { ascending: false })
+        .limit(30);
+
+      if (error || !data || !data.length) {
+        makeEmpty(bannerList, t("emptyBanner"));
+        return;
+      }
+
+      bannerList.textContent = "";
+      data.forEach(function (row) {
+        const siteUrl = safeHttpUrl(row.site_url, false);
+        const imageUrl = safeHttpUrl(row.banner_url, false);
+        if (!siteUrl || !imageUrl) return;
+
+        const card = document.createElement("article");
+        card.className = "banner-card";
+
+        const imageLink = document.createElement("a");
+        imageLink.className = "banner-image-wrap";
+        imageLink.href = siteUrl;
+        imageLink.target = "_blank";
+        imageLink.rel = "noopener noreferrer";
+
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = row.site_name || "site banner";
+        img.loading = "lazy";
+        img.referrerPolicy = "no-referrer";
+        imageLink.appendChild(img);
+
+        const site = document.createElement("a");
+        site.className = "banner-site";
+        site.href = siteUrl;
+        site.target = "_blank";
+        site.rel = "noopener noreferrer";
+        site.textContent = row.site_name || siteUrl;
+
+        card.append(imageLink, site);
+
+        if (row.owner_name) {
+          const owner = document.createElement("div");
+          owner.className = "banner-owner";
+          owner.textContent = row.owner_name;
+          card.appendChild(owner);
+        }
+
+        bannerList.appendChild(card);
+      });
+
+      if (!bannerList.children.length) makeEmpty(bannerList, t("emptyBanner"));
+    }
+
+    bannerForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      if (bannerForm.elements.company.value) return;
+
+      const siteName = document.getElementById("siteName").value.trim();
+      const ownerName = document.getElementById("ownerName").value.trim();
+      const siteUrl = safeHttpUrl(document.getElementById("siteUrl").value, false);
+      const bannerUrl = safeHttpUrl(document.getElementById("bannerUrl").value, false);
+      const message = document.getElementById("bannerMessage").value.trim();
+
+      if (!siteUrl || !bannerUrl) {
+        setStatus(bannerStatus, t("invalidUrl"), "error");
+        return;
+      }
+
+      bannerSubmit.disabled = true;
+      setStatus(bannerStatus, t("loading"));
+
+      const { error } = await db.from("banner_exchange").insert({
+        site_name: siteName,
+        owner_name: ownerName || null,
+        site_url: siteUrl,
+        banner_url: bannerUrl,
+        message: message || null,
+        approved: false
+      });
+
+      bannerSubmit.disabled = false;
+      if (error) {
+        console.error(error);
+        setStatus(bannerStatus, t("genericError"), "error");
+        return;
+      }
+
+      bannerForm.reset();
+      setStatus(bannerStatus, t("submitBanner"), "ok");
+    });
+
+    document.getElementById("copyBannerCode").addEventListener("click", async function () {
+      const text = document.getElementById("bannerCode").textContent;
+      const status = document.getElementById("copyStatus");
+      try {
+        await navigator.clipboard.writeText(text);
+        setStatus(status, t("copied"), "ok");
+      } catch (_) {
+        setStatus(status, text, "");
+      }
+    });
+
+    /* =========================================================
+       DRAWING CANVAS
+       ========================================================= */
+    const canvas = document.getElementById("drawingCanvas");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const canvasHint = document.getElementById("canvasHint");
+    const drawingForm = document.getElementById("drawingForm");
+    const drawingStatus = document.getElementById("drawingStatus");
+    const drawingSubmit = document.getElementById("drawingSubmit");
+    const drawingGallery = document.getElementById("drawingGallery");
+
+    let drawing = false;
+    let hasDrawing = false;
+    let currentColor = "#2b292d";
+    let brushSize = 5;
+    let erasing = false;
+    let lastPoint = null;
+    let undoStack = [];
+
+    function fillCanvasWhite() {
+      ctx.save();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+    }
+    fillCanvasWhite();
+
+    function canvasPoint(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * (canvas.width / rect.width),
+        y: (event.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    }
+
+    function saveUndoState() {
+      try {
+        undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        if (undoStack.length > 12) undoStack.shift();
+      } catch (_) {}
+    }
+
+    function beginDraw(event) {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      event.preventDefault();
+      saveUndoState();
+      drawing = true;
+      lastPoint = canvasPoint(event);
+      canvas.setPointerCapture(event.pointerId);
+      canvasHint.style.display = "none";
+    }
+
+    function drawMove(event) {
+      if (!drawing) return;
+      event.preventDefault();
+      const point = canvasPoint(event);
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = erasing ? Math.max(brushSize * 2.4, 12) : brushSize;
+      ctx.strokeStyle = erasing ? "#ffffff" : currentColor;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.beginPath();
+      ctx.moveTo(lastPoint.x, lastPoint.y);
+      ctx.lineTo(point.x, point.y);
+      ctx.stroke();
+      ctx.restore();
+      lastPoint = point;
+      hasDrawing = true;
+    }
+
+    function endDraw(event) {
+      if (!drawing) return;
+      drawing = false;
+      lastPoint = null;
+      try { canvas.releasePointerCapture(event.pointerId); } catch (_) {}
+    }
+
+    canvas.addEventListener("pointerdown", beginDraw);
+    canvas.addEventListener("pointermove", drawMove);
+    canvas.addEventListener("pointerup", endDraw);
+    canvas.addEventListener("pointercancel", endDraw);
+
+    document.querySelectorAll("[data-color]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        currentColor = btn.dataset.color;
+        erasing = false;
+        document.getElementById("eraserBtn").classList.remove("is-active");
+        document.querySelectorAll("[data-color]").forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+      });
+    });
+
+    document.querySelectorAll("[data-size]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        brushSize = Number(btn.dataset.size) || 5;
+        document.querySelectorAll("[data-size]").forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+      });
+    });
+
+    document.getElementById("eraserBtn").addEventListener("click", function () {
+      erasing = !erasing;
+      this.classList.toggle("is-active", erasing);
+    });
+
+    document.getElementById("undoBtn").addEventListener("click", function () {
+      const previous = undoStack.pop();
+      if (!previous) return;
+      ctx.putImageData(previous, 0, 0);
+      hasDrawing = true;
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", function () {
+      saveUndoState();
+      fillCanvasWhite();
+      hasDrawing = false;
+      canvasHint.style.display = "block";
+    });
+
+    function canvasBlob() {
+      return new Promise(function (resolve, reject) {
+        canvas.toBlob(function (blob) {
+          if (blob) resolve(blob);
+          else reject(new Error("Canvas export failed"));
+        }, "image/png");
+      });
+    }
+
+    async function loadDrawings() {
+      if (!drawingGallery) return;
+      makeEmpty(drawingGallery, t("loading"));
+      const { data, error } = await db
+        .from("drawings")
+        .select("id,created_at,name,message,image_url")
+        .eq("approved", true)
+        .order("created_at", { ascending: false })
+        .limit(24);
+
+      if (error || !data || !data.length) {
+        makeEmpty(drawingGallery, t("emptyDrawing"));
+        return;
+      }
+
+      drawingGallery.textContent = "";
+      data.forEach(function (row) {
+        const imageUrl = safeHttpUrl(row.image_url, false);
+        if (!imageUrl) return;
+
+        const card = document.createElement("article");
+        card.className = "drawing-card";
+
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = row.name ? `drawing by ${row.name}` : "guest drawing";
+        img.loading = "lazy";
+
+        const meta = document.createElement("div");
+        meta.className = "drawing-meta";
+        const author = document.createElement("div");
+        author.className = "drawing-author";
+        author.textContent = row.name || t("anon");
+        meta.appendChild(author);
+
+        if (row.message) {
+          const msg = document.createElement("div");
+          msg.className = "drawing-message";
+          msg.textContent = row.message;
+          meta.appendChild(msg);
+        }
+
+        card.append(img, meta);
+        drawingGallery.appendChild(card);
+      });
+
+      if (!drawingGallery.children.length) makeEmpty(drawingGallery, t("emptyDrawing"));
+    }
+
+    drawingForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      if (drawingForm.elements.company.value) return;
+      if (!hasDrawing) {
+        setStatus(drawingStatus, t("blankDrawing"), "error");
+        return;
+      }
+
+      drawingSubmit.disabled = true;
+      setStatus(drawingStatus, t("loading"));
+
+      try {
+        const blob = await canvasBlob();
+        if (blob.size > 5 * 1024 * 1024) throw new Error("Drawing exceeds 5 MB");
+
+        const randomPart = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+        const filePath = `visitor/${Date.now()}-${randomPart}.png`;
+
+        const uploadResult = await db.storage
+          .from("guest-drawings")
+          .upload(filePath, blob, { contentType: "image/png", upsert: false });
+
+        if (uploadResult.error) throw uploadResult.error;
+
+        const publicResult = db.storage.from("guest-drawings").getPublicUrl(filePath);
+        const publicUrl = publicResult.data && publicResult.data.publicUrl;
+        if (!publicUrl) throw new Error("Could not create public drawing URL");
+
+        const name = document.getElementById("drawingName").value.trim();
+        const message = document.getElementById("drawingMessage").value.trim();
+
+        const insertResult = await db.from("drawings").insert({
+          name: name || null,
+          message: message || null,
+          image_url: publicUrl,
+          approved: false
+        });
+
+        if (insertResult.error) throw insertResult.error;
+
+        drawingForm.reset();
+        fillCanvasWhite();
+        undoStack = [];
+        hasDrawing = false;
+        canvasHint.style.display = "block";
+        setStatus(drawingStatus, t("submitDrawing"), "ok");
+      } catch (error) {
+        console.error(error);
+        setStatus(drawingStatus, t("genericError"), "error");
+      } finally {
+        drawingSubmit.disabled = false;
+      }
+    });
+
+    /* =========================================================
+       TWO-STATE ANIMATED CUSTOM CURSOR
+       Cursor #2 only on clickable links/buttons, not normal text/form fields.
+       ========================================================= */
+    (function () {
+      const cursorImage = document.getElementById("customCursor");
+      if (!cursorImage) return;
+
+      const NORMAL_CURSOR = "/assets/images/cursor-normal.gif";
+      const SECOND_CURSOR = "/assets/images/cursor-text.gif";
+      const desktopPointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+      const hotspots = {
+        normal: { x: 8, y: 6 },
+        second: { x: 24, y: 24 }
+      };
+
+      let mode = "normal";
+      let mouseX = 0;
+      let mouseY = 0;
+      let normalReady = false;
+      let secondReady = false;
+
+      const normalPreload = new Image();
+      const secondPreload = new Image();
+      normalPreload.onload = function () { normalReady = true; };
+      normalPreload.onerror = function () { normalReady = false; };
+      secondPreload.onload = function () { secondReady = true; };
+      secondPreload.onerror = function () { secondReady = false; };
+      normalPreload.src = NORMAL_CURSOR;
+      secondPreload.src = SECOND_CURSOR;
+
+      function filesReady() { return normalReady && secondReady; }
+      function hideCursor() { document.body.classList.remove("custom-cursor-active"); }
+      function moveCursor() {
+        const hotspot = hotspots[mode];
+        cursorImage.style.transform = `translate3d(${mouseX - hotspot.x}px, ${mouseY - hotspot.y}px, 0)`;
+      }
+      function setMode(next) {
+        next = next === "second" ? "second" : "normal";
+        if (next !== mode) {
+          mode = next;
+          cursorImage.src = mode === "second" ? SECOND_CURSOR : NORMAL_CURSOR;
+        }
+        moveCursor();
+      }
+      function isSecondCursorTarget(element) {
+        if (!(element instanceof Element)) return false;
+        return Boolean(element.closest('a, button, summary, [role="button"]'));
+      }
+      function updateFromPoint(x, y) {
+        setMode(isSecondCursorTarget(document.elementFromPoint(x, y)) ? "second" : "normal");
+      }
+
+      document.addEventListener("pointermove", function (event) {
+        if (!desktopPointer.matches || event.pointerType !== "mouse") {
+          hideCursor();
+          return;
+        }
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        if (!filesReady()) {
+          hideCursor();
+          return;
+        }
+        updateFromPoint(mouseX, mouseY);
+        moveCursor();
+        document.body.classList.add("custom-cursor-active");
+      }, { passive: true });
+
+      document.addEventListener("pointerover", function (event) {
+        if (!desktopPointer.matches || event.pointerType !== "mouse") return;
+        setMode(isSecondCursorTarget(event.target) ? "second" : "normal");
+      }, { passive: true });
+
+      document.documentElement.addEventListener("mouseleave", hideCursor);
+      window.addEventListener("blur", hideCursor);
+      desktopPointer.addEventListener("change", hideCursor);
+    })();
+
+    applyLanguage();
+  </script>
 </body>
 </html>
