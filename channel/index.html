@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1280">
-  <title>CHANNEL / 朝霧 ROUTE</title>
+  <title>GUESTBOOK / 朝霧 ROUTE</title>
   <style>
     :root {
       --page-bg: #ece5dc;
@@ -522,6 +522,91 @@
       font-size: 11px;
     }
 
+    /* Collapsible archive blocks, matching the homepage rules style. */
+    .fold-box {
+      margin-top: 15px;
+      border: 1px solid rgba(124,47,56,.28);
+      border-radius: 17px;
+      overflow: hidden;
+      background: rgba(255,253,249,.80);
+      box-shadow: 0 6px 15px rgba(50,37,35,.045);
+    }
+
+    .fold-summary {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 15px;
+      list-style: none;
+      background: rgba(124,47,56,.09);
+      color: var(--red);
+      font-size: 12px;
+      letter-spacing: .07em;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .fold-summary::-webkit-details-marker { display: none; }
+    .fold-summary::after {
+      content: "+";
+      width: 23px;
+      height: 23px;
+      flex: 0 0 23px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(124,47,56,.24);
+      border-radius: 50%;
+      background: #fffaf4;
+      color: var(--red);
+      font-size: 15px;
+      line-height: 1;
+    }
+    .fold-box[open] > .fold-summary::after { content: "−"; }
+    .fold-body { padding: 14px; border-top: 1px solid rgba(124,47,56,.14); }
+    .fold-body > .guestbook-list,
+    .fold-body > .banner-list,
+    .fold-body > .drawing-gallery { margin-top: 0; }
+
+    .banner-fold { margin-top: 0; }
+    .banner-fold > .fold-summary {
+      padding: 14px 16px;
+      background: rgba(124,47,56,.12);
+      font-size: 15px;
+    }
+
+    .custom-color-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 31px;
+      padding: 3px 8px 3px 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .custom-color-wrap input[type="color"] {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      overflow: hidden;
+    }
+    .custom-color-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 1px; }
+    .custom-color-wrap input[type="color"]::-webkit-color-swatch {
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .custom-color-wrap input[type="color"]::-moz-color-swatch {
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+
     .hp-field {
       position: absolute !important;
       left: -99999px !important;
@@ -565,15 +650,15 @@
 </head>
 <body>
   <div class="top-ribbon">
-    <div>朝霧 ROUTE　/　CHANNEL</div>
-    <div><a href="/">HOME</a> · <a href="#guestbook">GUESTBOOK</a> · <a href="#banner">BANNER</a> · <a href="#drawing">DRAWING BOOK</a></div>
+    <div data-ja="朝霧 ROUTE　/　来客ページ" data-en="朝霧 ROUTE　/　VISITOR CHANNEL"></div>
+    <div><a href="/" data-ja="ホーム" data-en="HOME"></a> · <a href="#guestbook" data-ja="足あと帳" data-en="GUESTBOOK"></a> · <a href="#drawing" data-ja="おえかき帳" data-en="DRAWING BOOK"></a> · <a href="#banner" data-ja="バナー交換" data-en="BANNER"></a></div>
   </div>
 
   <header class="channel-hero">
     <div class="hero-card">
-      <div class="hero-kicker">visitor channel / guest log / link exchange</div>
-      <h1 class="hero-title">CHANNEL</h1>
-      <div class="hero-sub" data-ja="足あと、リンク交換、小さなお絵かきを残すための来客ページです。" data-en="A visitor page for guestbook notes, banner exchange, and little drawings for Miu-chan."></div>
+      <div class="hero-kicker" data-ja="来客ページ / 足あと帳" data-en="visitor channel / guestbook"></div>
+      <h1 class="hero-title" data-ja="足あと帳" data-en="GUESTBOOK"></h1>
+      <div class="hero-sub" data-ja="ひとこと、おえかき、あなたのサイトへのリンク。ここに小さな足あとを残してね。" data-en="Leave a little trace behind — a note, a doodle, or a link from your corner of the web."></div>
     </div>
     <div class="lang-switch" aria-label="language switch">
       <button class="lang-btn is-active" type="button" data-set-lang="ja">日本語</button>
@@ -583,15 +668,15 @@
 
   <div class="layout">
     <aside class="panel side-panel">
-      <h2 class="panel-title">channel menu</h2>
+      <h2 class="panel-title" data-ja="メニュー" data-en="Menu"></h2>
       <nav class="side-nav">
         <a href="#guestbook" data-ja="足あと帳" data-en="Guestbook"></a>
-        <a href="#banner" data-ja="リンク・バナー交換" data-en="Banner Exchange"></a>
         <a href="#drawing" data-ja="ミウちゃんのおえかき帳" data-en="Miu-chan's Drawing Book"></a>
+        <a href="#banner" data-ja="リンク・バナー交換" data-en="Banner Exchange"></a>
         <a href="/" data-ja="朝霧 ROUTE に戻る" data-en="Back to 朝霧 ROUTE"></a>
       </nav>
 
-      <div class="side-note" data-ja="送信されたメッセージ・バナー・お絵かきは、管理人の確認後にこのページへ表示されます。" data-en="Messages, banners, and drawings appear here only after they have been reviewed and approved."></div>
+      <div class="side-note" data-ja="送信された足あと・おえかき・交換バナーは、確認後に公開されます。" data-en="Notes, drawings, and exchange banners are shown after approval."></div>
 
       <div class="side-banner">
         <img src="/assets/images/banner-small.png" alt="朝霧 ROUTE banner">
@@ -601,7 +686,7 @@
     <main class="content-card">
       <section id="guestbook" class="section">
         <h2 class="section-title" data-ja="足あと帳" data-en="Guestbook"></h2>
-        <p class="section-desc" data-ja="ひとことでも長いメッセージでも、お気軽にどうぞ。URL は任意です。" data-en="Leave a short note or a longer message. Your website URL is optional."></p>
+        <p class="section-desc" data-ja="ひとことどうぞ。" data-en="Leave a note."></p>
 
         <div class="soft-box">
           <form id="guestbookForm">
@@ -627,70 +712,12 @@
           </form>
         </div>
 
-        <div id="guestbookList" class="guestbook-list"></div>
-      </section>
-
-      <section id="banner" class="section">
-        <h2 class="section-title" data-ja="リンク・バナー交換" data-en="Link / Banner Exchange"></h2>
-        <p class="section-desc" data-ja="個人サイト・創作サイトのバナー交換歓迎です。まず朝霧 ROUTE の情報をどうぞ。" data-en="Banner exchange with personal and creative sites is welcome. Here is the 朝霧 ROUTE link information."></p>
-
-        <div class="soft-box">
-          <div class="my-banner-grid">
-            <div class="my-banner-preview">
-              <img src="/assets/images/banner-small.png" alt="朝霧 ROUTE banner">
-            </div>
-            <div>
-              <div class="field">
-                <label data-ja="サイト URL" data-en="Site URL"></label>
-                <div class="codebox">https://toamesuki.github.io/</div>
-              </div>
-              <div class="field">
-                <label data-ja="バナー直リンク" data-en="Banner URL"></label>
-                <div class="codebox">https://toamesuki.github.io/assets/images/banner-small.png</div>
-              </div>
-              <div class="field">
-                <label data-ja="リンク用 HTML" data-en="Link HTML"></label>
-                <div id="bannerCode" class="codebox">&lt;a href=&quot;https://toamesuki.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://toamesuki.github.io/assets/images/banner-small.png&quot; alt=&quot;朝霧 ROUTE&quot;&gt;&lt;/a&gt;</div>
-              </div>
-              <button id="copyBannerCode" class="p4-button secondary" type="button" data-ja="HTML をコピー" data-en="Copy HTML"></button>
-              <span id="copyStatus" class="status"></span>
-            </div>
+        <details class="fold-box">
+          <summary class="fold-summary"><span data-ja="みんなの足あと" data-en="Visitor Notes"></span></summary>
+          <div class="fold-body">
+            <div id="guestbookList" class="guestbook-list"></div>
           </div>
-
-          <hr style="border:0;border-top:1px solid var(--line);margin:18px 0;">
-
-          <form id="bannerForm">
-            <div class="two-col">
-              <div class="field">
-                <label for="siteName" data-ja="サイト名 *" data-en="Site name *"></label>
-                <input id="siteName" maxlength="80" required>
-              </div>
-              <div class="field">
-                <label for="ownerName" data-ja="管理人名（任意）" data-en="Owner name (optional)"></label>
-                <input id="ownerName" maxlength="60">
-              </div>
-            </div>
-            <div class="field">
-              <label for="siteUrl" data-ja="サイト URL *" data-en="Site URL *"></label>
-              <input id="siteUrl" type="url" maxlength="300" placeholder="https://" required>
-            </div>
-            <div class="field">
-              <label for="bannerUrl" data-ja="バナー画像 URL *" data-en="Banner image URL *"></label>
-              <input id="bannerUrl" type="url" maxlength="500" placeholder="https://.../banner.png" required>
-            </div>
-            <div class="field">
-              <label for="bannerMessage" data-ja="ひとこと（任意）" data-en="Message (optional)"></label>
-              <textarea id="bannerMessage" maxlength="500"></textarea>
-            </div>
-            <input class="hp-field" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <div class="submit-row">
-              <button id="bannerSubmit" class="p4-button" type="submit" data-ja="交換を申し込む" data-en="Request Exchange"></button>
-              <div id="bannerStatus" class="status" aria-live="polite"></div>
-            </div>
-          </form>
-        </div>
-
-        <div id="bannerList" class="banner-list"></div>
+        </details>
       </section>
 
       <section id="drawing" class="section">
@@ -698,7 +725,7 @@
           <div class="drawing-head">
             <div>
               <h2 class="drawing-name" data-ja="ミウちゃんのおえかき帳" data-en="Miu-chan's Drawing Book"></h2>
-              <div class="drawing-sub" data-ja="美雨ちゃんに小さならくがきやメッセージを残してね ♡　送信後、確認してから飾ります。" data-en="Leave Miu-chan a little doodle or message ♡ Submitted drawings are displayed after approval."></div>
+              <div class="drawing-sub" data-ja="美雨ちゃんに小さならくがきやメッセージを残してね ♡" data-en="Leave Miu-chan a little doodle or message ♡"></div>
             </div>
             <div style="color:var(--red-soft);font-size:26px;">♡</div>
           </div>
@@ -715,6 +742,10 @@
             <button class="color-btn" type="button" data-color="#b45f6a" style="background:#b45f6a" aria-label="pink"></button>
             <button class="color-btn" type="button" data-color="#71889b" style="background:#71889b" aria-label="blue"></button>
             <button class="color-btn" type="button" data-color="#e2c36b" style="background:#e2c36b" aria-label="yellow"></button>
+            <label class="custom-color-wrap" for="customColorPicker">
+              <input id="customColorPicker" type="color" value="#8d6a8f" aria-label="custom color">
+              <span data-ja="好きな色" data-en="custom"></span>
+            </label>
 
             <span class="tool-label" style="margin-left:6px" data-ja="太さ" data-en="size"></span>
             <button class="tool-btn" type="button" data-size="2">S</button>
@@ -745,7 +776,84 @@
           </form>
         </div>
 
-        <div id="drawingGallery" class="drawing-gallery"></div>
+        <details class="fold-box">
+          <summary class="fold-summary"><span data-ja="おえかきギャラリー" data-en="Drawing Gallery"></span></summary>
+          <div class="fold-body">
+            <div id="drawingGallery" class="drawing-gallery"></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="banner" class="section">
+        <details id="bannerDetails" class="fold-box banner-fold">
+          <summary class="fold-summary"><span data-ja="リンク・バナー交換" data-en="Link / Banner Exchange"></span></summary>
+          <div class="fold-body">
+            <p class="section-desc" data-ja="個人サイト・創作サイトのバナー交換歓迎です。" data-en="Banner exchange with personal and creative sites is welcome."></p>
+
+            <div class="soft-box">
+              <div class="my-banner-grid">
+                <div class="my-banner-preview">
+                  <img src="/assets/images/banner-small.png" alt="朝霧 ROUTE banner">
+                </div>
+                <div>
+                  <div class="field">
+                    <label data-ja="サイト URL" data-en="Site URL"></label>
+                    <div class="codebox">https://toamesuki.github.io/</div>
+                  </div>
+                  <div class="field">
+                    <label data-ja="バナー直リンク" data-en="Banner URL"></label>
+                    <div class="codebox">https://toamesuki.github.io/assets/images/banner-small.png</div>
+                  </div>
+                  <div class="field">
+                    <label data-ja="リンク用 HTML" data-en="Link HTML"></label>
+                    <div id="bannerCode" class="codebox">&lt;a href=&quot;https://toamesuki.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://toamesuki.github.io/assets/images/banner-small.png&quot; alt=&quot;朝霧 ROUTE&quot;&gt;&lt;/a&gt;</div>
+                  </div>
+                  <button id="copyBannerCode" class="p4-button secondary" type="button" data-ja="HTML をコピー" data-en="Copy HTML"></button>
+                  <span id="copyStatus" class="status"></span>
+                </div>
+              </div>
+
+              <hr style="border:0;border-top:1px solid var(--line);margin:18px 0;">
+
+              <form id="bannerForm">
+                <div class="two-col">
+                  <div class="field">
+                    <label for="siteName" data-ja="サイト名 *" data-en="Site name *"></label>
+                    <input id="siteName" maxlength="80" required>
+                  </div>
+                  <div class="field">
+                    <label for="ownerName" data-ja="管理人名（任意）" data-en="Owner name (optional)"></label>
+                    <input id="ownerName" maxlength="60">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="siteUrl" data-ja="サイト URL *" data-en="Site URL *"></label>
+                  <input id="siteUrl" type="url" maxlength="300" placeholder="https://" required>
+                </div>
+                <div class="field">
+                  <label for="bannerUrl" data-ja="バナー画像 URL *" data-en="Banner image URL *"></label>
+                  <input id="bannerUrl" type="url" maxlength="500" placeholder="https://.../banner.png" required>
+                </div>
+                <div class="field">
+                  <label for="bannerMessage" data-ja="ひとこと（任意）" data-en="Message (optional)"></label>
+                  <textarea id="bannerMessage" maxlength="500"></textarea>
+                </div>
+                <input class="hp-field" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <div class="submit-row">
+                  <button id="bannerSubmit" class="p4-button" type="submit" data-ja="交換を申し込む" data-en="Request Exchange"></button>
+                  <div id="bannerStatus" class="status" aria-live="polite"></div>
+                </div>
+              </form>
+            </div>
+
+            <details class="fold-box">
+              <summary class="fold-summary"><span data-ja="交換リンク" data-en="Exchange Links"></span></summary>
+              <div class="fold-body">
+                <div id="bannerList" class="banner-list"></div>
+              </div>
+            </details>
+          </div>
+        </details>
       </section>
     </main>
   </div>
@@ -1167,6 +1275,18 @@
       });
     });
 
+    const customColorPicker = document.getElementById("customColorPicker");
+    if (customColorPicker) {
+      customColorPicker.addEventListener("input", function () {
+        currentColor = customColorPicker.value;
+        erasing = false;
+        document.getElementById("eraserBtn").classList.remove("is-active");
+        document.querySelectorAll("[data-color]").forEach(function (b) {
+          b.classList.remove("is-active");
+        });
+      });
+    }
+
     document.querySelectorAll("[data-size]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         brushSize = Number(btn.dataset.size) || 5;
@@ -1305,6 +1425,14 @@
       }
     });
 
+    /* Open the collapsed banner section when a BANNER anchor is used. */
+    document.querySelectorAll('a[href="#banner"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        const details = document.getElementById("bannerDetails");
+        if (details) details.open = true;
+      });
+    });
+
     /* =========================================================
        TWO-STATE ANIMATED CUSTOM CURSOR
        Cursor #2 only on clickable links/buttons, not normal text/form fields.
@@ -1352,7 +1480,7 @@
       }
       function isSecondCursorTarget(element) {
         if (!(element instanceof Element)) return false;
-        return Boolean(element.closest('a, button, summary, [role="button"]'));
+        return Boolean(element.closest('a, button, summary, input[type="color"], [role="button"]'));
       }
       function updateFromPoint(x, y) {
         setMode(isSecondCursorTarget(document.elementFromPoint(x, y)) ? "second" : "normal");
