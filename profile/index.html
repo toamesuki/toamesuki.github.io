@@ -1,475 +1,411 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=1280">
-  <title>PROFILE / 朝霧 ROUTE</title>
-  <style>
-    :root{
-      --paper:#fffaf4;
-      --paper2:#f6eee6;
-      --ink:#2b292d;
-      --muted:#857c78;
-      --line:#d8c9bd;
-      --red:#7c2f38;
-      --red2:#b45f6a;
-      --yellow:#e2c36b;
-      --yellow2:#f0d987;
-      --dark:#29262c;
-      --dark2:#171419;
-      --blue:#71889b;
-      --shadow:rgba(50,37,35,.18);
-      --page-pattern:url("/assets/images/bg-page-v2.png");
-      --panel-pattern:url("/assets/images/bg-panel.png");
-    }
-
-    *{box-sizing:border-box}
-    html{min-width:1280px;scroll-behavior:smooth}
-    body{
-      margin:0;
-      min-width:1280px;
-      min-height:100vh;
-      color:var(--ink);
-      background:
-        var(--page-pattern),
-        radial-gradient(circle at 8% 8%,rgba(124,47,56,.18),transparent 27%),
-        linear-gradient(180deg,#f2ebe3 0%,#e9e0d7 100%);
-      background-repeat:repeat,no-repeat,no-repeat;
-      font-family:Georgia,"Times New Roman","Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
-    }
-    a{color:var(--red);text-decoration:none}
-    a:hover{color:var(--red2);text-decoration:underline}
-    button,input{font:inherit}
-
-    .page-shell{min-height:100vh;display:flex;flex-direction:column}
-    .top-ribbon{
-      height:38px;display:flex;align-items:center;justify-content:space-between;
-      padding:0 44px;background:var(--dark);color:#fffaf4;
-      font:10px/1.2 Verdana,Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
-      border-bottom:3px solid var(--yellow);
-    }
-    .top-ribbon a{color:#fffaf4}.top-ribbon a:hover{color:var(--yellow);text-decoration:none}
-
-    .profile-hero{
-      position:relative;min-height:230px;padding:46px 64px 34px;overflow:hidden;
-      background:
-        linear-gradient(90deg,rgba(15,12,15,.90),rgba(39,20,24,.70) 48%,rgba(124,47,56,.36)),
-        url("/assets/images/header-banner-v2.gif?v=2") center/cover no-repeat;
-      border-bottom:1px solid #0f0c0f;
-      color:#fffaf4;
-    }
-    .profile-hero::before{
-      content:"";position:absolute;inset:0;pointer-events:none;
-      background:
-        repeating-linear-gradient(0deg,rgba(255,255,255,.055) 0 1px,transparent 1px 6px),
-        linear-gradient(135deg,transparent 0 72%,rgba(226,195,107,.22) 72% 74%,transparent 74%);
-    }
-    .hero-copy{position:relative;z-index:1;width:760px}
-    .hero-kicker{font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.24em;color:var(--yellow)}
-    .hero-title{margin:10px 0 4px;font-size:60px;line-height:1;font-weight:normal;letter-spacing:.05em}
-    .hero-sub{max-width:680px;color:#ebdfd1;font-size:13px;line-height:1.7}
-
-    .section-nav{
-      position:sticky;top:0;z-index:25;height:45px;display:flex;align-items:center;justify-content:center;gap:4px;
-      background:rgba(35,31,37,.96);border-bottom:1px solid #151216;box-shadow:0 4px 14px rgba(0,0,0,.18)
-    }
-    .section-nav a{
-      padding:8px 16px;border-right:1px solid rgba(255,255,255,.12);color:#fff7eb;
-      font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
-    }
-    .section-nav a:last-child{border-right:0}.section-nav a:hover{color:var(--yellow);text-decoration:none}
-
-    .wrap{width:1184px;margin:0 auto;padding:34px 0 56px;flex:1}
-    .eyebrow{margin-bottom:8px;color:var(--muted);font:9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-    .block-title{margin:0 0 16px;color:var(--red);font-size:25px;font-weight:normal;letter-spacing:.05em}
-    .block-desc{margin:-7px 0 20px;color:var(--muted);font-size:12px;line-height:1.7}
-
-    /* OFFICIAL-LIKE CHARACTER SHOWCASE */
-    .showcase-window{
-      position:relative;overflow:hidden;border:1px solid #1b171a;background:#1f1b20;
-      box-shadow:0 14px 34px rgba(34,20,20,.22);margin-bottom:38px;
-    }
-    .showcase-window::before{
-      content:"CHARACTER FILE / ORIGINAL ROUTE";display:flex;align-items:center;height:30px;padding:0 12px;
-      background:linear-gradient(90deg,#1f1b20 0%,#7c2f38 55%,#d0a63f 100%);color:#fffaf4;
-      font:bold 9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.14em;
-    }
-    .character-switcher{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #40363a}
-    .character-tab{
-      border:0;border-right:1px solid #40363a;padding:10px 16px;background:#302b31;color:#d9ced0;
-      cursor:pointer;text-align:left;font:11px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.08em;
-    }
-    .character-tab:last-child{border-right:0}
-    .character-tab strong{display:block;color:#fffaf4;font-family:Georgia,"Yu Mincho",serif;font-size:18px;font-weight:normal}
-    .character-tab.is-active{background:linear-gradient(90deg,#7c2f38,#9b3d47);color:#fff}.character-tab.is-active::after{content:"  ◀ SELECTED";color:var(--yellow);font-size:8px}
-
-    .character-stage{
-      display:grid;grid-template-columns:470px minmax(0,1fr);min-height:650px;position:relative;
-      background:
-        radial-gradient(circle at 22% 42%,rgba(226,195,107,.22) 0 85px,transparent 86px),
-        linear-gradient(115deg,#130f12 0 35%,#5d1820 35% 62%,#251c21 62% 100%);
-    }
-    .character-stage::after{
-      content:"";position:absolute;left:0;right:0;bottom:0;height:100px;pointer-events:none;opacity:.18;
-      background:repeating-linear-gradient(135deg,var(--yellow) 0 11px,transparent 11px 28px);
-    }
-    .fullbody-zone{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:650px;padding:70px 42px 22px;overflow:hidden}
-    .fullbody-zone::before{
-      content:"";position:absolute;width:350px;height:350px;border:30px solid rgba(226,195,107,.13);border-radius:50%;top:110px;left:55px;
-      box-shadow:0 0 0 20px rgba(255,255,255,.035),0 0 0 55px rgba(124,47,56,.12)
-    }
-    .fullbody-image{position:relative;z-index:2;max-width:380px;max-height:570px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(0,0,0,.36))}
-    .missing-art{position:absolute;z-index:1;inset:115px 70px 66px;display:grid;place-items:center;border:1px dashed rgba(255,250,244,.25);color:rgba(255,250,244,.45);text-align:center;font:10px/1.8 Verdana,Tahoma,Arial,sans-serif}
-    .version-chip{position:absolute;z-index:4;left:20px;top:20px;max-width:330px;padding:8px 12px;background:#f4e0a0;color:#2c2427;border-left:5px solid var(--red);font:10px/1.5 Verdana,Tahoma,Arial,sans-serif;box-shadow:4px 4px 0 rgba(0,0,0,.16)}
-    .version-chip strong{display:block;font-size:12px;letter-spacing:.05em}
-    .carousel-arrow{
-      position:absolute;z-index:5;top:50%;transform:translateY(-50%);width:48px;height:48px;border:2px solid var(--yellow);border-radius:50%;
-      background:#262126;color:var(--yellow);cursor:pointer;font-size:22px;box-shadow:0 5px 10px rgba(0,0,0,.28)
-    }
-    .carousel-arrow:hover{background:var(--yellow);color:#211b1f}.carousel-arrow.prev{left:18px}.carousel-arrow.next{right:18px}
-    .version-counter{position:absolute;z-index:4;right:20px;bottom:18px;padding:5px 10px;background:rgba(18,15,18,.80);color:#fff6e6;font:9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.13em}
-
-    .character-info{position:relative;z-index:2;padding:54px 46px 44px;color:#fffaf4;background:linear-gradient(90deg,rgba(25,21,25,.34),rgba(25,21,25,.72))}
-    .char-role{color:var(--yellow);font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
-    .char-name-jp{margin:10px 0 0;font-size:48px;line-height:1;font-weight:normal}
-    .char-name-en{margin-top:7px;color:#cfbec0;font:11px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
-    .quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin:28px 0;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.16)}
-    .quick-item{padding:11px 13px;background:rgba(19,16,19,.78)}
-    .quick-item span{display:block;color:#a99b9d;font:8px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    .quick-item strong{display:block;margin-top:4px;color:#fff5e9;font-size:13px;font-weight:normal}
-    .char-summary{color:#e8ddda;font-size:13px;line-height:1.85}
-    .keyword-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:19px}.keyword{padding:6px 9px;border:1px solid rgba(226,195,107,.42);background:rgba(226,195,107,.08);color:#f0d987;font:9px Verdana,Tahoma,Arial,sans-serif}
-
-    /* WIKI CHARACTER FILES */
-    .wiki-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:38px}
-    .wiki-card{overflow:hidden;border:1px solid var(--line);background:rgba(255,250,244,.96);box-shadow:0 8px 18px rgba(50,37,35,.09)}
-    .wiki-head{padding:13px 16px;background:var(--dark);color:#fffaf4;border-bottom:4px solid var(--yellow)}
-    .wiki-head small{display:block;color:#cdbfc0;font:8px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-    .wiki-head strong{display:block;margin-top:3px;font-size:22px;font-weight:normal}
-    .wiki-body{padding:18px}
-    .wiki-row{display:grid;grid-template-columns:125px 1fr;border-bottom:1px solid #e5d9cf;padding:9px 0;font-size:12px;line-height:1.65}
-    .wiki-row:last-child{border-bottom:0}.wiki-label{color:var(--red);font-weight:bold}.wiki-text{color:#5f5855}
-    .bio-block{margin-top:15px;padding:15px;border:1px solid #e0d2c8;background:#fffdf9;font-size:12px;line-height:1.8;color:#615956}
-    .bio-block strong{color:var(--red)}
-
-    /* CARD/PANEL AREA */
-    .info-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
-    .info-card{min-height:190px;padding:17px;border:1px solid var(--line);background:rgba(255,253,249,.95);box-shadow:0 7px 16px rgba(50,37,35,.08)}
-    .info-card:nth-child(2){transform:translateY(10px)}
-    .info-card h3{margin:0 0 10px;color:var(--red);font-size:16px;font-weight:normal;border-bottom:1px solid var(--line);padding-bottom:8px}
-    .info-card p,.info-card li{font-size:11px;line-height:1.75;color:#68605d}.info-card ul{margin:0;padding-left:18px}
-
-    /* SHARED ROUTE */
-    .shared-zone{position:relative;margin-top:16px;padding:28px;border:1px solid #2a2126;background:linear-gradient(135deg,#211b20,#3c171e 58%,#20191d);color:#fffaf4;box-shadow:0 12px 26px rgba(37,20,24,.18)}
-    .shared-zone::before{content:"ADACHI TOHRU × ASAGIRI MIU";position:absolute;right:17px;top:13px;color:rgba(226,195,107,.28);font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.18em}
-    .shared-zone .block-title{color:#f2d982}.shared-zone .block-desc{color:#cdbfc0}
-    .relationship-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
-    .relationship-main,.relationship-side{border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.18);padding:18px}
-    .relationship-main h3,.relationship-side h3{margin:0 0 12px;color:var(--yellow);font-size:17px;font-weight:normal}
-    .relationship-main p,.relationship-side p,.relationship-side li{font-size:12px;line-height:1.8;color:#e7dcda}.relationship-side ul{margin:0;padding-left:18px}
-    .timeline{margin-top:16px;border-top:1px solid rgba(255,255,255,.15)}
-    .timeline-item{display:grid;grid-template-columns:115px 1fr;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.11)}
-    .timeline-item strong{color:#f0d987;font-size:11px}.timeline-item span{color:#e2d8d7;font-size:11px;line-height:1.7}
-
-    .route-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-    .route-link{padding:13px 14px;border:1px solid rgba(226,195,107,.38);background:rgba(226,195,107,.08);color:#fff6e9;font-size:11px}.route-link:hover{background:rgba(226,195,107,.17);color:#fff;text-decoration:none}
-
-    /* AU PLACEHOLDER */
-    .au-box{margin-top:38px;border:1px solid var(--line);background:rgba(255,250,244,.92)}
-    .au-box summary{list-style:none;cursor:pointer;padding:14px 16px;background:#eee3da;color:var(--red);font-size:13px;letter-spacing:.05em}
-    .au-box summary::-webkit-details-marker{display:none}.au-box summary::after{content:"＋";float:right;color:var(--muted)}.au-box[open] summary::after{content:"−"}
-    .au-inner{padding:18px;font-size:12px;line-height:1.8;color:#69615e}
-    .au-placeholder{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:13px}
-    .au-card{padding:14px;border:1px dashed #d0bfb4;background:#fffdf9;color:#8a7f79;min-height:92px}
-
-    .footer{margin-top:auto;padding:18px 20px 22px;border-top:1px solid var(--line);background:rgba(243,235,226,.92);color:var(--muted);text-align:center;font-size:10px}
-
-    /* custom cursor, same behavior as homepage */
-    #customCursor{display:none}
-    @media (hover:hover) and (pointer:fine){
-      body.custom-cursor-active,body.custom-cursor-active *{cursor:none!important}
-      #customCursor{position:fixed;left:0;top:0;width:48px;height:48px;display:none;object-fit:contain;pointer-events:none!important;user-select:none;z-index:2147483647;will-change:transform}
-      body.custom-cursor-active #customCursor{display:block}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>PROFILE / 朝霧 ROUTE</title>
+<style>
+  :root {
+    --ink:#231f24; --black:#171419; --wine:#571e29; --red:#8c3440;
+    --gold:#e5ca68; --gold-pale:#f2df9b; --cream:#fffaf2;
+    --paper:#f7f1e9; --line:#c8b9ae; --muted:#827774;
+    --page-pattern:url("/assets/images/bg-page-v2.png");
+  }
+  *{box-sizing:border-box}
+  html{min-width:1280px;scroll-behavior:smooth}
+  body{margin:0;min-width:1280px;min-height:100vh;min-height:100dvh;
+    color:var(--ink);background:var(--page-pattern) repeat, #f1e8dd;
+    font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif}
+  button,a{ -webkit-tap-highlight-color:transparent }
+  button{font:inherit} a{color:inherit;text-decoration:none}
+  a:hover{text-decoration:none} button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .page{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+  .system-bar{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 47px;
+    background:#211d22;color:#f4ede5;border-bottom:1px solid #6d3540;
+    font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.09em}
+  .system-bar .right{display:flex;gap:21px;align-items:center}
+  .system-bar a:hover{color:var(--gold)}
+  .masthead{position:relative;isolation:isolate;min-height:220px;overflow:hidden;display:flex;align-items:end;
+    background:linear-gradient(108deg,rgba(16,12,16,.98) 0%,rgba(40,19,26,.94) 46%,rgba(77,24,35,.87) 100%),
+    url("/assets/images/header-banner-v2.gif?v=2") center/cover no-repeat;
+    border-bottom:5px solid #211b1e;color:#fff8ed;padding:47px 68px 36px}
+  .masthead::before{content:"";position:absolute;z-index:-1;right:-30px;top:-220px;width:460px;height:650px;
+    transform:skewX(-23deg);background:linear-gradient(90deg,transparent,rgba(208,58,67,.19),rgba(236,207,111,.1),transparent)}
+  .masthead::after{content:"";position:absolute;right:0;bottom:0;width:45%;height:12px;
+    background:linear-gradient(90deg,transparent,var(--red) 25%,var(--gold) 65%,#f8e7b2)}
+  .masthead-label{font:10px Verdana,Tahoma,Arial,sans-serif;color:var(--gold);letter-spacing:.3em;text-transform:uppercase}
+  .masthead h1{font:normal 66px/1 Georgia,"Times New Roman",serif;letter-spacing:.07em;margin:12px 0 9px}
+  .masthead-sub{font-size:12px;line-height:1.7;color:#e0d6cf;letter-spacing:.025em}
+  .lang-switch{position:absolute;right:54px;top:23px;z-index:5;display:flex;gap:0;
+    border:1px solid rgba(229,202,104,.55);background:rgba(18,15,19,.86)}
+  .lang-btn{min-width:64px;padding:9px 12px;border:0;border-right:1px solid rgba(229,202,104,.35);
+    background:transparent;color:#f4e9df;cursor:pointer;font:11px Verdana,Tahoma,Arial,sans-serif}
+  .lang-btn:last-child{border-right:0}.lang-btn.is-active{background:var(--gold);color:var(--ink);font-weight:bold}
+  .section-nav{height:48px;position:sticky;top:0;z-index:30;display:flex;justify-content:center;align-items:stretch;
+    background:#232025;border-bottom:2px solid #6e2b35;box-shadow:0 4px 11px rgba(0,0,0,.18)}
+  .section-nav a{display:flex;align-items:center;padding:0 24px;border-left:1px solid rgba(255,255,255,.1);
+    font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.11em;color:#f0e7df;text-transform:uppercase}
+  .section-nav a:last-child{border-right:1px solid rgba(255,255,255,.1)}
+  .section-nav a:hover{color:var(--gold);background:#382730}
+  .container{width:1180px;margin:0 auto;padding:34px 0 66px;flex:1}
+  .section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:0 0 17px;padding:0 3px 10px;
+    border-bottom:1px solid rgba(66,41,44,.45)}
+  .heading-cap{font:9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.2em;color:var(--red);text-transform:uppercase}
+  .section-heading h2{font:normal 31px/1.1 Georgia,"Yu Mincho",serif;margin:6px 0 0;letter-spacing:.025em}
+  .heading-right{font:10px Verdana,Tahoma,Arial,sans-serif;color:#766d68;letter-spacing:.1em}
+  /* Showcase: clean color planes, transparent art at its full aspect ratio. No target/circle. */
+  .showcase{background:var(--black);border:1px solid #1c1519;box-shadow:0 14px 28px rgba(35,18,20,.2);margin-bottom:47px}
+  .char-tabs{display:grid;grid-template-columns:1fr 1fr;min-height:67px;background:#272229}
+  .char-tab{position:relative;cursor:pointer;text-align:left;padding:13px 27px;border:0;border-right:1px solid #49363c;
+    background:#29242a;color:#bcb2b2;transition:background .15s}
+  .char-tab:last-child{border-right:0}
+  .char-tab.is-active{background:var(--red);color:white}
+  .char-tab.is-active::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:4px;background:var(--gold)}
+  .char-tab .num{display:inline-block;margin-right:20px;font:10px Verdana,Tahoma,Arial,sans-serif;color:var(--gold)}
+  .char-tab .kanji{font-size:21px;letter-spacing:.1em}
+  .char-tab .roma{display:block;padding-left:39px;margin-top:3px;font:9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.17em}
+  .char-tab:not(.is-active):hover{background:#3f333a;color:#fffaf4}
+  .showcase-body{display:grid;grid-template-columns:minmax(0, 720px) minmax(0,1fr);min-height:800px}
+  .figure-col{position:relative;min-width:0;height:800px;overflow:hidden;
+    background:linear-gradient(126deg,#ede2c8 0%,#f6f0e1 33%,#f8f2e6 54%,#d5c1a5 100%)}
+  .figure-col::before{content:"";position:absolute;inset:0;background:linear-gradient(148deg,rgba(120,40,52,.06) 0 35%,transparent 35%),
+    linear-gradient(116deg,transparent 0 75%,rgba(122,38,49,.08) 75%);pointer-events:none}
+  .figure-col::after{content:"";position:absolute;inset:auto 0 0;height:9px;
+    background:linear-gradient(90deg,#21191c 0 47%,#a33c45 47% 78%,var(--gold) 78% 100%);pointer-events:none}
+  .figure-side-index{position:absolute;z-index:2;top:24px;left:30px;font:9px Verdana,Tahoma,Arial,sans-serif;
+    letter-spacing:.19em;color:#5d4d45;text-transform:uppercase}
+  .figure-back-letter{position:absolute;top:105px;left:30px;right:20px;text-align:center;pointer-events:none;
+    font:normal 180px/1 Georgia,serif;color:rgba(140,70,65,.05);letter-spacing:-.05em;white-space:nowrap;overflow:hidden}
+  .art-holder{position:absolute;inset:54px 76px 83px;display:flex;align-items:flex-end;justify-content:center}
+  #characterArt{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center bottom;
+    position:relative;z-index:2;filter:drop-shadow(7px 10px 5px rgba(43,25,25,.14))}
+  .art-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    padding:40px 85px;text-align:center;color:#93887c}
+  .art-empty::before{content:"";position:absolute;inset:16px 0;border:1px solid rgba(99,74,67,.23)}
+  .art-empty strong{font:normal 31px Georgia,serif;letter-spacing:.12em;color:#7b6d64}
+  .art-empty small{font:10px/1.8 Verdana,Tahoma,Arial,sans-serif;letter-spacing:.06em;margin-top:13px}
+  .art-empty code{font:10px/1.7 Consolas,"Courier New",monospace;margin-top:12px;overflow-wrap:anywhere}
+  .art-btn{position:absolute;z-index:7;top:52%;transform:translateY(-50%);width:47px;height:71px;
+    border:1px solid #8c7b68;background:rgba(255,248,231,.93);color:#4b3538;font:normal 28px Georgia,serif;
+    cursor:pointer;box-shadow:3px 4px 0 rgba(54,37,34,.10)}
+  .art-btn:hover{background:var(--gold)}.art-prev{left:15px}.art-next{right:15px}
+  .version-bar{position:absolute;z-index:4;left:0;right:0;bottom:9px;height:74px;padding:16px 29px;
+    background:rgba(34,28,33,.94);color:#fff9ef;display:flex;justify-content:space-between;gap:15px;align-items:center}
+  .version-bar .version-title{display:block;font:normal 18px Georgia,"Yu Mincho",serif;letter-spacing:.025em}
+  .version-bar .version-note{display:block;font:10px/1.5 Verdana,Tahoma,Arial,sans-serif;color:#d5c3b6;margin-top:4px}
+  .version-count{white-space:nowrap;font:11px Verdana,Tahoma,Arial,sans-serif;color:var(--gold);letter-spacing:.15em}
+  .figure-info{position:relative;min-width:0;padding:69px 44px 41px 38px;
+    background:linear-gradient(153deg,#251f25 0%,#33202a 50%,#211b21 100%);color:#fff9ef}
+  .figure-info::before{content:"";position:absolute;top:0;left:0;right:0;height:10px;
+    background:linear-gradient(90deg,var(--red) 0 68%,var(--gold) 68% 100%)}
+  .figure-info .file-number{color:var(--gold);font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.23em}
+  .figure-info h3{margin:30px 0 9px;font:normal 48px/1.05 Georgia,"Yu Mincho",serif;letter-spacing:.055em}
+  .romanized{font:12px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.2em;color:#d8c7c1}
+  .info-rule{height:1px;margin:27px 0 18px;background:linear-gradient(90deg,var(--gold),rgba(255,255,255,.1))}
+  .fact-row{display:grid;grid-template-columns:112px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.13)}
+  .fact-label{font:10px Verdana,Tahoma,Arial,sans-serif;color:#d4bcae;letter-spacing:.12em;text-transform:uppercase}
+  .fact-value{font:14px Georgia,"Yu Mincho",serif;color:#fff8eb}
+  .figure-description{min-height:92px;margin-top:35px;font-size:13px;line-height:1.95;color:#e8dcd8;white-space:pre-line}
+  .figure-description:empty{display:none}
+  .figure-info .linework{position:absolute;bottom:19px;right:27px;font:9px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.15em;color:#a88f85}
+  /* Separated character files, closer to editorial wiki reference than a wall of tags. */
+  .profile-files{margin-bottom:48px}
+  .files-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .file-card{background:#fbf8f2;border:1px solid #b5a298;box-shadow:3px 4px 0 rgba(52,30,30,.10)}
+  .file-top{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 19px;
+    background:#292329;color:#fffcf5;border-bottom:4px solid var(--gold)}
+  .file-top strong{font:normal 19px Georgia,"Yu Mincho",serif;letter-spacing:.07em}
+  .file-top span{font:9px Verdana,Tahoma,Arial,sans-serif;color:#d5c6c3;letter-spacing:.16em}
+  .file-upper{display:grid;grid-template-columns:148px 1fr;gap:18px;padding:20px 22px 12px}
+  .portrait-slot{height:176px;border:1px solid #c9b8aa;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#f2e6d6,#d3c0b5);position:relative;overflow:hidden}
+  .portrait-slot img{width:100%;height:100%;object-fit:contain}
+  .portrait-placeholder{padding:8px;font:10px Verdana,Tahoma,Arial,sans-serif;color:#776961;text-align:center;letter-spacing:.12em}
+  .file-quick{min-width:0}.file-name-en{font:10px Verdana,Tahoma,Arial,sans-serif;color:#8b6f68;letter-spacing:.12em;margin-bottom:13px}
+  .file-field{display:grid;grid-template-columns:84px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid #e2d8cf;font-size:12px}
+  .file-field span{color:#8b6d6b}.file-field strong{font-weight:normal;color:#3c3032}
+  .file-sections{padding:2px 22px 19px}
+  .file-section{padding:14px 0;border-top:1px solid #d9cbbf}
+  .file-section h4{margin:0 0 8px;font:normal 17px Georgia,"Yu Mincho",serif;color:#73313a}
+  .file-section p{margin:0;font-size:12px;line-height:1.9;color:#57504f;white-space:pre-line;min-height:19px}
+  .file-section p.is-empty{color:#aaa099;font-style:italic}
+  /* Extra notes/picture cards: optional image slots, not invented character facts. */
+  .notes-area{margin-bottom:52px}
+  .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .detail-card{background:#faf5ee;border:1px solid #bfb0a3;min-height:315px;overflow:hidden}
+  .detail-picture{height:220px;position:relative;background:linear-gradient(140deg,#e2d5c7,#f6efe6 55%,#d3b4a5);
+    border-bottom:1px solid #bdb0a5;display:flex;align-items:center;justify-content:center}
+  .detail-picture img{width:100%;height:100%;object-fit:contain;display:block}
+  .detail-picture .detail-empty{position:absolute;color:#8c7b75;font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.09em}
+  .detail-card-foot{padding:14px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .detail-card-foot strong{font:normal 16px Georgia,"Yu Mincho",serif;color:#57242c}
+  .detail-card-foot small{font:9px Verdana,Tahoma,Arial,sans-serif;color:#897b74}
+  /* Relationship material intentionally kept separate from character facts. */
+  .relationship-area{margin-bottom:42px}
+  .shared-banner{position:relative;min-height:180px;padding:34px 38px 31px;overflow:hidden;color:#fffaf3;
+    background:linear-gradient(112deg,rgba(22,17,22,.97),rgba(82,27,39,.95) 65%,rgba(38,25,29,.96));border-bottom:8px solid var(--gold)}
+  .shared-banner::after{content:"";position:absolute;right:22px;top:0;height:100%;width:170px;
+    transform:skewX(-24deg);border-left:25px solid rgba(230,198,102,.24);border-right:43px solid rgba(255,255,255,.07)}
+  .shared-banner .eyebrow{color:var(--gold);font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.25em}
+  .shared-banner h2{margin:13px 0 10px;font:normal 41px Georgia,"Yu Mincho",serif}
+  .shared-banner p{margin:0;font:11px/1.65 Verdana,Tahoma,Arial,sans-serif;color:#d7c9c6;max-width:750px}
+  .shared-content{background:#faf5ef;border:1px solid #b7a69d;border-top:0;padding:26px}
+  .shared-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
+  .shared-art{height:296px;background:linear-gradient(130deg,#e8d8c6,#f6efe5);border:1px solid #cbb9aa;
+    display:grid;place-items:center;overflow:hidden;position:relative}
+  .shared-art img{height:100%;width:100%;object-fit:contain;display:block}
+  .shared-art .detail-empty{color:#9b897f;font:10px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.15em}
+  .shared-copy h3{font:normal 22px Georgia,"Yu Mincho",serif;color:#6d2b36;margin:0 0 10px}
+  .shared-copy p{margin:0 0 16px;font-size:12px;line-height:1.9;color:#5f5551;white-space:pre-line;min-height:90px}
+  .shared-copy .placeholder{color:#a69c96;font-style:italic}
+  .story-index{margin-top:21px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .story-card{display:block;padding:17px 15px;border:1px solid #d1c3b8;background:#fffdfa;min-height:88px}
+  .story-card strong{display:block;color:#72313b;font:normal 16px Georgia,"Yu Mincho",serif;margin-bottom:6px}
+  .story-card small{font:10px Verdana,Tahoma,Arial,sans-serif;color:#81746e}
+  .story-card:hover{border-color:#925565;background:#fff5eb}
+  .au-box{background:rgba(250,245,238,.98);border:1px solid #b9aa9f;margin-bottom:0}
+  .au-box summary{list-style:none;cursor:pointer;background:#e5ddd4;padding:17px 22px;color:#57323b;
+    font:12px Verdana,Tahoma,Arial,sans-serif;letter-spacing:.08em;display:flex;justify-content:space-between}
+  .au-box summary::-webkit-details-marker{display:none}.au-box summary::after{content:"+";font-size:17px}
+  .au-box[open] summary::after{content:"−"}
+  .au-body{padding:20px 22px;font:12px/1.75 Verdana,Tahoma,Arial,sans-serif;color:#756c69}
+  .footer{margin-top:auto;padding:19px 24px;background:#f0e8dc;border-top:1px solid #bfa99f;text-align:center;
+    color:#7b6f6c;font:10px/1.6 Verdana,Tahoma,Arial,sans-serif}
+  #customCursor{display:none}
+  @media (hover:hover) and (pointer:fine){
+    body.custom-cursor-active,body.custom-cursor-active *{cursor:none!important}
+    #customCursor{position:fixed;top:0;left:0;display:none;width:48px;height:48px;object-fit:contain;
+      z-index:2147483647;pointer-events:none!important;user-select:none;will-change:transform}
+    body.custom-cursor-active #customCursor{display:block}
+  }
+</style>
 </head>
 <body>
-<div class="page-shell">
-  <div class="top-ribbon">
-    <div>朝霧 ROUTE / profile archive</div>
-    <div><a href="/">home</a> · <a href="/image/">gallery</a> · <a href="/text/">text</a> · <a href="/channel/">guestbook</a></div>
+<div class="page">
+  <div class="system-bar">
+    <div>朝霧 ROUTE <span style="opacity:.46;padding:0 9px">/</span> <span data-ja="人物資料" data-en="CHARACTER ARCHIVE"></span></div>
+    <div class="right"><a href="/" data-ja="ホーム" data-en="HOME"></a><a href="/image/" data-ja="イラスト" data-en="GALLERY"></a><a href="/text/" data-ja="文章" data-en="WRITING"></a><a href="/channel/" data-ja="足あと帳" data-en="GUESTBOOK"></a></div>
   </div>
-
-  <header class="profile-hero">
-    <div class="hero-copy">
-      <div class="hero-kicker">CHARACTER ARCHIVE / ORIGINAL ROUTE</div>
-      <h1 class="hero-title">PROFILE</h1>
-      <div class="hero-sub">朝霧 ROUTEの人物紹介・基本設定・関係性まとめ。上部はキャラクター単体のプロフィール、下部は足立透と朝霧美雨の共有ルート・関係性・ストーリーをまとめています。</div>
+  <header class="masthead">
+    <div>
+      <div class="masthead-label">朝霧 ROUTE / CHARACTER ARCHIVE</div>
+      <h1>PROFILE</h1>
+      <div class="masthead-sub" data-ja="人物紹介と資料。個別プロフィールのあとに、二人の関係性と物語をまとめています。" data-en="Character profiles and visual references, followed by their shared story."></div>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button class="lang-btn is-active" type="button" data-lang-btn="ja">日本語</button>
+      <button class="lang-btn" type="button" data-lang-btn="en">EN</button>
     </div>
   </header>
-
-  <nav class="section-nav">
-    <a href="#showcase">character showcase</a>
-    <a href="#files">character files</a>
-    <a href="#notes">profile notes</a>
-    <a href="#relationship">relationship</a>
-    <a href="#aus">AU / parallel</a>
+  <nav class="section-nav" aria-label="Profile navigation">
+    <a href="#characters" data-ja="キャラクター" data-en="CHARACTERS"></a>
+    <a href="#files" data-ja="人物資料" data-en="CHARACTER FILES"></a>
+    <a href="#visuals" data-ja="資料画像" data-en="VISUAL REFERENCES"></a>
+    <a href="#relationship" data-ja="二人の物語" data-en="SHARED STORY"></a>
+    <a href="#parallel" data-ja="AU・パラレル" data-en="AU / PARALLEL"></a>
   </nav>
-
-  <main class="wrap">
-    <section id="showcase">
-      <div class="eyebrow">official-style introduction</div>
-      <h2 class="block-title">character showcase</h2>
-      <p class="block-desc">人物を切り替え、左右の矢印で衣装・時期・差分を閲覧できます。画像ファイルは後から差し替え可能です。</p>
-
-      <div class="showcase-window">
-        <div class="character-switcher">
-          <button class="character-tab is-active" type="button" data-character="miu"><strong>朝霧美雨</strong>ASAGIRI MIU</button>
-          <button class="character-tab" type="button" data-character="adachi"><strong>足立透</strong>ADACHI TOHRU</button>
+  <main class="container">
+    <section id="characters">
+      <div class="section-heading">
+        <div><div class="heading-cap">01 — MAIN CHARACTER VIEW</div><h2 data-ja="キャラクター" data-en="Characters"></h2></div>
+        <div class="heading-right" data-ja="左右の矢印で画像切り替え" data-en="Use arrows to change reference artwork"></div>
+      </div>
+      <div class="showcase">
+        <div class="char-tabs">
+          <button type="button" class="char-tab is-active" data-character="miu" aria-pressed="true"><span class="num">01</span><span class="kanji">朝霧美雨</span><span class="roma">ASAGIRI MIU</span></button>
+          <button type="button" class="char-tab" data-character="adachi" aria-pressed="false"><span class="num">02</span><span class="kanji">足立透</span><span class="roma">ADACHI TOHRU</span></button>
         </div>
-
-        <div class="character-stage">
-          <div class="fullbody-zone">
-            <div class="version-chip"><strong id="versionTitle">Original / School Uniform</strong><span id="versionNote">Main profile reference.</span></div>
-            <button class="carousel-arrow prev" id="prevVersion" type="button" aria-label="previous version">◀</button>
-            <div class="missing-art" id="missingArt">UPLOAD CHARACTER ART<br><span id="missingFilename">/assets/images/profile/miu-main.png</span></div>
-            <img id="fullbodyImage" class="fullbody-image" src="/assets/images/profile/miu-main.png" alt="character full body">
-            <button class="carousel-arrow next" id="nextVersion" type="button" aria-label="next version">▶</button>
-            <div class="version-counter" id="versionCounter">01 / 03</div>
+        <div class="showcase-body">
+          <div class="figure-col">
+            <div class="figure-side-index" id="figureIndex">CHARACTER / 01</div>
+            <div class="figure-back-letter" id="figureLetter">01</div>
+            <div class="art-holder">
+              <div class="art-empty" id="artEmpty">
+                <strong data-ja="画像準備中" data-en="ARTWORK PENDING"></strong>
+                <small data-ja="全身イラストをここに配置できます" data-en="Full-body illustration goes here"></small>
+                <code id="artFilePath"></code>
+              </div>
+              <img id="characterArt" alt="" decoding="async">
+            </div>
+            <button id="prevArt" class="art-btn art-prev" aria-label="Previous illustration" type="button">‹</button>
+            <button id="nextArt" class="art-btn art-next" aria-label="Next illustration" type="button">›</button>
+            <div class="version-bar">
+              <div><span class="version-title" id="versionTitle">REFERENCE 01</span><span class="version-note" id="versionNote"></span></div>
+              <div class="version-count" id="versionCounter">01 / 03</div>
+            </div>
           </div>
-
-          <div class="character-info">
-            <div class="char-role" id="charRole">ORIGINAL ROUTE / YASOGAMI HIGH</div>
-            <h2 class="char-name-jp" id="charNameJp">朝霧美雨</h2>
-            <div class="char-name-en" id="charNameEn">ASAGIRI MIU</div>
-            <div class="quick-grid" id="quickGrid"></div>
-            <div class="char-summary" id="charSummary"></div>
-            <div class="keyword-row" id="keywordRow"></div>
+          <div class="figure-info">
+            <div class="file-number" id="fileNumber">CHARACTER FILE / 01</div>
+            <h3 id="charName">朝霧美雨</h3>
+            <div class="romanized" id="charRoman">ASAGIRI MIU</div>
+            <div class="info-rule"></div>
+            <div class="fact-row"><span class="fact-label" data-ja="誕生日" data-en="DATE OF BIRTH"></span><strong class="fact-value" id="charDob">—</strong></div>
+            <div class="fact-row"><span class="fact-label" data-ja="身長" data-en="HEIGHT"></span><strong class="fact-value" id="charHeight">143 cm</strong></div>
+            <p class="figure-description" id="charDescription"></p>
+            <div class="linework">ASAGIRI ROUTE / PROFILE INDEX</div>
           </div>
         </div>
       </div>
     </section>
-
-    <section id="files">
-      <div class="eyebrow">individual wiki files</div>
-      <h2 class="block-title">character files</h2>
-      <p class="block-desc">ここは二人を混ぜず、人物単体の設定・背景・性格を整理する場所です。</p>
-
-      <div class="wiki-grid">
-        <article class="wiki-card">
-          <div class="wiki-head"><small>FILE 01 / ORIGINAL ROUTE</small><strong>朝霧美雨</strong></div>
-          <div class="wiki-body">
-            <div class="wiki-row"><div class="wiki-label">Name</div><div class="wiki-text">朝霧美雨 / Asagiri Miu</div></div>
-            <div class="wiki-row"><div class="wiki-label">Age</div><div class="wiki-text">18</div></div>
-            <div class="wiki-row"><div class="wiki-label">School</div><div class="wiki-text">八十神高校・3年</div></div>
-            <div class="wiki-row"><div class="wiki-label">Height</div><div class="wiki-text">143–145 cm</div></div>
-            <div class="wiki-row"><div class="wiki-label">Appearance</div><div class="wiki-text">Long black hair in low pigtails, small/doll-like appearance.</div></div>
-            <div class="wiki-row"><div class="wiki-label">Likes</div><div class="wiki-text">Horror VNs, pudding, milk, matcha milk/latte, staying indoors.</div></div>
-            <div class="wiki-row"><div class="wiki-label">Speech</div><div class="wiki-text">Soft, slow, sometimes refers to herself as “Miu.”</div></div>
-            <div class="bio-block"><strong>Summary.</strong> Gloomy, quiet, lazy, emotionally driven and slightly odd. Socially awkward rather than cold; her expressions and reactions are usually understated.</div>
+    <section id="files" class="profile-files">
+      <div class="section-heading"><div><div class="heading-cap">02 — INDIVIDUAL RECORDS</div><h2 data-ja="人物資料" data-en="Character files"></h2></div><div class="heading-right">01 / 02</div></div>
+      <div class="files-grid">
+        <article class="file-card">
+          <div class="file-top"><strong>朝霧美雨</strong><span>FILE NO.01</span></div>
+          <div class="file-upper">
+            <div class="portrait-slot"><img src="/assets/images/profile/miu-portrait.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="portrait-placeholder" data-ja="ポートレート" data-en="PORTRAIT"></span></div>
+            <div class="file-quick"><div class="file-name-en">ASAGIRI MIU</div><div class="file-field"><span data-ja="名前" data-en="Name"></span><strong>朝霧美雨</strong></div><div class="file-field"><span data-ja="誕生日" data-en="DOB"></span><strong>—</strong></div><div class="file-field"><span data-ja="身長" data-en="Height"></span><strong>143 cm</strong></div></div>
+          </div>
+          <div class="file-sections">
+            <div class="file-section"><h4 data-ja="外見" data-en="Appearance"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
+            <div class="file-section"><h4 data-ja="性格" data-en="Personality"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
+            <div class="file-section"><h4 data-ja="背景" data-en="Background"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
           </div>
         </article>
-
-        <article class="wiki-card">
-          <div class="wiki-head"><small>FILE 02 / PERSONA 4</small><strong>足立透</strong></div>
-          <div class="wiki-body">
-            <div class="wiki-row"><div class="wiki-label">Name</div><div class="wiki-text">足立透 / Adachi Tohru</div></div>
-            <div class="wiki-row"><div class="wiki-label">Age</div><div class="wiki-text">27–28</div></div>
-            <div class="wiki-row"><div class="wiki-label">Occupation</div><div class="wiki-text">Detective / Inaba police department</div></div>
-            <div class="wiki-row"><div class="wiki-label">Height</div><div class="wiki-text">173 cm</div></div>
-            <div class="wiki-row"><div class="wiki-label">Public face</div><div class="wiki-text">Loose, unserious, seemingly incompetent and easygoing.</div></div>
-            <div class="wiki-row"><div class="wiki-label">Private traits</div><div class="wiki-text">Cynical, lonely, resentful, avoidant, capable of jealousy and possessiveness.</div></div>
-            <div class="wiki-row"><div class="wiki-label">Route tone</div><div class="wiki-text">Keep his rougher psychology intact; affection does not make him uniformly gentle.</div></div>
-            <div class="bio-block"><strong>Summary.</strong> The profile section keeps his individual characterization separate from the relationship archive below, so the route can show both his canon-rooted personality and how it changes around Miu.</div>
+        <article class="file-card">
+          <div class="file-top"><strong>足立透</strong><span>FILE NO.02</span></div>
+          <div class="file-upper">
+            <div class="portrait-slot"><img src="/assets/images/profile/adachi-portrait.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="portrait-placeholder" data-ja="ポートレート" data-en="PORTRAIT"></span></div>
+            <div class="file-quick"><div class="file-name-en">ADACHI TOHRU</div><div class="file-field"><span data-ja="名前" data-en="Name"></span><strong>足立透</strong></div><div class="file-field"><span data-ja="誕生日" data-en="DOB"></span><strong>—</strong></div><div class="file-field"><span data-ja="身長" data-en="Height"></span><strong>173 cm</strong></div></div>
+          </div>
+          <div class="file-sections">
+            <div class="file-section"><h4 data-ja="外見" data-en="Appearance"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
+            <div class="file-section"><h4 data-ja="性格" data-en="Personality"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
+            <div class="file-section"><h4 data-ja="背景" data-en="Background"></h4><p class="is-empty" data-ja="—" data-en="—"></p></div>
           </div>
         </article>
       </div>
     </section>
-
-    <section id="notes">
-      <div class="eyebrow">compact reference cards</div>
-      <h2 class="block-title">profile notes</h2>
-      <div class="info-card-grid">
-        <article class="info-card"><h3>Miu / appearance</h3><ul><li>Black hair, low pigtails.</li><li>Small build and doll-like impression.</li><li>Soft/gloomy rather than overtly fashionable.</li><li>Use this card for outfit notes and visual references.</li></ul></article>
-        <article class="info-card"><h3>Miu / habits</h3><ul><li>Indoor hobbies; little interest in exercise.</li><li>Likes horror VNs and twisted romance.</li><li>Small appetite; likes pudding.</li><li>Milk and matcha drinks; dislikes coffee.</li></ul></article>
-        <article class="info-card"><h3>Adachi / route handling</h3><ul><li>Not too polished or gentlemanly.</li><li>Self-flattering jokes used sparingly.</li><li>Fluster is rare and earned.</li><li>Jealousy/possessiveness can remain present.</li></ul></article>
+    <section id="visuals" class="notes-area">
+      <div class="section-heading"><div><div class="heading-cap">03 — IMAGE INDEX</div><h2 data-ja="資料画像" data-en="Visual references"></h2></div></div>
+      <div class="detail-grid">
+        <div class="detail-card"><div class="detail-picture"><img src="/assets/images/profile/reference-01.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="detail-empty" data-ja="資料画像 01" data-en="REFERENCE 01"></span></div><div class="detail-card-foot"><strong data-ja="資料 01" data-en="Reference 01"></strong><small>01 / 03</small></div></div>
+        <div class="detail-card"><div class="detail-picture"><img src="/assets/images/profile/reference-02.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="detail-empty" data-ja="資料画像 02" data-en="REFERENCE 02"></span></div><div class="detail-card-foot"><strong data-ja="資料 02" data-en="Reference 02"></strong><small>02 / 03</small></div></div>
+        <div class="detail-card"><div class="detail-picture"><img src="/assets/images/profile/reference-03.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="detail-empty" data-ja="資料画像 03" data-en="REFERENCE 03"></span></div><div class="detail-card-foot"><strong data-ja="資料 03" data-en="Reference 03"></strong><small>03 / 03</small></div></div>
       </div>
     </section>
-
-    <section id="relationship" class="shared-zone">
-      <div class="eyebrow">shared material / both characters</div>
-      <h2 class="block-title">relationship & route story</h2>
-      <p class="block-desc">ここから先は人物単体ではなく、二人の関係性・時系列・共有シーン・ルートの変化をまとめるエリアです。</p>
-
-      <div class="relationship-grid">
-        <div class="relationship-main">
-          <h3>Relationship overview</h3>
-          <p>Original routeの中心は、孤独や諦めを抱えた足立と、静かで不器用ながら一度決めた相手から簡単には離れない美雨の関係。日常の小さな接触から始まり、秘密の交際、事件による断絶、そしてその後の再構築へ続く。</p>
-          <div class="timeline">
-            <div class="timeline-item"><strong>01 / neighbor</strong><span>引っ越し・近所付き合い・小さな日常から接点が増える。</span></div>
-            <div class="timeline-item"><strong>02 / attachment</strong><span>美雨の好意が先に明確になり、足立は距離を取ろうとしながらも依存を深める。</span></div>
-            <div class="timeline-item"><strong>03 / secret route</strong><span>人目を避けた交際。公では「美雨ちゃん / 足立さん」、私では「Tohru」。</span></div>
-            <div class="timeline-item"><strong>04 / fracture</strong><span>事件・真相・逮捕によって関係が崩れ、待つ側と戻る側の時間が生まれる。</span></div>
-            <div class="timeline-item"><strong>05 / restart</strong><span>刑期後の生活再建。足立側からの執着・甘え・生活への入り込みがより強くなる。</span></div>
-          </div>
+    <section id="relationship" class="relationship-area">
+      <div class="shared-banner"><div class="eyebrow">ADACHI TOHRU × ASAGIRI MIU</div><h2 data-ja="二人の物語" data-en="Shared story"></h2><p data-ja="人物紹介とは別に、二人に関わる資料と物語をまとめるエリア。" data-en="A separate space for the material and stories that involve both characters."></p></div>
+      <div class="shared-content">
+        <div class="shared-grid">
+          <div class="shared-art"><img src="/assets/images/profile/couple-main.png" alt="" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="detail-empty" data-ja="二人のイラスト" data-en="COUPLE ARTWORK"></span></div>
+          <div class="shared-copy"><h3 data-ja="関係性" data-en="Relationship"></h3><p class="placeholder">—</p><h3 data-ja="物語の流れ" data-en="Story overview"></h3><p class="placeholder">—</p></div>
         </div>
-        <aside class="relationship-side">
-          <h3>Core dynamic</h3>
-          <ul>
-            <li>Miu crushes first; later Adachi becomes the more active pursuer.</li>
-            <li>Quiet domesticity mixed with unease, secrecy, jealousy, and black humor.</li>
-            <li>Miu is not constantly bashful; she can be flat, stubborn, odd, or oblivious.</li>
-            <li>Adachi stays psychologically messy rather than becoming cleanly romantic.</li>
-          </ul>
-        </aside>
-      </div>
-
-      <div class="route-links">
-        <a class="route-link" href="/text/">→ detailed writing / scenes</a>
-        <a class="route-link" href="/image/">→ couple art / visual archive</a>
-        <a class="route-link" href="/diary/">→ route notes / development log</a>
+        <div class="story-index">
+          <a class="story-card" href="/text/"><strong data-ja="文章・シーン" data-en="Writing & scenes"></strong><small>TEXT ARCHIVE ↗</small></a>
+          <a class="story-card" href="/image/"><strong data-ja="イラスト" data-en="Illustrations"></strong><small>GALLERY ↗</small></a>
+          <a class="story-card" href="/diary/"><strong data-ja="メモ・記録" data-en="Notes & records"></strong><small>DIARY ↗</small></a>
+        </div>
       </div>
     </section>
-
-    <section id="aus">
-      <details class="au-box">
-        <summary>AU / Parallel Versions — later expansion</summary>
-        <div class="au-inner">
-          For now, `/profile/` stays focused on the original route. When you have enough material, each substantial AU can get its own page (for example `/profile/au/idol/`), while smaller variations can remain as cards here. This avoids duplicating the entire profile page too early.
-          <div class="au-placeholder">
-            <div class="au-card">AU card slot<br>Different appearance / role / relationship premise.</div>
-            <div class="au-card">AU card slot<br>Can later link to a dedicated AU profile page.</div>
-            <div class="au-card">Parallel card slot<br>Use only when there is enough material to justify it.</div>
-          </div>
-        </div>
-      </details>
+    <section id="parallel">
+      <details class="au-box"><summary><span data-ja="AU・パラレル" data-en="AU / Parallel versions"></span></summary><div class="au-body" data-ja="このエリアは後から追加できます。現在のページはオリジナルの人物資料を中心にしています。" data-en="This area can be expanded later. The current page focuses on the original character profiles."></div></details>
     </section>
   </main>
-
   <footer class="footer">朝霧 ROUTE © personal dream / OC archive. Do not repost, copy, trace, edit, redistribute, or use for AI training.</footer>
 </div>
-
 <img id="customCursor" src="/assets/images/cursor-normal.gif" alt="" aria-hidden="true" draggable="false">
-
 <script>
+  /* All character facts and version labels live in this small, editable data block.
+     Empty DOB fields and description fields are intentional. */
   const characterData = {
     miu: {
-      role: "ORIGINAL ROUTE / YASOGAMI HIGH",
-      nameJp: "朝霧美雨",
-      nameEn: "ASAGIRI MIU",
-      quick: [
-        ["AGE", "18"],
-        ["HEIGHT", "143–145 cm"],
-        ["YEAR", "3rd year"],
-        ["SETTING", "Inaba / 2010–2012"]
-      ],
-      summary: "静かで陰気、柔らかい雰囲気の少女。人付き合いは不得意だが、感情そのものは薄くない。怠惰でインドア、少し子供っぽく変わったところがあり、一度信頼した相手には驚くほど頑固に残り続ける。",
-      keywords: ["gloomy", "soft", "lazy", "horror VN", "pudding", "indoor"],
+      name: '朝霧美雨', roman: 'ASAGIRI MIU', height: '143 cm', dob: '—',
+      description: {ja:'', en:''},
       versions: [
-        { title: "Original / School Uniform", note: "Main profile reference.", src: "/assets/images/profile/miu-main.png" },
-        { title: "Original / Casual", note: "Use for everyday/private scenes.", src: "/assets/images/profile/miu-casual.png" },
-        { title: "Original / Alternate Outfit", note: "Optional extra reference slot.", src: "/assets/images/profile/miu-alt.png" }
+        {src:'/assets/images/profile/miu-main.png', title:{ja:'資料 01',en:'Reference 01'},note:{ja:'',en:''}},
+        {src:'/assets/images/profile/miu-casual.png', title:{ja:'資料 02',en:'Reference 02'},note:{ja:'',en:''}},
+        {src:'/assets/images/profile/miu-alt.png', title:{ja:'資料 03',en:'Reference 03'},note:{ja:'',en:''}}
       ]
     },
     adachi: {
-      role: "ORIGINAL ROUTE / INABA POLICE",
-      nameJp: "足立透",
-      nameEn: "ADACHI TOHRU",
-      quick: [
-        ["AGE", "27–28"],
-        ["HEIGHT", "173 cm"],
-        ["ROLE", "Detective"],
-        ["SETTING", "Inaba"]
-      ],
-      summary: "表向きは軽く、頼りなく、ふざけた態度を取りやすい刑事。内面には強い孤独、倦怠、嫉妬、自己防衛を抱える。美雨とのルートでもその粗さや逃避癖は消えず、関係が深まるほど執着と依存が目立つようになる。",
-      keywords: ["detective", "cynical", "avoidant", "jealous", "possessive", "lonely"],
+      name: '足立透', roman: 'ADACHI TOHRU', height: '173 cm', dob: '—',
+      description: {ja:'', en:''},
       versions: [
-        { title: "Original / Detective", note: "Main route reference.", src: "/assets/images/profile/adachi-main.png" },
-        { title: "Original / Suit", note: "Alternate work reference.", src: "/assets/images/profile/adachi-suit.png" },
-        { title: "Original / Casual", note: "Private / off-duty reference.", src: "/assets/images/profile/adachi-casual.png" }
+        {src:'/assets/images/profile/adachi-main.png', title:{ja:'資料 01',en:'Reference 01'},note:{ja:'',en:''}},
+        {src:'/assets/images/profile/adachi-suit.png', title:{ja:'資料 02',en:'Reference 02'},note:{ja:'',en:''}},
+        {src:'/assets/images/profile/adachi-casual.png', title:{ja:'資料 03',en:'Reference 03'},note:{ja:'',en:''}}
       ]
     }
   };
+  const $ = selector => document.querySelector(selector);
+  const siteLangKey = 'asagiri-site-lang';
+  let lang = localStorage.getItem(siteLangKey) || localStorage.getItem('asagiri-channel-lang') || 'ja';
+  if (lang !== 'ja' && lang !== 'en') lang = 'ja';
+  let character = 'miu';
+  let versionIndex = 0;
+  let artRequest = 0;
 
-  let currentCharacter = "miu";
-  let currentVersion = 0;
-
-  const fullbodyImage = document.getElementById("fullbodyImage");
-  const missingArt = document.getElementById("missingArt");
-  const missingFilename = document.getElementById("missingFilename");
-  const versionTitle = document.getElementById("versionTitle");
-  const versionNote = document.getElementById("versionNote");
-  const versionCounter = document.getElementById("versionCounter");
-  const charRole = document.getElementById("charRole");
-  const charNameJp = document.getElementById("charNameJp");
-  const charNameEn = document.getElementById("charNameEn");
-  const quickGrid = document.getElementById("quickGrid");
-  const charSummary = document.getElementById("charSummary");
-  const keywordRow = document.getElementById("keywordRow");
-
-  function renderCharacter(){
-    const data = characterData[currentCharacter];
-    const version = data.versions[currentVersion];
-    charRole.textContent = data.role;
-    charNameJp.textContent = data.nameJp;
-    charNameEn.textContent = data.nameEn;
-    charSummary.textContent = data.summary;
-    quickGrid.innerHTML = data.quick.map(([label,value]) => `<div class="quick-item"><span>${label}</span><strong>${value}</strong></div>`).join("");
-    keywordRow.innerHTML = data.keywords.map(word => `<span class="keyword">${word}</span>`).join("");
-    versionTitle.textContent = version.title;
-    versionNote.textContent = version.note;
-    versionCounter.textContent = `${String(currentVersion+1).padStart(2,"0")} / ${String(data.versions.length).padStart(2,"0")}`;
-    missingFilename.textContent = version.src;
-    missingArt.style.display = "grid";
-    fullbodyImage.style.display = "block";
-    fullbodyImage.src = version.src;
-    fullbodyImage.alt = `${data.nameEn} - ${version.title}`;
-    document.querySelectorAll(".character-tab").forEach(btn => btn.classList.toggle("is-active", btn.dataset.character === currentCharacter));
-  }
-
-  fullbodyImage.addEventListener("load", () => { missingArt.style.display = "none"; });
-  fullbodyImage.addEventListener("error", () => { fullbodyImage.style.display = "none"; missingArt.style.display = "grid"; });
-
-  document.querySelectorAll(".character-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentCharacter = btn.dataset.character;
-      currentVersion = 0;
-      renderCharacter();
+  function applyLanguage(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-ja][data-en]').forEach(el => {el.textContent = el.dataset[lang];});
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+      const active = btn.dataset.langBtn === lang;
+      btn.classList.toggle('is-active',active); btn.setAttribute('aria-pressed',String(active));
     });
-  });
-
-  document.getElementById("prevVersion").addEventListener("click", () => {
-    const total = characterData[currentCharacter].versions.length;
-    currentVersion = (currentVersion - 1 + total) % total;
+    localStorage.setItem(siteLangKey,lang);
     renderCharacter();
+  }
+  function renderCharacter(){
+    const data = characterData[character], version = data.versions[versionIndex];
+    $('#figureIndex').textContent = 'CHARACTER / ' + (character==='miu' ? '01' : '02');
+    $('#figureLetter').textContent = character==='miu'?'01':'02';
+    $('#fileNumber').textContent = 'CHARACTER FILE / ' + (character==='miu'?'01':'02');
+    $('#charName').textContent = data.name;
+    $('#charRoman').textContent = data.roman;
+    $('#charDob').textContent = data.dob || '—';
+    $('#charHeight').textContent = data.height || '—';
+    $('#charDescription').textContent = data.description[lang] || '';
+    $('#versionTitle').textContent = version.title[lang];
+    $('#versionNote').textContent = version.note[lang] || '';
+    $('#versionCounter').textContent = String(versionIndex+1).padStart(2,'0') + ' / ' + String(data.versions.length).padStart(2,'0');
+    $('#artFilePath').textContent = version.src;
+    document.querySelectorAll('[data-character]').forEach(btn=>{
+      const active=btn.dataset.character===character;
+      btn.classList.toggle('is-active',active);
+      btn.setAttribute('aria-pressed',String(active));
+    });
+    const requestId=++artRequest;
+    const img=$('#characterArt');
+    img.style.display='none';
+    $('#artEmpty').style.display='flex';
+    const preload=new Image();
+    preload.onload=()=>{if(requestId!==artRequest)return;img.src=version.src;img.alt=data.roman+' / '+version.title[lang];img.style.display='block';$('#artEmpty').style.display='none';};
+    preload.onerror=()=>{if(requestId!==artRequest)return;img.removeAttribute('src');img.style.display='none';$('#artEmpty').style.display='flex';};
+    preload.src=version.src;
+  }
+  document.querySelectorAll('[data-lang-btn]').forEach(btn=>btn.addEventListener('click',()=>{lang=btn.dataset.langBtn;applyLanguage();}));
+  document.querySelectorAll('[data-character]').forEach(btn=>btn.addEventListener('click',()=>{character=btn.dataset.character;versionIndex=0;renderCharacter();}));
+  $('#prevArt').addEventListener('click',()=>{versionIndex=(versionIndex-1+characterData[character].versions.length)%characterData[character].versions.length;renderCharacter();});
+  $('#nextArt').addEventListener('click',()=>{versionIndex=(versionIndex+1)%characterData[character].versions.length;renderCharacter();});
+  document.addEventListener('keydown',event=>{
+    if(event.target.closest('input, textarea, select, button'))return;
+    if(event.key==='ArrowLeft')$('#prevArt').click();
+    if(event.key==='ArrowRight')$('#nextArt').click();
   });
-
-  document.getElementById("nextVersion").addEventListener("click", () => {
-    const total = characterData[currentCharacter].versions.length;
-    currentVersion = (currentVersion + 1) % total;
-    renderCharacter();
-  });
-
-  renderCharacter();
-
-  /* custom cursor */
+  applyLanguage();
+  /* Same two-GIF animated cursor behavior as the rest of the site. */
   (function(){
-    const cursorImage=document.getElementById("customCursor");
-    if(!cursorImage)return;
-    const NORMAL="/assets/images/cursor-normal.gif";
-    const SECOND="/assets/images/cursor-text.gif";
-    const desktop=window.matchMedia("(hover: hover) and (pointer: fine)");
-    const hot={normal:{x:8,y:6},second:{x:24,y:24}};
-    let mode="normal",mx=0,my=0,nReady=false,sReady=false;
-    const n=new Image(),s=new Image();
-    n.onload=()=>nReady=true;n.onerror=()=>nReady=false;n.src=NORMAL;
-    s.onload=()=>sReady=true;s.onerror=()=>sReady=false;s.src=SECOND;
-    function hide(){document.body.classList.remove("custom-cursor-active")}
-    function move(){const h=hot[mode];cursorImage.style.transform=`translate3d(${mx-h.x}px,${my-h.y}px,0)`}
-    function target(el){return el instanceof Element && Boolean(el.closest('a,button,summary,[role="button"]'))}
-    function set(next){next=next==="second"?"second":"normal";if(next!==mode){mode=next;cursorImage.src=mode==="second"?SECOND:NORMAL}move()}
-    document.addEventListener("pointermove",e=>{if(!desktop.matches||e.pointerType!=="mouse"||!nReady||!sReady){hide();return}mx=e.clientX;my=e.clientY;set(target(document.elementFromPoint(mx,my))?"second":"normal");document.body.classList.add("custom-cursor-active")},{passive:true});
-    document.documentElement.addEventListener("mouseleave",hide);window.addEventListener("blur",hide);
+    const cursor=$('#customCursor');if(!cursor)return;
+    const normal='/assets/images/cursor-normal.gif',second='/assets/images/cursor-text.gif';
+    const desktop=matchMedia('(hover: hover) and (pointer: fine)');
+    let nx=false,sx=false,mode='normal',mx=0,my=0;
+    const ni=new Image(),si=new Image();
+    ni.onload=()=>nx=true;ni.onerror=()=>nx=false;ni.src=normal;
+    si.onload=()=>sx=true;si.onerror=()=>sx=false;si.src=second;
+    const hide=()=>document.body.classList.remove('custom-cursor-active');
+    const move=()=>{const hx=mode==='second'?24:8,hy=mode==='second'?24:6;cursor.style.transform=`translate3d(${mx-hx}px,${my-hy}px,0)`;};
+    document.addEventListener('pointermove',event=>{
+      if(!desktop.matches||event.pointerType!=='mouse'||!nx||!sx){hide();return;}
+      mx=event.clientX;my=event.clientY;
+      const hit=document.elementFromPoint(mx,my);
+      const next=(hit instanceof Element && hit.closest('a,button,summary,[role="button"]'))?'second':'normal';
+      if(mode!==next){mode=next;cursor.src=next==='second'?second:normal;}
+      move();document.body.classList.add('custom-cursor-active');
+    },{passive:true});
+    document.documentElement.addEventListener('mouseleave',hide);
+    window.addEventListener('blur',hide);
+    desktop.addEventListener('change',hide);
   })();
 </script>
 </body>
