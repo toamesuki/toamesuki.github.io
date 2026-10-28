@@ -57,8 +57,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
 .character-switch .switch-num{font:900 24px Arial Black,Impact,sans-serif;color:var(--yellow)}
 .character-switch .switch-name{font-size:19px;letter-spacing:.035em;font-weight:900}.character-switch .switch-sub{display:block;font:10px var(--sans);letter-spacing:.12em;margin-top:4px}
 .character-switch ruby rt{font-size:9px;font-weight:500;letter-spacing:.08em}
-.showcase-layout{display:grid;grid-template-columns:minmax(0, 67%) minmax(0,33%);align-items:stretch;min-height:905px}
-.art-stage{position:relative;min-width:0;min-height:905px;overflow:hidden;background:#ffe300;isolation:isolate}
+.showcase-layout{display:grid;grid-template-columns:minmax(0,46%) minmax(0,54%);align-items:stretch;min-height:0}
+.art-stage{position:relative;min-width:0;min-height:0;aspect-ratio:1 / 2;overflow:hidden;background:#ffe300;isolation:isolate}
 .art-stage::before{content:"";position:absolute;inset:-30% 0 0;z-index:-1;pointer-events:none;background:
   linear-gradient(145deg,transparent 0 38%,rgba(255,255,255,.3) 38% 39%,transparent 39%),
   linear-gradient(145deg,transparent 0 48%,#cb3044 48% 50%,transparent 50%),
@@ -70,8 +70,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
 /* Both characters share the same bright yellow stage and accent shapes. */
 .stage-id{position:absolute;top:25px;left:32px;z-index:2;background:var(--black);color:var(--yellow);font-size:10px;font-weight:900;letter-spacing:.17em;padding:11px 14px}
 .art-stage .huge-index{position:absolute;top:52px;left:25px;z-index:0;font:900 215px/1 Arial Black,Impact,sans-serif;color:rgba(30,26,32,.065);pointer-events:none}
-.figure-window{position:absolute;left:1.5%;right:1.5%;top:32px;bottom:94px;z-index:3;display:flex;justify-content:center;align-items:flex-end;overflow:visible}
-#characterArt{display:block;width:auto;height:100%;max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;transform:translate(var(--art-x,0px),var(--art-y,0px)) scale(var(--art-zoom,1));transform-origin:bottom center;filter:drop-shadow(10px 13px 0 rgba(17,16,22,.20))}
+.figure-window{position:absolute;left:1%;right:1%;top:30px;bottom:96px;z-index:3;display:flex;justify-content:center;align-items:flex-end;overflow:hidden}
+#characterArt{display:block;width:100%;height:100%;max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;transform:translate(var(--art-x,0px),var(--art-y,0px)) scale(var(--art-zoom,1));transform-origin:bottom center;filter:drop-shadow(10px 13px 0 rgba(17,16,22,.20))}
 .art-empty{position:absolute;inset:6% 10% 9%;display:grid;align-content:center;justify-items:center;gap:12px;padding:30px;border:1px dashed rgba(27,23,28,.4);background:rgba(255,255,240,.14);color:#272323;text-align:center}
 .art-empty strong{font:900 22px Arial Black,Impact,sans-serif;letter-spacing:.07em}.art-empty small{font-size:12px;line-height:1.7;max-width:300px}.art-empty code{font:11px/1.6 Consolas,monospace;overflow-wrap:anywhere}
 .art-direction{position:absolute;z-index:7;top:47%;transform:translateY(-50%);width:53px;height:56px;border:3px solid var(--black);border-radius:50%;background:var(--black);color:var(--yellow);font-size:34px;line-height:1;box-shadow:3px 3px 0 var(--yellow)}
@@ -91,11 +91,11 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
 .small-portrait img{width:100%;height:100%;object-fit:contain}.small-portrait span{font-size:9px;color:#a5a5a0;text-align:center}
 .info-micro{font-size:10px;line-height:1.7;color:#6d6665;letter-spacing:.05em}
 .fact-heading{background:#242227;color:var(--yellow);padding:11px 27px;font:900 11px var(--sans);letter-spacing:.18em}
-.facts{padding:9px 27px 24px;margin:0;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;align-content:start}
-.fact{min-height:71px;padding:13px 0 10px;border-bottom:1px solid #d9d8cf;overflow-wrap:anywhere}
-.fact dt{font-size:9px;color:#8b4e56;letter-spacing:.09em;font-weight:900;margin-bottom:8px;text-transform:uppercase}
-.fact dd{margin:0;font-size:14px;font-weight:800;color:#27232b;line-height:1.45}
-.fact.wide{grid-column:1/-1;min-height:65px}
+.facts{padding:11px 27px 24px;margin:0;display:block;align-content:start}
+.fact{min-height:50px;padding:11px 0;border-bottom:1px solid #dedbd4;display:grid;grid-template-columns:minmax(96px,30%) minmax(0,1fr);align-items:start;gap:12px;overflow-wrap:anywhere}
+.fact dt{font-size:10px;color:#8b4e56;letter-spacing:.04em;font-weight:900;margin:0;padding-top:3px;text-transform:uppercase}
+.fact dd{margin:0;font-size:13px;font-weight:800;color:#27232b;line-height:1.55}
+.fact-group-heading{background:#e8e5db;color:#343037;border-left:5px solid var(--red);padding:10px 12px;margin-top:16px;font-size:11px;letter-spacing:.1em;font-weight:900}.fact-group-heading:first-child{margin-top:2px}
 .fact-note{margin:auto 27px 23px;padding:13px 0 0;border-top:2px solid #232124;font-size:10px;line-height:1.8;color:#827b7a}
 /* Individual character records; editorial, no fake background paragraphs. */
 .file-section,.visual-section,.shared-section,.au-section{margin-bottom:76px}
@@ -135,14 +135,14 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
 .au-disclosure{background:#f7f6ed;border:1px solid #a29e98}.au-disclosure summary{list-style:none;padding:21px 27px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#232226;color:#fff;font-weight:900}.au-disclosure summary::-webkit-details-marker{display:none}.au-disclosure summary::after{content:"+";font-size:22px;color:var(--yellow)}.au-disclosure[open] summary::after{content:"−"}.au-note{padding:24px;font-size:12px;color:#77736f;line-height:1.8}
 .footer{padding:23px 15px;margin-top:auto;border-top:5px solid var(--yellow);background:#17171b;text-align:center;color:#bbb4b2;font-size:10px;line-height:1.8}
 /* responsive: characters and text remain readable rather than shrinking a 1280px screenshot on phones */
-@media(max-width:1050px){.showcase-layout{grid-template-columns:58% 42%}.figure-window{left:4%;right:4%}.art-stage{min-height:760px}.showcase-layout{min-height:760px}.info-top{padding:34px 20px 19px}.facts{padding:8px 20px 20px}.fact-note{margin:0 20px 20px}}
+@media(max-width:1050px){.showcase-layout{grid-template-columns:minmax(0,46%) minmax(0,54%)}.figure-window{left:1%;right:1%}.art-stage{min-height:0}.showcase-layout{min-height:0}.info-top{padding:34px 20px 19px}.facts{padding:8px 20px 20px}.fact-note{margin:0 20px 20px}}
 @media(max-width:760px){
   .microbar{padding:0 15px;gap:12px}.microbar nav{gap:12px}.microbar nav a:nth-child(n+3){display:none}
   .masthead{padding:58px 19px 31px;min-height:178px}.masthead::before{right:-24%;width:50%}.masthead-title{font-size:59px}.masthead-sub{max-width:74%;font-size:11px}.lang-switch{top:12px;right:12px}.lang-btn{padding:7px 11px}
   .nav-inner a{padding:13px 14px;font-size:9px}.frame{width:calc(100% - 22px);padding-top:23px;padding-bottom:50px}
   .section-marker h2{font-size:19px}.section-marker .index{font-size:32px}.section-marker small{font-size:8px}
   .character-switch button{gap:8px;min-height:61px;padding:11px 10px}.character-switch .switch-num{font-size:17px}.character-switch .switch-name{font-size:14px}.character-switch .switch-sub{font-size:8px}.character-switch ruby rt{font-size:8px}
-  .showcase-layout{display:block}.art-stage{height:min(86svh,710px);min-height:500px}.art-stage .huge-index{font-size:145px}.figure-window{top:27px;bottom:84px;left:1%;right:1%}.version-label{min-height:84px;padding:11px 14px 11px 17px}.version-label strong{font-size:17px}.version-label small{font-size:9px}.art-direction{width:39px;height:43px;font-size:27px}.art-direction.prev{left:6px}.art-direction.next{right:6px}
+  .showcase-layout{display:block}.art-stage{height:auto;aspect-ratio:1 / 2;min-height:0}.art-stage .huge-index{font-size:145px}.figure-window{top:27px;bottom:84px;left:1%;right:1%}.version-label{min-height:84px;padding:11px 14px 11px 17px}.version-label strong{font-size:17px}.version-label small{font-size:9px}.art-direction{width:39px;height:43px;font-size:27px}.art-direction.prev{left:6px}.art-direction.next{right:6px}
   .info-rail{border-left:0;border-top:4px solid #17171b}.info-top{padding:24px 23px 17px}.info-name{font-size:36px}.facts{padding:12px 23px 23px}.fact-note{margin:0 23px 23px}
   .showcase{margin-bottom:58px;box-shadow:5px 5px 0 #0003}.file-section,.visual-section,.shared-section,.au-section{margin-bottom:55px}
   .dossiers,.reference-grid{grid-template-columns:1fr}.dossier-intro{grid-template-columns:96px 1fr;gap:14px}.dossier-portrait{height:110px}.dossier-header h3{font-size:19px}
@@ -194,14 +194,14 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
         <article class="dossier">
           <div class="dossier-header"><h3><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></h3><span>01 / MIU</span></div>
           <div class="dossier-intro"><div class="dossier-portrait" data-image="miu-portrait"><span class="empty">PORTRAIT</span></div><p data-ja="八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。" data-en="A transfer student in her third year at Yasogami High. Known for her unusual manner and tiny stature, she has a knack for stumbling into one mishap after another.">八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。</p></div>
-          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="身長143cmとひときわ小柄。長い黒髪を低い位置で二つに結び、前髪をまっすぐ下ろしている。普段は八十神高校の制服姿で、眠たげな表情が目立つ。" data-en="Unusually petite at 143 cm, with long black hair gathered into two low pigtails and straight bangs. Usually seen in Yasogami High’s uniform, she often wears a slightly sleepy expression.">身長143cmとひときわ小柄。長い黒髪を低い位置で二つに結び、前髪をまっすぐ下ろしている。普段は八十神高校の制服姿で、眠たげな表情が目立つ。</p></div>
+          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。" data-en="A petite young girl with light-grey eyes and long black hair tied into two low pigtails, its loose strands giving her a perpetually tousled appearance. Sensitive to the cold, she usually wears an oversized, slightly rumpled cardigan that tends to slip off her shoulders.">小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。</p></div>
           <div class="dossier-item"><strong data-ja="性格" data-en="Personality">性格</strong><p data-ja="内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。" data-en="Introverted and soft-spoken, with a slow manner, some clumsiness and an unusual sensibility.">内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。</p></div>
           <div class="dossier-item"><strong data-ja="背景" data-en="Background">背景</strong><p class="placeholder" data-ja="詳細は後から追加できます。" data-en="Add background notes here later.">詳細は後から追加できます。</p></div>
         </article>
         <article class="dossier">
           <div class="dossier-header"><h3><ruby>足立透<rt>あだち とおる</rt></ruby></h3><span>02 / ADACHI</span></div>
           <div class="dossier-intro"><div class="dossier-portrait" data-image="adachi-portrait"><span class="empty">PORTRAIT</span></div><p data-ja="稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。" data-en="A detective at Inaba Police Department, assigned to work alongside Ryotaro Dojima.">稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。</p></div>
-          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。" data-en="A lean young man with short, untidy charcoal-grey hair and grey eyes. His usual outfit is a dark suit over a white shirt, an often-loose red tie, a brown belt and sturdy brown boots.">短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。</p></div>
+          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。" data-en="A lean young man with short, unkempt charcoal-grey hair and grey eyes. He usually wears a dark suit over a white shirt, with a loosely knotted red tie, a brown belt and sturdy brown boots.">短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。</p></div>
           <div class="dossier-item"><strong data-ja="性格" data-en="Personality">性格</strong><p data-ja="朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。" data-en="Outwardly cheerful and approachable, yet often careless and seemingly incompetent at work.">朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。</p></div>
           <div class="dossier-item"><strong data-ja="背景" data-en="Background">背景</strong><p class="placeholder" data-ja="詳しい設定・解釈は後から追加できます。" data-en="Longer character analysis can be added here.">詳しい設定・解釈は後から追加できます。</p></div>
         </article>
@@ -218,7 +218,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
     <section class="shared-section" id="shared">
       <div class="section-marker"><span class="index">04</span><div><small>THE TWO OF THEM / MAIN ROUTE</small><h2 data-ja="二人の物語" data-en="Their shared story">二人の物語</h2></div></div>
       <div class="shared-shell">
-        <div class="shared-head"><div class="overline">ADACHI TOHRU × ASAGIRI MIU</div><h3>足立透 × 朝霧美雨</h3></div>
+        <div class="shared-head"><div class="overline" data-ja="ADACHI TOHRU × ASAGIRI MIU" data-en="TOHRU ADACHI × MIU ASAGIRI">ADACHI TOHRU × ASAGIRI MIU</div><h3>足立透 × 朝霧美雨</h3></div>
         <div class="shared-body"><div class="shared-picture" data-image="pair-main"><span class="ref-empty">PAIR ILLUSTRATION / ARTWORK</span></div><div class="shared-notes"><h4 data-ja="関係性・物語" data-en="Relationship and story">関係性・物語</h4><p class="placeholder" data-ja="ここは二人の関係性と物語をまとめる場所です。本文は後から追加できます。" data-en="This area is reserved for their shared relationship and story. Detailed material can be added later.">ここは二人の関係性と物語をまとめる場所です。本文は後から追加できます。</p></div></div>
         <div class="shared-index"><a href="/text/"><span data-ja="文章" data-en="Writing">文章</span><small data-ja="短編・シーン・物語" data-en="Scenes and stories">短編・シーン・物語</small></a><a href="/image/"><span data-ja="イラスト" data-en="Gallery">イラスト</span><small data-ja="依頼・資料・作品" data-en="Illustrations and works">依頼・資料・作品</small></a><a href="#aus"><span data-ja="パラレル" data-en="Parallel worlds">パラレル</span><small>AU / OTHER VERSIONS</small></a></div>
       </div>
@@ -233,27 +233,27 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var
 /* Miu age 17 (18) means 17 before May 2, 2011, and 18 afterward. */
 const PROFILE = {
   miu: {
-    japanese:'朝霧美雨',reading:'あさぎり みう',roman:'ASAGIRI MIU',
+    japanese:'朝霧美雨',reading:'あさぎり みう',romanJa:'ASAGIRI MIU',romanEn:'MIU ASAGIRI',
     number:'01',portrait:'/assets/images/profile/miu-portrait.png',
     fields:{
       dob:{ja:'1993年5月2日',en:'May 2, 1993'},age:{ja:'17（18）',en:'17 (18)'},
-      occupation:{ja:'八十神高校3年生（転入生）',en:'Yasogami High / Third-year transfer student'},zodiac:{ja:'牡牛座',en:'Taurus'},
+      occupation:{ja:'学生',en:'Student'},zodiac:{ja:'牡牛座',en:'Taurus'},
       height:{ja:'143 cm',en:'143 cm'},
       weight:{ja:'足りないって言われた……',en:'“I was told I was underweight…”'},
       blood:{ja:'A型',en:'A'},
       weapon:{ja:'透明な傘（足立の傘）',en:'Transparent umbrella (Adachi’s umbrella)'},
-      arcana:null,persona:{ja:'ナキサワメ',en:'Nakisawame'}
+      arcana:{ja:'月',en:'Moon'},persona:{ja:'ナキサワメ',en:'Nakisawame'}
     },
     slides:[
-      {src:'/assets/images/profile/miu-main.png',title:{ja:'メインビジュアル',en:'Main Visual'},note:{ja:'',en:''},zoom:1.12,x:0,y:0},
-      {src:'/assets/images/profile/miu-winter-uniform.png',title:{ja:'八十神高校・冬制服',en:'Yasogami Winter Uniform'},note:{ja:'',en:''},zoom:1.12,x:0,y:0},
-      {src:'/assets/images/profile/miu-winter-no-cardigan.png',title:{ja:'八十神高校・冬制服（カーディガンなし）',en:'Yasogami Winter Uniform — No Cardigan'},note:{ja:'',en:''},zoom:1.12,x:0,y:0},
-      {src:'/assets/images/profile/miu-winter-casual.png',title:{ja:'冬の私服',en:'Casual Winter Clothes'},note:{ja:'',en:''},zoom:1.12,x:0,y:0},
-      {src:'/assets/images/profile/miu-p4au-main.png',title:{ja:'P4AU メインビジュアル',en:'P4AU Main Visual'},note:{ja:'',en:''},zoom:1.12,x:0,y:0}
+      {src:'/assets/images/profile/miu-main.png',title:{ja:'メインビジュアル',en:'Main Visual'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/miu-winter-uniform.png',title:{ja:'八十神高校・冬制服',en:'Yasogami Winter Uniform'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/miu-winter-no-cardigan.png',title:{ja:'八十神高校・冬制服（カーディガンなし）',en:'Yasogami Winter Uniform — No Cardigan'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/miu-winter-casual.png',title:{ja:'冬の私服',en:'Casual Winter Clothes'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/miu-p4au-main.png',title:{ja:'P4AU メインビジュアル',en:'P4AU Main Visual'},note:{ja:'',en:''},zoom:1.0,x:0,y:0}
     ]
   },
   adachi:{
-    japanese:'足立透',reading:'あだち とおる',roman:'ADACHI TOHRU',
+    japanese:'足立透',reading:'あだち とおる',romanJa:'ADACHI TOHRU',romanEn:'TOHRU ADACHI',
     number:'02',portrait:'/assets/images/profile/adachi-portrait.png',
     fields:{
       dob:{ja:'1984年2月1日',en:'February 1, 1984'},age:{ja:'27',en:'27'},
@@ -263,18 +263,18 @@ const PROFILE = {
       arcana:{ja:'道化師 / 欲望',en:'Jester / Hunger'},persona:{ja:'マガツイザナギ',en:'Magatsu-Izanagi'}
     },
     slides:[
-      {src:'/assets/images/profile/adachi-main.png',title:{ja:'メインビジュアル',en:'Main Visual'},note:{ja:'',en:''},zoom:1.06,x:0,y:0},
-      {src:'/assets/images/profile/adachi-work-suit.png',title:{ja:'仕事用スーツ',en:'Work Suit'},note:{ja:'',en:''},zoom:1.06,x:0,y:0},
-      {src:'/assets/images/profile/adachi-rain-coat.png',title:{ja:'レインコート',en:'Rain Coat'},note:{ja:'',en:''},zoom:1.06,x:0,y:0},
-      {src:'/assets/images/profile/adachi-casual.png',title:{ja:'私服',en:'Casual Clothes'},note:{ja:'',en:''},zoom:1.06,x:0,y:0},
-      {src:'/assets/images/profile/adachi-p4au-main.png',title:{ja:'P4AU メインビジュアル',en:'P4AU Main Visual'},note:{ja:'',en:''},zoom:1.06,x:0,y:0}
+      {src:'/assets/images/profile/adachi-main.png',title:{ja:'メインビジュアル',en:'Main Visual'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/adachi-work-suit.png',title:{ja:'仕事用スーツ',en:'Work Suit'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/adachi-rain-coat.png',title:{ja:'レインコート',en:'Rain Coat'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/adachi-casual.png',title:{ja:'私服',en:'Casual Clothes'},note:{ja:'',en:''},zoom:1.0,x:0,y:0},
+      {src:'/assets/images/profile/adachi-p4au-main.png',title:{ja:'P4AU メインビジュアル',en:'P4AU Main Visual'},note:{ja:'',en:''},zoom:1.0,x:0,y:0}
     ]
   }
 };
-const FIELDS=[
-  ['dob','生年月日','Date of Birth'],['age','年齢','Age'],['occupation','職業','Occupation'],
-  ['zodiac','星座','Zodiac'],['height','身長','Height'],['weight','体重','Weight'],
-  ['blood','血液型','Blood Type'],['weapon','武器','Weapon'],['arcana','アルカナ','Arcana'],['persona','ペルソナ','Persona']
+const FIELD_GROUPS=[
+  {ja:'基本情報',en:'PERSONAL',keys:[['dob','生年月日','Date of Birth'],['age','年齢','Age'],['occupation','職業','Occupation'],['zodiac','星座','Zodiac']]},
+  {ja:'身体データ',en:'PHYSICAL',keys:[['height','身長','Height'],['weight','体重','Weight'],['blood','血液型','Blood Type']]},
+  {ja:'武器・ペルソナ',en:'PERSONA / EQUIPMENT',keys:[['weapon','武器','Weapon'],['arcana','アルカナ','Arcana'],['persona','ペルソナ','Persona']]}
 ];
 const EXTRA_IMAGES={
   'miu-portrait':'/assets/images/profile/miu-portrait.png',
@@ -290,29 +290,35 @@ function setLanguage(next){
   lang=next==='en'?'en':'ja';document.documentElement.lang=lang;
   document.querySelectorAll('[data-ja][data-en]').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});
   document.querySelectorAll('[data-lang]').forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle('is-active',on);b.setAttribute('aria-pressed',String(on))});
+  document.querySelectorAll('[data-person]').forEach(btn=>{const data=PROFILE[btn.dataset.person];btn.querySelector('.switch-sub').textContent=lang==='ja'?data.romanJa:data.romanEn});
   renderCharacter();
 }
 function textVal(value){return value&&value[lang]?value[lang]:'—'}
 function renderFacts(data){
   const facts=$('facts');facts.replaceChildren();
-  FIELDS.forEach(([key,ja,en])=>{
-    const wrap=document.createElement('div');wrap.className='fact';
-    const dt=document.createElement('dt'),dd=document.createElement('dd');
-    dt.textContent=lang==='ja'?ja:en;dd.textContent=textVal(data.fields[key]);
-    if((key==='weight'&&current==='miu')||key==='occupation')wrap.classList.add('wide');
-    wrap.append(dt,dd);facts.append(wrap);
+  FIELD_GROUPS.forEach(group=>{
+    const heading=document.createElement('div');heading.className='fact-group-heading';
+    heading.textContent=lang==='ja'?group.ja:group.en;
+    facts.append(heading);
+    group.keys.forEach(([key,ja,en])=>{
+      const wrap=document.createElement('div');wrap.className='fact';
+      const dt=document.createElement('dt'),dd=document.createElement('dd');
+      dt.textContent=lang==='ja'?ja:en;
+      dd.textContent=textVal(data.fields[key]);
+      wrap.append(dt,dd);facts.append(wrap);
+    });
   });
 }
 function renderCharacter(){
   const data=PROFILE[current],slide=data.slides[slideIndex];
   document.querySelectorAll('[data-person]').forEach(b=>{const active=b.dataset.person===current;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active))});
-  $('artStage').dataset.char=current;$('stageID').textContent=data.number+' / '+data.roman;
+  $('artStage').dataset.char=current;$('stageID').textContent=data.number+' / '+(lang==='ja'?data.romanJa:data.romanEn);
   $('hugeIndex').textContent=data.number;
   $('infoEyebrow').textContent='CHARACTER FILE // '+data.number;
   $('infoName').replaceChildren();
   const ruby=document.createElement('ruby');ruby.append(document.createTextNode(data.japanese));
   const rt=document.createElement('rt');rt.textContent=data.reading;ruby.append(rt);$('infoName').append(ruby);
-  $('infoRoman').textContent=data.roman;
+  $('infoRoman').textContent=lang==='ja'?data.romanJa:data.romanEn;
   $('versionTitle').textContent=textVal(slide.title);$('versionNote').textContent=slide.note?.[lang]||'';
   $('versionCounter').textContent=String(slideIndex+1).padStart(2,'0')+' / '+String(data.slides.length).padStart(2,'0');
   renderFacts(data);renderSlide(data,slide);
