@@ -45,259 +45,19 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--ink);
-  overflow-x: hidden;
-
-  /* Deep Adachi/Miu base. The actual retro motifs are in .retro-bg-decor. */
   background:
-    radial-gradient(circle at 18% 28%, rgba(188, 24, 34, .22), transparent 24%),
-    radial-gradient(circle at 82% 72%, rgba(244, 201, 48, .08), transparent 20%),
-    radial-gradient(circle, rgba(255, 219, 88, .11) 0 1.2px, transparent 1.5px) 0 0 / 14px 14px,
-    linear-gradient(135deg, #070506 0%, #25070b 24%, #751019 51%, #32080d 77%, #090506 100%);
-
+    var(--page-pattern),
+    radial-gradient(circle at 10% 0%, rgba(124, 47, 56, 0.18), transparent 26%),
+    radial-gradient(circle at 100% 20%, rgba(113, 136, 155, 0.18), transparent 25%),
+    linear-gradient(180deg, #f7f0e8 0%, var(--page-bg) 100%);
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: fixed;
   font-family: Georgia, "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
 }
 
-/* =========================================================
-   RETRO / FRUTIGER-P4 BACKGROUND DECOR
-   Strong graphic ribbons, concentric rings, flowers, sparkles,
-   arrows and police tape in red / black / yellow.
-   ========================================================= */
-.retro-bg-decor {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  isolation: isolate;
-}
-
-.retro-bg-decor::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    /* soft red/yellow rays instead of random crossing lines */
-    conic-gradient(
-      from 205deg at 7% 74%,
-      transparent 0deg 8deg,
-      rgba(241, 190, 38, .18) 8deg 11deg,
-      transparent 11deg 17deg,
-      rgba(188, 25, 34, .22) 17deg 22deg,
-      transparent 22deg 30deg,
-      rgba(255, 232, 146, .12) 30deg 32deg,
-      transparent 32deg 360deg
-    ),
-    conic-gradient(
-      from 18deg at 94% 12%,
-      transparent 0deg 9deg,
-      rgba(238, 196, 44, .16) 9deg 13deg,
-      transparent 13deg 20deg,
-      rgba(149, 18, 28, .24) 20deg 26deg,
-      transparent 26deg 360deg
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 229, 126, .035) 0 1px,
-      transparent 1px 32px
-    );
-  opacity: .95;
-}
-
-/* P4-like multistripe trails */
-.retro-ribbon {
-  position: absolute;
-  left: -260px;
-  width: 1900px;
-  border-top: 2px solid rgba(255, 243, 184, .72);
-  border-bottom: 2px solid rgba(15, 9, 11, .88);
-  background:
-    linear-gradient(
-      to bottom,
-      #f3ca2f 0 9px,
-      #fff0a7 9px 13px,
-      #a9131d 13px 22px,
-      #171114 22px 30px,
-      #d42f38 30px 38px,
-      #f0bb25 38px 45px,
-      #721019 45px 51px,
-      #fff0b0 51px 55px,
-      #221419 55px 61px
-    );
-  box-shadow:
-    0 3px 0 rgba(0,0,0,.28),
-    0 10px 24px rgba(0,0,0,.20);
-  opacity: .94;
-  transform-origin: center;
-}
-
-.ribbon-a {
-  top: 19%;
-  height: 61px;
-  transform: rotate(-8deg);
-}
-
-.ribbon-b {
-  top: 52%;
-  height: 61px;
-  transform: rotate(7deg);
-  opacity: .82;
-}
-
-.ribbon-c {
-  top: 76%;
-  height: 47px;
-  transform: rotate(-11deg);
-  opacity: .88;
-}
-
-/* Concentric target/rainbow rings from the P4 visual language */
-.retro-ring {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border: 15px solid #edc128;
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 11px #8f111a,
-    0 0 0 20px #171014,
-    0 0 0 30px #f7df83,
-    0 0 0 39px #c62832,
-    0 0 0 47px rgba(255,255,255,.18);
-  opacity: .96;
-}
-
-.ring-a {
-  left: 26px;
-  top: 60%;
-  transform: rotate(-10deg);
-}
-
-.ring-b {
-  right: 34px;
-  top: 11%;
-  transform: scale(.72) rotate(13deg);
-  opacity: .80;
-}
-
-.ring-c {
-  right: 7%;
-  bottom: 4%;
-  transform: scale(.48);
-  opacity: .64;
-}
-
-/* Large retro flower/asterisk symbols */
-.retro-symbol {
-  position: absolute;
-  z-index: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 900;
-  line-height: 1;
-  text-shadow: 2px 3px 0 rgba(0,0,0,.22);
-  user-select: none;
-}
-
-.flower-a {
-  left: 7%;
-  top: 37%;
-  color: #f1c62c;
-  font-size: 76px;
-  transform: rotate(18deg);
-}
-
-.flower-b {
-  right: 9%;
-  top: 43%;
-  color: #b31a25;
-  font-size: 92px;
-  transform: rotate(-12deg);
-}
-
-.spark-a {
-  left: 16%;
-  top: 12%;
-  color: #fff0a4;
-  font-size: 50px;
-}
-
-.spark-b {
-  right: 18%;
-  top: 67%;
-  color: #edc128;
-  font-size: 62px;
-}
-
-.star-a {
-  right: 4%;
-  top: 29%;
-  color: #c92833;
-  font-size: 58px;
-  transform: rotate(14deg);
-}
-
-/* Up-right arrows: recognisable P4/retro graphic motif */
-.retro-arrows {
-  position: absolute;
-  right: 5%;
-  top: 56%;
-  color: #f1c52b;
-  font: 900 58px/1 Arial, Helvetica, sans-serif;
-  letter-spacing: -.18em;
-  transform: rotate(-8deg);
-  text-shadow: 3px 3px 0 #721019;
-  opacity: .88;
-}
-
-/* Multiple thicker police tapes. Kept behind the content so they remain wallpaper. */
-.police-tape {
-  position: absolute;
-  left: -20%;
-  width: 140%;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-top: 3px solid #171114;
-  border-bottom: 3px solid #171114;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #f0c426 0 34px,
-      #ffdc4e 34px 68px
-    );
-  color: #171114;
-  box-shadow:
-    inset 0 2px rgba(255,255,255,.25),
-    inset 0 -2px rgba(0,0,0,.22),
-    0 9px 20px rgba(0,0,0,.30);
-  font: 900 17px/1 Arial, Helvetica, sans-serif;
-  letter-spacing: .25em;
-  white-space: nowrap;
-  opacity: .98;
-}
-
-.police-tape.dark {
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #151014 0 34px,
-      #21161a 34px 68px
-    );
-  border-color: #e0b621;
-  color: #efc72c;
-}
-
-.tape-a { top: 28%; transform: rotate(-6deg); }
-.tape-b { top: 43%; transform: rotate(5deg); opacity: .86; }
-.tape-c { top: 61%; transform: rotate(-8deg); }
-.tape-d { top: 78%; transform: rotate(4deg); opacity: .90; }
-.tape-e { top: 92%; transform: rotate(-4deg); }
-
-body.intro-lock {
-  overflow: hidden;
-}
+    body.intro-lock {
+      overflow: hidden;
+    }
     a {
       color: var(--red);
       text-decoration: none;
@@ -2058,12 +1818,7 @@ body.intro-lock {
       }
     }
 
-  
-
-    /* =========================================
-       TRUE-BOTTOM FOOTER FIX
-       Keeps the footer at the bottom on phone without fixing it over content.
-       ========================================= */
+    /* Keep homepage footer at the true bottom of short/mobile pages */
     .page-reveal {
       flex: 1 0 auto;
       display: flex;
@@ -2093,31 +1848,10 @@ body.intro-lock {
       margin-top: auto;
       flex-shrink: 0;
     }
-</style>
+
+  </style>
 </head>
 <body class="intro-lock">
-  <div class="retro-bg-decor" aria-hidden="true">
-    <div class="retro-ribbon ribbon-a"></div>
-    <div class="retro-ribbon ribbon-b"></div>
-    <div class="retro-ribbon ribbon-c"></div>
-
-    <div class="retro-ring ring-a"></div>
-    <div class="retro-ring ring-b"></div>
-    <div class="retro-ring ring-c"></div>
-
-    <div class="retro-symbol flower-a">✿</div>
-    <div class="retro-symbol flower-b">✱</div>
-    <div class="retro-symbol spark-a">✦</div>
-    <div class="retro-symbol spark-b">✧</div>
-    <div class="retro-symbol star-a">★</div>
-    <div class="retro-arrows">↗ ↗ ↗</div>
-
-    <div class="police-tape tape-a">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT</div>
-    <div class="police-tape dark tape-b">CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION</div>
-    <div class="police-tape tape-c">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE</div>
-    <div class="police-tape dark tape-d">CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION ・ DO NOT CROSS ・ CAUTION</div>
-    <div class="police-tape tape-e">POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE ・ KEEP OUT ・ POLICE LINE</div>
-  </div>
   <div id="introOverlay" class="intro-overlay">
     <div class="intro-noise"></div>
     <div class="intro-rain"></div>
