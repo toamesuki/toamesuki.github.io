@@ -1,0 +1,1293 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>朝霧 ROUTE / ADMIN ROOM</title>
+
+<style>
+:root {
+  --red: #7c3039;
+  --ink: #373239;
+  --cream: #fffaf3;
+  --line: #d4c4b5;
+  --muted: #857873;
+  --gold: #d6b75f;
+  --dark: #29252b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font: 14px/1.55 Georgia, "Yu Mincho", serif;
+  background:
+    radial-gradient(
+      circle at 15% 12%,
+      #9b31373e,
+      transparent 35%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #ffffff05 0 1px,
+      transparent 1px 5px
+    ),
+    linear-gradient(
+      140deg,
+      #160a0c,
+      #541019 48%,
+      #23090c 85%
+    );
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.shell {
+  width: min(1190px, calc(100% - 28px));
+  margin: 24px auto 55px;
+  background: #f7f1e9;
+  border: 2px solid #f5e9d3;
+  border-radius: 7px;
+  box-shadow:
+    0 0 0 5px #171114,
+    0 20px 60px #0008;
+  overflow: hidden;
+}
+
+.bar {
+  min-height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 15px;
+  color: #fff9e6;
+  background:
+    linear-gradient(
+      90deg,
+      #2b272c,
+      #493039 85%,
+      #7c3039
+    );
+  font: 12px Verdana, sans-serif;
+}
+
+.chrome {
+  display: flex;
+  gap: 5px;
+}
+
+.chrome i {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #ebdfd5;
+  background: #fbf8f4;
+  display: block;
+  border-radius: 2px;
+}
+
+.hero {
+  padding: 24px clamp(18px, 3vw, 34px);
+  background:
+    linear-gradient(
+      110deg,
+      #fffaf5 10%,
+      #f6eee9 62%,
+      #ead8db
+    );
+  border-bottom: 2px solid #d8c9b5;
+}
+
+.kicker {
+  font: 10px Verdana, sans-serif;
+  letter-spacing: .18em;
+  color: var(--red);
+}
+
+h1 {
+  font-size: clamp(30px, 4vw, 49px);
+  margin: 7px 0 6px;
+  font-weight: normal;
+  letter-spacing: .06em;
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+.sub {
+  color: #766c69;
+  font-size: 13px;
+}
+
+main {
+  padding: 22px clamp(14px, 3vw, 30px) 30px;
+}
+
+.window {
+  border: 1px solid #afa7a3;
+  background: #fffaf4;
+  box-shadow:
+    inset 1px 1px #fff,
+    3px 3px 0 #c4b8af77;
+  margin-bottom: 18px;
+}
+
+.windowhead {
+  background:
+    linear-gradient(
+      90deg,
+      #353037,
+      #5b454b 82%,
+      #81545b
+    );
+  color: #fff6eb;
+  padding: 8px 12px;
+  font: 11px Verdana, sans-serif;
+  letter-spacing: .05em;
+}
+
+.windowbody {
+  padding: 18px;
+}
+
+.authbox {
+  max-width: 560px;
+  margin: 12px auto 18px;
+}
+
+.field {
+  margin-bottom: 13px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--red);
+  font: 12px Verdana, sans-serif;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #baaaa0;
+  background: white;
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+input:focus {
+  outline: 2px solid #bc8b91;
+  outline-offset: 1px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 9px 13px;
+  background: #fff9f1;
+  color: var(--red);
+  border: 1px solid #9d737a;
+  box-shadow: inset 1px 1px #fff;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.btn:hover {
+  background: #f0e0da;
+}
+
+.btn.primary {
+  background: var(--red);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #9b454e;
+}
+
+.btn.gold {
+  border-color: #a68d50;
+  background: #f5e6b7;
+  color: #584418;
+}
+
+.btn.danger {
+  border-color: #98565b;
+  color: #86313d;
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.message {
+  margin: 10px 0;
+  color: #8e3b43;
+  min-height: 20px;
+  white-space: pre-wrap;
+}
+
+.message.ok {
+  color: #326650;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+}
+
+.pill {
+  border-radius: 999px;
+  padding: 8px 13px;
+  border: 1px solid #bdaea5;
+  background: #fffdf8;
+  color: #655958;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pill.active {
+  background: #3a3339;
+  border-color: #3a3339;
+  color: #fff4dc;
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.count-card {
+  background: #fffaf4;
+  border: 1px solid #d2c3b6;
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+}
+
+.count-card strong {
+  font-size: 22px;
+  color: var(--red);
+}
+
+.count-card span {
+  font-size: 11px;
+  color: #77706f;
+}
+
+.group-title {
+  font-weight: normal;
+  font-size: 20px;
+  color: var(--red);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+  margin: 28px 0 12px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.entry {
+  background: #fffdf9;
+  border: 1px solid #d3c5b9;
+  padding: 14px;
+  min-width: 0;
+  box-shadow: 2px 2px 0 #e5d9d3;
+}
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.entry-name {
+  color: var(--red);
+  font-size: 16px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.entry-meta {
+  font: 10px Verdana, sans-serif;
+  color: #837773;
+}
+
+.entry-img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  background: white;
+  border: 1px solid #ded2cb;
+  margin: 8px 0;
+}
+
+.entry-content {
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 10px 0;
+}
+
+.entry-url {
+  font: 11px Verdana, sans-serif;
+  overflow-wrap: anywhere;
+  display: block;
+  margin: 4px 0;
+}
+
+.tag {
+  font: 10px Verdana, sans-serif;
+  padding: 3px 7px;
+  border: 1px solid #bdaea5;
+  border-radius: 3px;
+  background: #f6eee5;
+  color: #715855;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #dccac1;
+}
+
+.empty {
+  padding: 25px;
+  border: 1px dashed #cabcb0;
+  text-align: center;
+  color: #8d7b72;
+  font-size: 13px;
+  background: #fffaf6;
+}
+
+.footer {
+  padding: 14px 20px;
+  border-top: 1px solid #d8c9b9;
+  color: #7f746e;
+  font: 11px Verdana, sans-serif;
+  text-align: center;
+}
+
+a.btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+#adminArea {
+  min-height: 140px;
+}
+
+.status-chip {
+  display: inline-block;
+  border: 1px solid #d8c9b9;
+  border-radius: 3px;
+  padding: 3px 7px;
+  background: #f3e9d6;
+  color: #8b6b31;
+  font: 10px Verdana, sans-serif;
+}
+
+@media (max-width:760px) {
+  .shell {
+    margin: 10px auto 40px;
+    width: calc(100% - 16px);
+  }
+
+  .hero {
+    padding: 20px 17px;
+  }
+
+  main {
+    padding: 15px 12px;
+  }
+
+  .windowbody {
+    padding: 12px;
+  }
+
+  .counts {
+    grid-template-columns: 1fr;
+  }
+
+  .count-card {
+    min-height: 53px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    align-items: flex-start;
+  }
+
+  .entry-img {
+    max-height: 240px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+
+  <div class="bar">
+    <div>✦ 朝霧 ROUTE / PRIVATE SYSTEM</div>
+    <div class="chrome" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">
+      PERSONAL ARCHIVE / MODERATION CONSOLE
+    </div>
+    <h1>管理室 / ADMIN ROOM</h1>
+    <p class="sub">
+      Review your guestbook notes, drawings and
+      banner-exchange requests. Nothing is published
+      until you approve it.
+    </p>
+  </header>
+
+  <main>
+
+    <div id="authArea" class="window authbox">
+      <div class="windowhead">
+        ♡ PRIVATE LOGIN / 管理者ログイン
+      </div>
+
+      <div class="windowbody">
+        <form id="loginForm">
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              autocomplete="username"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <div class="row">
+            <button
+              id="loginButton"
+              class="btn primary"
+              type="submit"
+            >
+              Sign in
+            </button>
+
+            <span class="small">
+              Only an approved admin account can
+              see submissions.
+            </span>
+          </div>
+
+        </form>
+
+        <div
+          id="loginMessage"
+          class="message"
+          aria-live="polite"
+        ></div>
+      </div>
+    </div>
+
+    <div id="adminArea" class="hidden">
+
+      <div class="nav">
+        <div>
+          <div class="small">SIGNED IN AS</div>
+          <strong id="adminEmail"></strong>
+        </div>
+
+        <div class="row">
+          <a href="/channel/" class="btn">
+            View guestbook
+          </a>
+
+          <button
+            id="refreshButton"
+            class="btn gold"
+            type="button"
+          >
+            ↻ Refresh
+          </button>
+
+          <button
+            id="logoutButton"
+            class="btn"
+            type="button"
+          >
+            Log out
+          </button>
+        </div>
+      </div>
+
+      <div class="counts" id="counts"></div>
+
+      <div class="filter-row" id="filters">
+        <button class="pill active" data-filter="pending">
+          Pending
+        </button>
+        <button class="pill" data-filter="approved">
+          Approved
+        </button>
+        <button class="pill" data-filter="rejected">
+          Rejected
+        </button>
+        <button class="pill" data-filter="all">
+          All
+        </button>
+      </div>
+
+      <div
+        id="statusLine"
+        class="message"
+        aria-live="polite"
+      ></div>
+
+      <div id="moderationContent"></div>
+
+    </div>
+
+  </main>
+
+  <div class="footer">
+    ADMIN ONLY · No secret keys are stored in this page
+    · 朝霧 ROUTE
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+'use strict';
+
+/* SUPABASE CONFIGURATION */
+
+const SUPABASE_URL =
+  'https://fqltuswyigmszngwsogg.supabase.co';
+
+const PUBLISHABLE_KEY =
+  'sb_publishable_gOcK-yQGZv0f3VePlVIl-w_McG0QZ3z';
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  PUBLISHABLE_KEY,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  }
+);
+
+/* DATABASE TABLES */
+
+const TYPES = [
+  {
+    key: 'guestbook',
+    heading: '足あと帳 / Guestbook Notes'
+  },
+  {
+    key: 'drawings',
+    heading: 'みうちゃんのおえかき帳 / Drawings'
+  },
+  {
+    key: 'banner_exchange',
+    heading: 'Link / Banner Exchange'
+  }
+];
+
+let records = {};
+let activeFilter = 'pending';
+let verifiedAdmin = false;
+let loading = false;
+
+const $ = id => document.getElementById(id);
+
+const display = (id, show) =>
+  $(id).classList.toggle('hidden', !show);
+
+function msg(id, text, ok = false) {
+  $(id).textContent = text;
+  $(id).classList.toggle('ok', ok);
+}
+
+function textNode(tag, value, className = '') {
+  const element = document.createElement(tag);
+  element.textContent = String(value ?? '');
+
+  if (className) {
+    element.className = className;
+  }
+
+  return element;
+}
+
+function safeUrl(value) {
+  try {
+    const url = new URL(value);
+
+    return ['http:', 'https:'].includes(url.protocol)
+      ? url.href
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function formatDate(input) {
+  try {
+    return new Intl.DateTimeFormat('en-AU', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(new Date(input));
+  } catch {
+    return '';
+  }
+}
+
+function ownText(value) {
+  return String(value ?? '').slice(0, 2000);
+}
+
+/* VERIFY ADMIN ACCESS */
+
+async function checkAdmin() {
+
+  const {
+    data: { user },
+    error
+  } = await client.auth.getUser();
+
+  if (error || !user) return false;
+
+  const {
+    data,
+    error: dbError
+  } = await client
+    .from('site_admins')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (dbError) throw dbError;
+
+  if (!data) return false;
+
+  $('adminEmail').textContent =
+    user.email || 'admin';
+
+  return true;
+}
+
+/* LOAD SUBMISSIONS */
+
+async function loadPage() {
+
+  if (loading || !verifiedAdmin) return;
+
+  loading = true;
+  $('refreshButton').disabled = true;
+
+  msg('statusLine', 'Loading submissions...');
+
+  try {
+
+    for (const type of TYPES) {
+
+      const result = await client
+        .from(type.key)
+        .select('*')
+        .order('created_at', {
+          ascending: false
+        })
+        .limit(200);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      records[type.key] = result.data || [];
+    }
+
+    msg(
+      'statusLine',
+      'Last refreshed: ' + new Date().toLocaleString(),
+      true
+    );
+
+    renderAll();
+
+  } catch (e) {
+
+    msg(
+      'statusLine',
+      'Could not load submissions: ' +
+      (e.message || String(e))
+    );
+
+    console.error(e);
+
+  } finally {
+
+    loading = false;
+    $('refreshButton').disabled = false;
+  }
+}
+
+/* RENDER SUBMISSIONS */
+
+function renderAll() {
+
+  const all = TYPES.flatMap(
+    type => records[type.key] || []
+  );
+
+  const count = status =>
+    all.filter(
+      item => rowStatus(item) === status
+    ).length;
+
+  $('counts').replaceChildren();
+
+  [
+    ['Pending', count('pending')],
+    ['Approved', count('approved')],
+    ['Rejected', count('rejected')]
+  ].forEach(([label, n]) => {
+
+    const card = textNode(
+      'div',
+      '',
+      'count-card'
+    );
+
+    card.append(
+      textNode('span', label),
+      textNode('strong', n)
+    );
+
+    $('counts').append(card);
+
+  });
+
+  $('moderationContent').replaceChildren();
+
+  for (const type of TYPES) {
+
+    const rows = (records[type.key] || [])
+      .filter(
+        row =>
+          activeFilter === 'all' ||
+          rowStatus(row) === activeFilter
+      );
+
+    const heading = textNode(
+      'h2',
+      `${type.heading} (${rows.length})`,
+      'group-title'
+    );
+
+    $('moderationContent').append(heading);
+
+    if (!rows.length) {
+
+      $('moderationContent').append(
+        textNode(
+          'div',
+          'No submissions in this section.',
+          'empty'
+        )
+      );
+
+      continue;
+    }
+
+    const cards = textNode(
+      'div',
+      '',
+      'cards'
+    );
+
+    rows.forEach(
+      row => cards.append(
+        makeCard(type.key, row)
+      )
+    );
+
+    $('moderationContent').append(cards);
+
+  }
+}
+
+function rowStatus(row) {
+  return row.review_status ||
+    (row.approved ? 'approved' : 'pending');
+}
+
+function addLink(parent, label, value) {
+
+  const safe = safeUrl(value);
+
+  if (!safe) return;
+
+  const link = textNode(
+    'a',
+    label + ': ' + safe,
+    'entry-url'
+  );
+
+  link.href = safe;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+
+  parent.append(link);
+}
+
+/* CREATE SUBMISSION CARDS */
+
+function makeCard(table, row) {
+
+  const el = textNode(
+    'article',
+    '',
+    'entry'
+  );
+
+  const top = textNode(
+    'div',
+    '',
+    'entry-top'
+  );
+
+  const name =
+    table === 'banner_exchange'
+      ? (row.site_name || 'Site')
+      : (row.name || 'Anonymous');
+
+  const nameEl = textNode(
+    'strong',
+    ownText(name),
+    'entry-name'
+  );
+
+  const info = textNode(
+    'div',
+    '',
+    'entry-meta'
+  );
+
+  info.append(
+    textNode('div', 'ID ' + row.id),
+    textNode('div', formatDate(row.created_at)),
+    textNode('span', rowStatus(row), 'status-chip')
+  );
+
+  top.append(nameEl, info);
+  el.append(top);
+
+  if (table === 'drawings') {
+
+    const url = safeUrl(row.image_url);
+
+    if (url) {
+
+      const img = document.createElement('img');
+
+      img.className = 'entry-img';
+      img.loading = 'lazy';
+      img.alt = 'Submitted drawing';
+      img.src = url;
+
+      el.append(img);
+
+      addLink(el, 'View image', url);
+    }
+  }
+
+  if (table === 'banner_exchange') {
+
+    addLink(el, 'Website', row.site_url);
+    addLink(el, 'Banner image', row.banner_url);
+
+    const url = safeUrl(row.banner_url);
+
+    if (url) {
+
+      const img = document.createElement('img');
+
+      img.className = 'entry-img';
+      img.loading = 'lazy';
+      img.src = url;
+      img.alt = 'Submitted banner';
+      img.referrerPolicy = 'no-referrer';
+
+      el.append(img);
+    }
+
+    if (row.owner_name) {
+      el.append(
+        textNode(
+          'div',
+          'Owner: ' + ownText(row.owner_name),
+          'entry-content'
+        )
+      );
+    }
+  }
+
+  if (
+    table === 'guestbook' &&
+    row.website_url
+  ) {
+    addLink(el, 'Website', row.website_url);
+  }
+
+  if (row.message) {
+    el.append(
+      textNode(
+        'div',
+        ownText(row.message),
+        'entry-content'
+      )
+    );
+  }
+
+  const actions = textNode(
+    'div',
+    '',
+    'actions'
+  );
+
+  const status = rowStatus(row);
+
+  if (status !== 'approved') {
+    actions.append(
+      actionButton(
+        '✓ Approve',
+        'primary',
+        () => moderate(table, row, 'approved')
+      )
+    );
+  }
+
+  if (status !== 'rejected') {
+    actions.append(
+      actionButton(
+        '✕ Reject / Hide',
+        'danger',
+        () => moderate(table, row, 'rejected')
+      )
+    );
+  }
+
+  if (status !== 'pending') {
+    actions.append(
+      actionButton(
+        '↺ Return to pending',
+        '',
+        () => moderate(table, row, 'pending')
+      )
+    );
+  }
+
+  el.append(actions);
+
+  return el;
+}
+
+function actionButton(title, variant, fn) {
+
+  const button = textNode(
+    'button',
+    title,
+    'btn ' + variant
+  );
+
+  button.type = 'button';
+  button.addEventListener('click', fn);
+
+  return button;
+}
+
+/* APPROVE / REJECT SUBMISSION */
+
+async function moderate(table, row, status) {
+
+  if (!verifiedAdmin) return;
+
+  const action =
+    status === 'approved'
+      ? 'APPROVE'
+      : status === 'rejected'
+        ? 'REJECT / HIDE'
+        : 'RETURN TO PENDING';
+
+  if (!window.confirm(
+    `${action} this ${table} submission?`
+  )) {
+    return;
+  }
+
+  msg('statusLine', 'Saving change...');
+
+  const result = await client
+    .from(table)
+    .update({
+      approved: status === 'approved',
+      review_status: status
+    })
+    .eq('id', row.id)
+    .select('id,approved,review_status');
+
+  if (result.error) {
+
+    msg(
+      'statusLine',
+      'Could not save: ' + result.error.message
+    );
+
+    return;
+  }
+
+  if (
+    !result.data ||
+    result.data.length !== 1
+  ) {
+
+    msg(
+      'statusLine',
+      'No row changed. Check admin policies.'
+    );
+
+    return;
+  }
+
+  const idx = (records[table] || [])
+    .findIndex(r => r.id === row.id);
+
+  if (idx >= 0) {
+
+    records[table][idx].approved =
+      status === 'approved';
+
+    records[table][idx].review_status =
+      status;
+  }
+
+  msg(
+    'statusLine',
+    'Saved. Refresh the public guestbook page to see approvals.',
+    true
+  );
+
+  renderAll();
+}
+
+/* LOGIN / LOGOUT */
+
+async function showLoggedIn() {
+
+  try {
+
+    verifiedAdmin = await checkAdmin();
+
+    if (!verifiedAdmin) {
+
+      display('adminArea', false);
+      display('authArea', true);
+
+      const {
+        data: { user }
+      } = await client.auth.getUser();
+
+      if (user) {
+
+        msg(
+          'loginMessage',
+          'This account is signed in but does not have admin access. Check the User UID in your SQL setup.'
+        );
+
+        await client.auth.signOut();
+      }
+
+      return;
+    }
+
+    display('authArea', false);
+    display('adminArea', true);
+
+    await loadPage();
+
+  } catch (e) {
+
+    msg(
+      'loginMessage',
+      'Admin verification failed: ' + e.message
+    );
+
+    display('adminArea', false);
+    display('authArea', true);
+  }
+}
+
+$('loginForm').addEventListener(
+  'submit',
+  async event => {
+
+    event.preventDefault();
+
+    $('loginButton').disabled = true;
+
+    msg('loginMessage', 'Signing in...');
+
+    const { error } =
+      await client.auth.signInWithPassword({
+        email: $('email').value.trim(),
+        password: $('password').value
+      });
+
+    $('loginButton').disabled = false;
+    $('password').value = '';
+
+    if (error) {
+
+      msg('loginMessage', error.message);
+
+      return;
+    }
+
+    msg('loginMessage', '');
+
+    await showLoggedIn();
+  }
+);
+
+/* REFRESH */
+
+$('refreshButton').addEventListener(
+  'click',
+  loadPage
+);
+
+/* LOG OUT */
+
+$('logoutButton').addEventListener(
+  'click',
+  async () => {
+
+    await client.auth.signOut();
+
+    verifiedAdmin = false;
+    records = {};
+
+    display('adminArea', false);
+    display('authArea', true);
+
+    msg('loginMessage', 'Signed out.', true);
+  }
+);
+
+/* FILTERS */
+
+document.querySelectorAll('[data-filter]')
+  .forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      activeFilter = btn.dataset.filter;
+
+      document.querySelectorAll('[data-filter]')
+        .forEach(b => {
+          b.classList.toggle(
+            'active',
+            b === btn
+          );
+        });
+
+      renderAll();
+    });
+
+  });
+
+/* INITIALIZE */
+
+showLoggedIn();
+
+</script>
+</body>
+</html>
