@@ -3,234 +3,119 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>CHARACTERS | 朝霧 ROUTE</title>
 <style>
-:root{
-  --black:#141316;--charcoal:#28272c;--slate:#56585c;--grey:#c8c8c5;--white:#fcfcf7;
-  --yellow:#ffe000;--yellow2:#fff248;--red:#9b2234;--red2:#c42d45;
-  --muted:#92908d;--cream:#f8f5ea;--cyan:#83b8be;--line:#d6d2c5;
-  --sans:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#1d1c20;color:var(--black);font-family:var(--sans);min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
-button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--red2);outline-offset:3px}
-[hidden]{display:none!important}
-/* Original graphic wallpaper: no bg-page-v2.png, no police-tape layers. */
-.page{
-  position:relative;min-height:100vh;display:flex;flex-direction:column;
-  background:
-    repeating-linear-gradient(0deg,rgba(255,255,255,.023) 0 1px,transparent 1px 38px),
-    repeating-linear-gradient(90deg,rgba(255,255,255,.021) 0 1px,transparent 1px 38px),
-    radial-gradient(ellipse at 0 18%,rgba(137,29,43,.23),transparent 42%),
-    linear-gradient(130deg,#151519 0%,#272125 47%,#19191c 100%);
-}
-.microbar{height:35px;min-height:35px;display:flex;align-items:center;justify-content:space-between;padding:0 max(30px,calc((100vw - 1320px)/2));background:#101014;color:#dbd9d3;border-bottom:1px solid #494448;font-size:10px;letter-spacing:.14em}
-.microbar nav{display:flex;gap:23px}.microbar nav a:hover{color:var(--yellow)}
-.masthead{position:relative;overflow:hidden;min-height:198px;background:var(--yellow);display:flex;align-items:center;padding:31px max(40px,calc((100vw - 1280px)/2));border-bottom:8px solid var(--black)}
-.masthead::before{content:"";position:absolute;top:-130px;right:5%;width:34%;height:430px;transform:skewX(-26deg);background:#1d1a21}
-.masthead::after{content:"";position:absolute;top:0;right:0;width:32%;height:100%;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(255,255,255,.11) 5px 7px)}
-.masthead-content{position:relative;z-index:2;width:100%;max-width:1280px;margin:auto}
-.kicker{font-size:11px;font-weight:800;letter-spacing:.28em;color:var(--red)}
-.masthead-title{margin:7px 0 -3px;font-family:Arial Black,Impact,var(--sans);font-size:clamp(52px,6.6vw,94px);font-weight:900;letter-spacing:-.065em;line-height:.96}
-.masthead-sub{font-size:12px;color:#555049;max-width:600px;margin:12px 0 0;line-height:1.6}
-.masthead-stripe{position:absolute;bottom:0;left:0;width:100%;height:13px;background:linear-gradient(90deg,#171619 0 54%,var(--red2) 54% 74%,#f9f8f1 74% 78%,#6e989e 78% 82%,#171619 82%)}
-.lang-switch{display:flex;gap:0;position:absolute;top:22px;right:22px;z-index:7;border:2px solid var(--yellow);background:#171619;box-shadow:4px 4px 0 rgba(0,0,0,.25)}
-.lang-btn{border:0;border-right:1px solid #4b4b47;padding:9px 16px;background:transparent;color:#e8e5dd;font-size:11px;font-weight:700}
-.lang-btn:last-child{border:0}.lang-btn.is-active{color:#151515;background:var(--yellow)}
-.primary-nav{position:sticky;top:0;z-index:40;background:#242327;box-shadow:0 5px 12px #0005;border-bottom:4px solid var(--red)}
-.nav-inner{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;overflow-x:auto;scrollbar-width:none}
-.nav-inner::-webkit-scrollbar{display:none}
-.nav-inner a{flex-shrink:0;display:block;padding:16px 21px;color:#efebe7;font-size:10px;letter-spacing:.13em;font-weight:800;border-right:1px solid #454047}
-.nav-inner a:first-child{border-left:1px solid #454047}.nav-inner a:hover{background:var(--yellow);color:#171619}
-.frame{width:min(1320px,calc(100% - 60px));margin:0 auto;padding:35px 0 85px;flex:1}
-.section-marker{display:flex;gap:15px;align-items:end;color:#eee7d9;margin:0 0 17px;border-bottom:1px solid #777075;padding:0 0 12px}
-.section-marker .index{color:var(--yellow);font:900 42px/.9 Arial Black,Impact,sans-serif}
-.section-marker h2{margin:0;font:900 25px/1.08 Arial Black,Impact,var(--sans);letter-spacing:-.025em}
-.section-marker small{font-size:10px;letter-spacing:.14em;color:#c5bbb6;display:block;margin-bottom:4px}
-/* Hero dossier: giant art, no circle, figure is displayed at bottom, never cropped by cover. */
-.showcase{position:relative;overflow:hidden;background:#fcfbf3;border:4px solid #101014;box-shadow:12px 12px 0 rgba(0,0,0,.26);margin-bottom:75px}
-.character-switch{display:grid;grid-template-columns:1fr 1fr;background:var(--black)}
-.character-switch button{display:flex;align-items:center;gap:20px;border:0;border-right:1px solid #77706b;min-height:69px;padding:12px 24px;text-align:left;background:#242328;color:#a8a6a7}
-.character-switch button:last-child{border-right:0}.character-switch button.is-active{background:var(--red);color:#fff}.character-switch button:not(.is-active):hover{background:#3c3438;color:#fff}
-.character-switch .switch-num{font:900 24px Arial Black,Impact,sans-serif;color:var(--yellow)}
-.character-switch .switch-name{font-size:19px;letter-spacing:.035em;font-weight:900}.character-switch .switch-sub{display:block;font:10px var(--sans);letter-spacing:.12em;margin-top:4px}
-.character-switch ruby rt{font-size:9px;font-weight:500;letter-spacing:.08em}
-.showcase-layout{display:grid;grid-template-columns:minmax(0,46%) minmax(0,54%);align-items:stretch;min-height:0}
-.art-stage{position:relative;min-width:0;min-height:0;aspect-ratio:10 / 18;overflow:hidden;background:#ffe300;isolation:isolate}
-.art-stage::before{content:"";position:absolute;inset:-30% 0 0;z-index:-1;pointer-events:none;background:
-  linear-gradient(145deg,transparent 0 38%,rgba(255,255,255,.3) 38% 39%,transparent 39%),
-  linear-gradient(145deg,transparent 0 48%,#cb3044 48% 50%,transparent 50%),
-  linear-gradient(145deg,transparent 0 56%,#1d1d23 56% 60%,transparent 60%),
-  linear-gradient(145deg,transparent 0 63%,rgba(255,255,255,.67) 63% 64%,transparent 64%),
-  linear-gradient(162deg,transparent 0 75%,rgba(42,28,35,.12) 75%),
-  repeating-linear-gradient(0deg,rgba(255,255,255,.13) 0 2px,transparent 2px 10px)}
-.art-stage::after{content:"";position:absolute;z-index:0;bottom:-12%;left:-25%;width:150%;height:35%;transform:rotate(-9deg);background:#c52841;clip-path:polygon(0 30%,100% 5%,100% 45%,0 85%);pointer-events:none}
-/* Both characters share the same bright yellow stage and accent shapes. */
-.stage-id{position:absolute;top:25px;left:32px;z-index:2;background:var(--black);color:var(--yellow);font-size:10px;font-weight:900;letter-spacing:.17em;padding:11px 14px}
-.art-stage .huge-index{position:absolute;top:52px;left:25px;z-index:0;font:900 215px/1 Arial Black,Impact,sans-serif;color:rgba(30,26,32,.065);pointer-events:none}
-.figure-window{position:absolute;left:1%;right:1%;top:30px;bottom:96px;z-index:3;display:flex;justify-content:center;align-items:flex-end;overflow:hidden}
-#characterArt{display:block;width:100%;height:100%;max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;transform:translate(var(--art-x,0px),var(--art-y,0px)) scale(var(--art-zoom,1));transform-origin:bottom center;filter:drop-shadow(10px 13px 0 rgba(17,16,22,.20))}
-.art-empty{position:absolute;inset:6% 10% 9%;display:grid;align-content:center;justify-items:center;gap:12px;padding:30px;border:1px dashed rgba(27,23,28,.4);background:rgba(255,255,240,.14);color:#272323;text-align:center}
-.art-empty strong{font:900 22px Arial Black,Impact,sans-serif;letter-spacing:.07em}.art-empty small{font-size:12px;line-height:1.7;max-width:300px}.art-empty code{font:11px/1.6 Consolas,monospace;overflow-wrap:anywhere}
-.art-direction{position:absolute;z-index:7;top:47%;transform:translateY(-50%);width:53px;height:56px;border:3px solid var(--black);border-radius:50%;background:var(--black);color:var(--yellow);font-size:34px;line-height:1;box-shadow:3px 3px 0 var(--yellow)}
-.art-direction:hover{background:var(--red);color:#fff}.art-direction.prev{left:18px}.art-direction.next{right:18px}
-.version-label{position:absolute;z-index:8;bottom:0;left:0;right:0;min-height:96px;background:#19171cf5;color:#fff;display:grid;grid-template-columns:1fr auto;align-items:center;padding:15px 24px 14px 30px;gap:15px;border-top:7px solid var(--yellow)}
-.version-label strong{display:block;font-size:21px;line-height:1.25}.version-label small{display:block;color:#b9b3b3;font-size:11px;margin-top:6px}.version-label small:empty{display:none}.version-count{font-size:12px;font-weight:900;letter-spacing:.08em;color:var(--yellow)}
-/* Main facts area references official character pages: dense typography and deliberate information table. */
-.info-rail{position:relative;background:#f8f8f4;display:flex;flex-direction:column;border-left:5px solid var(--black)}
-.info-rail::before{content:"";position:absolute;top:0;left:0;right:0;height:12px;background:linear-gradient(90deg,#aa2435 0 65%,var(--yellow) 65%)}
-.info-top{padding:40px 27px 22px;background:#f9faf7}
-.char-eyebrow{font-size:10px;font-weight:900;color:var(--red);letter-spacing:.19em}
-.info-name{margin:17px 0 6px;font-size:clamp(32px,3.1vw,47px);font-weight:900;line-height:1.35;letter-spacing:.025em}
-.info-name ruby rt{font-size:12px;line-height:1;font-weight:500;letter-spacing:.12em}
-.info-roman{color:#686369;font-size:13px;font-weight:800;letter-spacing:.17em;border-bottom:3px solid var(--black);padding-bottom:16px}
-.info-portrait-bar{display:flex;align-items:center;gap:13px;margin-top:17px}
-.small-portrait{width:67px;height:70px;background:#e2e3e0;flex:none;border:1px solid #b7b6b2;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.small-portrait img{width:100%;height:100%;object-fit:contain}.small-portrait span{font-size:9px;color:#a5a5a0;text-align:center}
-.info-micro{font-size:10px;line-height:1.7;color:#6d6665;letter-spacing:.05em}
-.fact-heading{background:#242227;color:var(--yellow);padding:11px 27px;font:900 11px var(--sans);letter-spacing:.18em}
-.facts{padding:11px 27px 24px;margin:0;display:block;align-content:start}
-.fact{min-height:50px;padding:11px 0;border-bottom:1px solid #dedbd4;display:grid;grid-template-columns:minmax(96px,30%) minmax(0,1fr);align-items:start;gap:12px;overflow-wrap:anywhere}
-.fact dt{font-size:10px;color:#8b4e56;letter-spacing:.04em;font-weight:900;margin:0;padding-top:3px;text-transform:uppercase}
-.fact dd{margin:0;font-size:13px;font-weight:800;color:#27232b;line-height:1.55}
-.fact-group-heading{background:#e8e5db;color:#343037;border-left:5px solid var(--red);padding:10px 12px;margin-top:16px;font-size:11px;letter-spacing:.1em;font-weight:900}.fact-group-heading:first-child{margin-top:2px}
-.fact-note{margin:auto 27px 23px;padding:13px 0 0;border-top:2px solid #232124;font-size:10px;line-height:1.8;color:#827b7a}
-/* Individual character records; editorial, no fake background paragraphs. */
-.file-section,.visual-section,.shared-section,.au-section{margin-bottom:76px}
-.dossiers{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.dossier{background:#faf9f2;border:1px solid #afaaa6;box-shadow:7px 7px 0 #0004}
-.dossier-header{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#19191b;color:#fff;padding:17px 22px;border-bottom:7px solid var(--yellow)}
-.dossier-header h3{font-size:23px;margin:0;letter-spacing:.045em}.dossier-header ruby rt{font-size:9px;font-weight:400}
-.dossier-header span{font:900 10px Arial,sans-serif;color:var(--yellow);letter-spacing:.13em}
-.dossier-intro{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:22px;border-bottom:1px solid #d3d0c9}
-.dossier-portrait{height:147px;background:linear-gradient(140deg,#ffe668,#efebe2);display:grid;place-items:center;overflow:hidden;border:2px solid #262327}
-.dossier-portrait img{width:100%;height:100%;object-fit:contain}.dossier-portrait .empty{font-size:9px;color:#797067;text-align:center}
-.dossier-intro p{margin:0;font-size:13px;line-height:1.9;color:#514b4b}
-.dossier-item{padding:18px 22px;border-bottom:1px solid #e0dcd4;display:grid;grid-template-columns:124px 1fr;gap:12px}
-.dossier-item:last-child{border-bottom:0}
-.dossier-item strong{font-size:11px;color:#9c283a;text-transform:uppercase;letter-spacing:.045em}
-.dossier-item p{margin:0;line-height:1.85;font-size:12px;color:#514c4a;white-space:pre-line}
-.placeholder{color:#92908a!important;font-size:11px!important;font-style:italic}
-.reference-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
-.ref-card{background:#fbfbf6;border:1px solid #a8a3a2;box-shadow:4px 4px 0 rgba(0,0,0,.22)}
-.ref-picture{height:275px;background:linear-gradient(138deg,#e2e3e0,#fffdeb 60%,#e8e1cd);display:grid;place-items:center;position:relative;overflow:hidden}
-.ref-picture::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,var(--yellow) 0 67%,var(--red) 67%)}
-.ref-picture img{height:100%;width:100%;object-fit:contain;position:relative;z-index:2}.ref-empty{color:#aaa7a1;font-size:11px;letter-spacing:.15em;text-align:center;padding:20px}
-.ref-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#252429;color:white;padding:13px 17px;font-size:13px}
-.ref-footer small{font-size:9px;color:var(--yellow);letter-spacing:.07em}
-/* Shared story is visually distinct: the character file above is not a relationship file. */
-.shared-shell{background:#f8f8f2;border:1px solid #8e8987;box-shadow:7px 7px 0 #0004;overflow:hidden}
-.shared-head{position:relative;overflow:hidden;background:linear-gradient(110deg,#141318 0 39%,#8f1f30 39% 84%,#16161a 84%);padding:39px 42px;border-bottom:9px solid var(--yellow);color:#fff}
-.shared-head::after{content:"";position:absolute;right:-3%;top:-30%;width:20%;height:170%;background:repeating-linear-gradient(0deg,transparent 0 8px,rgba(255,255,255,.12) 8px 10px);transform:skewX(-16deg)}
-.shared-head .overline{font-size:10px;letter-spacing:.27em;color:var(--yellow);font-weight:900}
-.shared-head h3{margin:12px 0 0;font-size:clamp(27px,3vw,42px);letter-spacing:.025em}
-.shared-body{padding:29px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
-.shared-picture{min-height:365px;background:#dedfdb;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #bbb6b2}
-.shared-picture img{max-width:100%;max-height:390px;object-fit:contain}
-.shared-notes h4{font-size:22px;margin:8px 0 11px}.shared-notes p{font-size:13px;line-height:1.9;color:#65605b;margin:0 0 19px}
-.shared-index{border-top:1px solid #d0cec7;display:grid;grid-template-columns:repeat(3,1fr)}
-.shared-index a{padding:23px 24px;font-size:13px;border-right:1px solid #d0cec7;font-weight:900}.shared-index a:last-child{border-right:0}.shared-index a:hover{background:var(--yellow)}.shared-index small{display:block;color:#807a73;font-size:10px;font-weight:400;margin-top:9px}
-.au-disclosure{background:#f7f6ed;border:1px solid #a29e98}.au-disclosure summary{list-style:none;padding:21px 27px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#232226;color:#fff;font-weight:900}.au-disclosure summary::-webkit-details-marker{display:none}.au-disclosure summary::after{content:"+";font-size:22px;color:var(--yellow)}.au-disclosure[open] summary::after{content:"−"}.au-note{padding:24px;font-size:12px;color:#77736f;line-height:1.8}
-.footer{padding:23px 15px;margin-top:auto;border-top:5px solid var(--yellow);background:#17171b;text-align:center;color:#bbb4b2;font-size:10px;line-height:1.8}
-/* responsive: characters and text remain readable rather than shrinking a 1280px screenshot on phones */
-@media(max-width:1050px){.showcase-layout{grid-template-columns:minmax(0,46%) minmax(0,54%)}.figure-window{left:1%;right:1%}.art-stage{min-height:0}.showcase-layout{min-height:0}.info-top{padding:34px 20px 19px}.facts{padding:8px 20px 20px}.fact-note{margin:0 20px 20px}}
-@media(max-width:760px){
-  .microbar{padding:0 15px;gap:12px}.microbar nav{gap:12px}.microbar nav a:nth-child(n+3){display:none}
-  .masthead{padding:58px 19px 31px;min-height:178px}.masthead::before{right:-24%;width:50%}.masthead-title{font-size:59px}.masthead-sub{max-width:74%;font-size:11px}.lang-switch{top:12px;right:12px}.lang-btn{padding:7px 11px}
-  .nav-inner a{padding:13px 14px;font-size:9px}.frame{width:calc(100% - 22px);padding-top:23px;padding-bottom:50px}
-  .section-marker h2{font-size:19px}.section-marker .index{font-size:32px}.section-marker small{font-size:8px}
-  .character-switch button{gap:8px;min-height:61px;padding:11px 10px}.character-switch .switch-num{font-size:17px}.character-switch .switch-name{font-size:14px}.character-switch .switch-sub{font-size:8px}.character-switch ruby rt{font-size:8px}
-  .showcase-layout{display:block}.art-stage{height:auto;aspect-ratio:10 / 18;min-height:0}.art-stage .huge-index{font-size:145px}.figure-window{top:27px;bottom:84px;left:1%;right:1%}.version-label{min-height:84px;padding:11px 14px 11px 17px}.version-label strong{font-size:17px}.version-label small{font-size:9px}.art-direction{width:39px;height:43px;font-size:27px}.art-direction.prev{left:6px}.art-direction.next{right:6px}
-  .info-rail{border-left:0;border-top:4px solid #17171b}.info-top{padding:24px 23px 17px}.info-name{font-size:36px}.facts{padding:12px 23px 23px}.fact-note{margin:0 23px 23px}
-  .showcase{margin-bottom:58px;box-shadow:5px 5px 0 #0003}.file-section,.visual-section,.shared-section,.au-section{margin-bottom:55px}
-  .dossiers,.reference-grid{grid-template-columns:1fr}.dossier-intro{grid-template-columns:96px 1fr;gap:14px}.dossier-portrait{height:110px}.dossier-header h3{font-size:19px}
-  .reference-grid{gap:14px}.ref-picture{height:220px}
-  .shared-body{grid-template-columns:1fr;padding:18px}.shared-picture{min-height:235px}.shared-index{grid-template-columns:1fr}.shared-index a{border-right:0;border-bottom:1px solid #d0cec7;padding:17px 20px}.shared-head{padding:29px 23px}.shared-head h3{font-size:27px}
-}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ASAGIRI ROUTE — CHARACTER SITE / OFFICIAL-STYLE REFRESH */
+:root{--ink:#121217;--ink2:#202026;--red:#ab2440;--red-deep:#77152b;--yellow:#ffe300;--paper:#f6f5ef;--blue:#85cce5;--mute:#77777e;--gothic:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;--display:Impact,"Arial Black",Arial,"Noto Sans JP",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--gothic);overflow-x:hidden}button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}[hidden]{display:none!important}
+.site{min-height:100dvh;display:flex;flex-direction:column;background:radial-gradient(ellipse at 12% 9%,rgba(138,29,57,.2),transparent 37%),linear-gradient(#141418,#141418)}
+.topline{height:55px;background:#111116;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 max(28px,calc((100vw - 1320px)/2));border-bottom:1px solid #353138;position:relative;z-index:30;font-size:11px;font-weight:800;letter-spacing:.13em}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap}.brand .brand-mark{width:23px;height:23px;background:var(--yellow);display:grid;place-items:center;transform:rotate(-13deg);color:var(--ink);font:900 18px var(--display)}.brand .brand-text{font-size:14px;font-weight:900;letter-spacing:.1em}.toplinks{display:flex;align-items:center;gap:18px}.toplinks a{transition:color .22s}.toplinks a:hover{color:var(--yellow)}
+.language{display:flex;gap:4px;margin-left:10px}.lang-btn{padding:7px 10px;border:1px solid #444048;color:#bbb8b9;background:#1b1a20;font-size:10px;font-weight:900}.lang-btn.is-active{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.site-header{position:relative;min-height:236px;overflow:hidden;background:var(--yellow);color:var(--ink);isolation:isolate}.site-header::before{content:"";position:absolute;right:-11%;top:-45%;height:225%;width:52%;transform:rotate(-22deg);background:var(--red);z-index:-1}.site-header::after{content:"";position:absolute;right:-3%;top:-45%;height:225%;width:28%;transform:rotate(-22deg);background:var(--ink);z-index:-1}
+.header-inner{width:min(1280px,calc(100% - 64px));margin:auto;position:relative;min-height:236px;display:flex;flex-direction:column;justify-content:center;padding:20px 0 34px}.header-overline{font-size:12px;letter-spacing:.28em;font-weight:900}.header-overline b{display:inline-block;background:var(--ink);color:var(--yellow);padding:5px 10px;margin-right:10px}.header-title{margin:4px 0 3px;font:900 clamp(65px,10vw,154px)/.86 var(--display);letter-spacing:-.055em;transform:scaleX(1.025);transform-origin:left;text-transform:uppercase}.header-caption{max-width:540px;font-size:12px;font-weight:800;line-height:1.6;margin:10px 0 0}.header-line{position:absolute;bottom:0;left:0;right:0;height:10px;background:linear-gradient(90deg,var(--red) 0 36%,var(--ink) 36% 81%,#fff 81% 84%,var(--blue) 84%)}
+.header-shapes{position:absolute;inset:0;pointer-events:none;z-index:0}.header-shapes::before{content:"";position:absolute;right:21%;top:-95px;width:270px;height:460px;background:repeating-linear-gradient(90deg,transparent 0 12px,rgba(255,255,255,.16) 12px 14px);transform:rotate(-22deg)}.header-shapes::after{content:"✦";position:absolute;right:30%;top:32px;font-size:90px;color:#fff;opacity:.4;transform:rotate(-12deg)}
+.sticky-nav{position:sticky;top:0;z-index:45;background:#1b1a20;color:#fff;border-bottom:4px solid var(--red);box-shadow:0 9px 20px #0005}.nav-content{max-width:1280px;margin:auto;display:flex;justify-content:center;overflow-x:auto;scrollbar-width:none}.nav-content::-webkit-scrollbar{display:none}.nav-content a{flex:1;min-width:max-content;padding:17px 18px;text-align:center;border-right:1px solid #39353d;text-transform:uppercase;font-size:11px;font-weight:900;letter-spacing:.1em;transition:color .2s,background .2s}.nav-content a:first-child{border-left:1px solid #39353d}.nav-content a:hover{background:var(--yellow);color:var(--ink)}
+.main{width:min(1320px,calc(100% - 60px));margin:auto;padding:50px 0 85px;flex:1;position:relative}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:0 0 26px;position:relative}.section-head::after{content:"";position:absolute;bottom:-10px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--yellow) 0 24%,#716e75 24%)}.section-head h2{font:900 clamp(30px,4vw,51px)/1 var(--display);margin:0;letter-spacing:.01em;text-transform:uppercase}.section-head .overline{font-size:10px;font-weight:900;letter-spacing:.25em;color:var(--yellow);margin:0 0 6px}.section-head .head-side{font-size:11px;font-weight:800;letter-spacing:.1em;color:#b5b1b2;text-align:right}
+/* MAIN FEATURE: no numeric character indexing, no portrait/info micro-strip */
+.showcase{position:relative;margin:0 0 110px;background:var(--ink);border:1px solid #444048;box-shadow:15px 15px 0 #0005;overflow:hidden}
+.character-switch{display:grid;grid-template-columns:1fr 1fr;background:#111116;border-bottom:6px solid var(--yellow)}.character-switch button{position:relative;min-width:0;min-height:96px;text-align:left;border:0;border-right:2px solid #49434b;padding:18px clamp(12px,3vw,35px);background:#292730;color:#c5c1c5;transition:background .26s,color .26s;overflow:hidden}.character-switch button:last-child{border-right:0}.character-switch button:before{content:"";position:absolute;inset:auto -20% 0 auto;width:50%;height:8px;background:var(--yellow);transform:skew(-36deg) translateY(12px);transition:transform .28s}.character-switch button.is-active{color:#fff;background:var(--red)}.character-switch button.is-active:before{transform:skew(-36deg) translateY(0)}.character-switch button:hover:not(.is-active){color:#fff;background:#3a303c}
+.switch-name{display:block;font-size:clamp(18px,2.4vw,29px);font-weight:900;letter-spacing:.04em;line-height:1.35}.switch-name rt{font-size:10px;letter-spacing:.15em}.switch-sub{font:900 12px var(--gothic);letter-spacing:.19em;display:block;margin-top:4px}
+.hero-grid{display:grid;grid-template-columns:42% 58%;align-items:stretch;background:var(--paper)}
+.art-stage{position:relative;width:100%;aspect-ratio:10 / 18;overflow:hidden;background:var(--yellow);isolation:isolate}.art-stage::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(156deg,transparent 0 36%,rgba(255,255,255,.56) 36% 37%,transparent 37%),linear-gradient(156deg,transparent 0 47%,var(--red) 47% 51%,transparent 51%),linear-gradient(156deg,transparent 0 54%,var(--ink) 54% 61%,transparent 61%),linear-gradient(156deg,transparent 0 64%,#fff 64% 65%,transparent 65%),linear-gradient(25deg,rgba(255,255,255,.18),transparent 65%)}
+.art-stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 9px)}
+.art-plate{position:absolute;top:24px;left:22px;background:#121219;color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:.15em;padding:10px 16px;z-index:8;box-shadow:4px 4px 0 var(--red)}
+.figure-window{position:absolute;inset:26px 2% 81px;z-index:3;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}.figure-img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;transform:translate(var(--art-x,0px),var(--art-y,0px)) scale(var(--art-zoom,1));transform-origin:bottom center;filter:drop-shadow(9px 8px 0 rgba(15,11,19,.18))}.figure-img.is-arriving{animation:figureIn .48s cubic-bezier(.16,1,.3,1) both}@keyframes figureIn{from{opacity:0;transform:translate(calc(var(--art-x,0px) + 24px),calc(var(--art-y,0px) + 10px)) scale(calc(var(--art-zoom,1) * .985))}to{opacity:1;transform:translate(var(--art-x,0px),var(--art-y,0px)) scale(var(--art-zoom,1))}}
+.art-empty{position:absolute;inset:22% 7% 21%;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#1b1a20;text-align:center}.art-empty::before{content:"";position:absolute;width:75%;height:70%;border:1px solid rgba(21,21,25,.21);transform:skewY(-8deg)}.art-empty strong{font:900 clamp(16px,2vw,26px)/1.2 var(--display);letter-spacing:.14em;position:relative}.art-empty small{font-size:11px;line-height:1.65;position:relative;max-width:250px;font-weight:700}.art-empty code{position:relative;font:10px/1.6 Consolas,monospace;overflow-wrap:anywhere;background:#fff8;padding:4px 7px}
+.arrow{position:absolute;top:50%;z-index:12;width:55px;height:55px;border:3px solid #111115;border-radius:50%;color:var(--yellow);background:#18171c;font:900 31px/1 var(--gothic);display:grid;place-items:center;transition:transform .2s,background .2s,color .2s}.arrow:hover{transform:scale(1.1);background:var(--red);color:#fff}.arrow.prev{left:10px}.arrow.next{right:10px}
+.version-bar{position:absolute;z-index:13;bottom:0;left:0;right:0;min-height:81px;background:var(--ink);color:#fff;border-top:6px solid var(--yellow);padding:12px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:15px}.version-title{font-size:19px;font-weight:900;line-height:1.2}.version-note{font-size:10px;color:#beb9ba;margin-top:5px;display:block}.version-note:empty{display:none}.slide-dots{display:flex;align-items:center;gap:7px}.slide-dots button{width:14px;height:8px;padding:0;border:0;background:#77747a;transform:skew(-18deg);transition:background .2s,width .2s}.slide-dots button.is-active{background:var(--yellow);width:29px}.slide-dots button:hover{background:#fff}
+/* Right side: type-driven official character pages, not encyclopedia tables */
+.hero-info{position:relative;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);min-width:0}.hero-info::before{content:"";height:13px;background:linear-gradient(90deg,var(--red) 0 68%,var(--yellow) 68%);width:100%}.identity{padding:clamp(26px,4vw,60px) clamp(23px,5vw,65px) 34px;background:#fff}.identity-label{margin-bottom:19px;font-size:12px;font-weight:900;letter-spacing:.2em;color:var(--red);display:flex;align-items:center;gap:12px}.identity-label::before{content:"";display:block;width:38px;height:5px;background:var(--yellow)}.jp-name{font-weight:900;font-size:clamp(35px,5.1vw,76px);letter-spacing:.04em;line-height:1.2;margin:0}.jp-name rt{font-size:clamp(10px,1vw,14px);font-weight:600;letter-spacing:.18em}.roman-name{font:900 clamp(21px,3.1vw,44px)/1 var(--display);letter-spacing:.045em;margin:11px 0 0;color:var(--red)}.intro-line{font-weight:700;font-size:clamp(13px,1.17vw,16px);line-height:1.85;max-width:650px;margin:31px 0 0;border-left:6px solid var(--yellow);padding-left:21px}
+.info-bottom{flex:1;padding:26px clamp(23px,5vw,65px) 35px;background:linear-gradient(135deg,#f1f0eb 0%,#faf9f5 75%);display:flex;flex-direction:column}.info-subtitle{display:flex;align-items:center;gap:14px;font:900 18px var(--gothic);text-transform:uppercase;letter-spacing:.09em;margin:0 0 18px}.info-subtitle::after{content:"";display:block;height:2px;flex:1;background:#a9a8a4}.info-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 22px;align-content:start}.info-group{min-width:0}.info-group:last-child{grid-column:span 2}.info-group h4{background:#1a1a20;color:#ffe300;margin:0;padding:8px 12px;font-size:10px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}.info-group dl{margin:0;padding:2px 0}.info-row{display:grid;grid-template-columns:minmax(82px,39%) minmax(0,1fr);gap:8px;align-items:baseline;padding:11px 4px;border-bottom:1px solid #d3d0c9}.info-row dt{font-size:11px;font-weight:900;color:#8b3e4e;text-transform:uppercase}.info-row dd{margin:0;font-size:13px;font-weight:800;line-height:1.5;overflow-wrap:anywhere}.info-group:last-child dl{display:grid;grid-template-columns:1fr 1fr;gap:0 25px}.info-group:last-child .info-row{grid-template-columns:minmax(82px,39%) 1fr}.info-bottom-decoration{margin-top:auto;display:flex;align-items:center;gap:12px;padding:28px 0 0;color:#88858a;font-size:10px;letter-spacing:.1em}.info-bottom-decoration::before{content:"";width:40px;height:2px;background:var(--red)}
+/* Character profiles: editorial features, no small 'PORTRAIT' labels or numeric tags */
+.content-section{margin-bottom:110px}.file-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.file-feature{overflow:hidden;background:#f9f8f3;color:var(--ink);border:1px solid #3b393f;transition:transform .25s,box-shadow .25s;box-shadow:6px 6px 0 #0005}.file-feature:hover{transform:translateY(-5px);box-shadow:6px 11px 0 #0005}.file-name{background:#18181e;color:#fff;padding:20px 25px;border-bottom:6px solid var(--yellow);display:flex;align-items:center;justify-content:space-between;gap:14px}.file-name h3{margin:0;font-size:clamp(22px,2.7vw,36px);font-weight:900}.file-name rt{font-size:10px;font-weight:600}.file-name .file-roman{font-size:11px;letter-spacing:.12em;color:var(--yellow);font-weight:900;text-align:right}.file-featured{display:grid;grid-template-columns:31% 1fr;gap:0;align-items:stretch;border-bottom:1px solid #d8d6d0}.file-img{position:relative;min-height:240px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(160deg,var(--yellow) 0 68%,#eeb800 68%);}.file-img::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 12px,#fff6 12px 13px);opacity:.25}.file-img img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1}.empty-image{position:relative;z-index:1;font:900 11px var(--gothic);letter-spacing:.13em;color:#62531a}.file-overview{padding:25px 25px 22px;display:flex;align-items:center}.file-overview p{font-size:14px;line-height:1.9;margin:0;font-weight:650}.file-detail{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #ddd9d1;gap:16px;padding:22px 25px}.file-detail:last-child{border:0}.file-detail strong{color:var(--red);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:900}.file-detail p{margin:0;font-size:13px;line-height:1.85;color:#46414a}.file-detail .placeholder{font-style:italic;color:#8e8890;font-weight:400}
+/* Artwork collection: slide-in material cards and distinct headline treatment */
+.ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.ref-card{position:relative;background:#eae9e2;color:#171719;overflow:hidden;transition:transform .3s}.ref-card:hover{transform:translateY(-8px)}.ref-photo{height:320px;position:relative;display:grid;place-items:center;overflow:hidden;background:#e8e8e3}.ref-card:nth-child(2) .ref-photo{background:#e8d5d8}.ref-card:nth-child(3) .ref-photo{background:#e7dcaa}.ref-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,transparent 0 65%,rgba(255,227,0,.3) 65% 68%,transparent 68%)}.ref-photo img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1;transition:transform .45s}.ref-card:hover .ref-photo img{transform:scale(1.06)}.ref-photo .empty-image{font-size:11px;color:#888}.ref-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#1e1d22;color:#fff;border-top:7px solid var(--yellow);padding:19px 20px;font-size:14px;font-weight:850}.ref-meta::after{content:"↗";color:var(--yellow);font-size:23px;font-weight:900;line-height:1}
+/* Shared story: full-bleed dark/crimson section, away from encyclopedia card aesthetic */
+.shared-panel{overflow:hidden;background:var(--paper);color:#1c1b1e}.shared-title{min-height:230px;display:flex;flex-direction:column;justify-content:center;padding:35px clamp(28px,5vw,75px);background:linear-gradient(115deg,#16151c 0 50%,#ad2440 50% 88%,#ffe300 88%);color:#fff}.shared-title .mini{color:var(--yellow);font-size:12px;letter-spacing:.22em;font-weight:900}.shared-title h3{margin:12px 0 0;font-size:clamp(28px,5vw,65px);line-height:1.12;font-weight:900}.shared-layout{display:grid;grid-template-columns:54% 46%;min-height:350px}.shared-art{background:linear-gradient(150deg,#d7d6d1 0 48%,#f9f4e0 48%);display:grid;place-items:center;position:relative;overflow:hidden}.shared-art img{width:100%;height:100%;object-fit:contain}.shared-description{padding:clamp(25px,5vw,65px);display:flex;flex-direction:column;justify-content:center}.shared-description h4{font-size:27px;margin:0 0 16px}.shared-description p{font-size:14px;line-height:1.9;margin:0;color:#79737d}.story-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.story-actions a{background:#17171d;color:#fff;padding:14px 19px;font-size:12px;font-weight:900;transition:background .2s,color .2s,transform .2s}.story-actions a:hover{background:var(--yellow);color:#17171d;transform:translateX(4px)}
+.au-toggle{background:#222127;color:#fff;border:1px solid #5c545d}.au-toggle summary{list-style:none;cursor:pointer;padding:24px 30px;font-size:16px;font-weight:900;display:flex;justify-content:space-between;gap:12px}.au-toggle summary::-webkit-details-marker{display:none}.au-toggle summary::after{content:"+";font-size:25px;color:var(--yellow);line-height:1}.au-toggle[open] summary::after{content:"−"}.au-details{border-top:1px solid #655d65;padding:24px 30px;color:#bfb9bd;font-size:13px;line-height:1.8}
+.footer{padding:25px 24px;background:#101015;border-top:3px solid var(--yellow);text-align:center;font-size:10px;color:#88818a;letter-spacing:.04em}
+/* Motion: animated official-page reveal, accessible reduced-motion fallback */
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}.site-header .header-title{animation:rise .7s both}.showcase{animation:rise .8s .14s both}.ref-card{animation:rise .6s both}.ref-card:nth-child(2){animation-delay:.09s}.ref-card:nth-child(3){animation-delay:.18s}
+@media(min-width:1580px){.hero-grid{grid-template-columns:42% 58%}}
+@media(max-width:1050px){.main{width:calc(100% - 32px)}.hero-grid{grid-template-columns:45% 55%}.identity{padding:28px}.info-bottom{padding:23px 28px 28px}.info-groups{gap:16px}.info-row{grid-template-columns:1fr;gap:4px;padding:9px 2px}.info-group:last-child .info-row{grid-template-columns:1fr}.file-detail{grid-template-columns:95px 1fr}.header-title{font-size:clamp(54px,9.2vw,100px)}}
+@media(max-width:780px){.topline{height:auto;min-height:55px;padding:11px 15px}.toplinks{gap:10px}.toplinks a{font-size:10px}.brand-text{font-size:11px}.brand-mark{width:19px;height:19px;font-size:15px}.language{margin-left:0}.lang-btn{padding:6px 7px}.site-header{min-height:170px}.header-inner{width:calc(100% - 34px);min-height:170px;padding:18px 0 28px}.header-title{font-size:clamp(53px,12vw,90px)}.header-caption{font-size:10px;max-width:74%}.header-overline{font-size:9px}.site-header::before{right:-20%;width:54%}.site-header::after{right:-28%;width:48%}.nav-content{justify-content:flex-start}.nav-content a{padding:13px 15px;font-size:10px}.main{padding:30px 0 60px}.section-head h2{font-size:clamp(28px,6vw,44px)}.section-head .head-side{display:none}.showcase{margin-bottom:80px}.character-switch button{min-height:76px;padding:12px 15px}.switch-name{font-size:18px}.switch-sub{font-size:10px}.hero-grid{display:flex;flex-direction:column}.art-stage{width:min(100%,510px);align-self:center;aspect-ratio:10 / 18}.hero-grid{background:#15151a}.hero-info{width:100%}.identity{padding:32px 25px}.jp-name{font-size:clamp(37px,9vw,62px)}.roman-name{font-size:clamp(25px,5vw,40px)}.info-bottom{padding:25px}.info-groups{grid-template-columns:1fr 1fr}.info-row{grid-template-columns:100px 1fr}.info-group:last-child .info-row{grid-template-columns:100px 1fr}.file-grid{grid-template-columns:1fr}.ref-grid{grid-template-columns:1fr}.ref-photo{height:300px}.shared-layout{grid-template-columns:1fr}.shared-art{min-height:280px}.content-section{margin-bottom:80px}}
+@media(max-width:470px){.topline{flex-wrap:wrap;gap:9px}.toplinks{width:100%;justify-content:space-between}.lang-btn{min-width:42px}.header-title{font-size:clamp(44px,12vw,62px)}.header-caption{max-width:85%}.main{width:calc(100% - 18px)}.section-head .overline{font-size:9px}.section-head h2{font-size:30px}.character-switch button{min-height:71px;padding:11px}.switch-name{font-size:15px}.switch-name rt{font-size:8px}.switch-sub{font-size:9px;letter-spacing:.06em}.figure-window{inset:24px 1% 78px}.art-plate{top:15px;left:14px;padding:8px 11px;font-size:9px}.arrow{width:44px;height:44px;font-size:27px}.version-title{font-size:16px}.identity{padding:27px 19px}.identity-label{font-size:10px}.intro-line{font-size:13px;padding-left:14px}.info-bottom{padding:24px 17px}.info-groups{grid-template-columns:1fr}.info-group:last-child{grid-column:auto}.info-row,.info-group:last-child .info-row{grid-template-columns:116px 1fr}.info-group:last-child dl{grid-template-columns:1fr}.file-name{padding:15px}.file-featured{grid-template-columns:34% 1fr}.file-img{min-height:170px}.file-overview{padding:14px}.file-overview p{font-size:12px}.file-detail{grid-template-columns:1fr;gap:7px;padding:18px}.shared-title{min-height:170px}.shared-title h3{font-size:30px}.shared-description{padding:28px}.ref-photo{height:250px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="microbar"><div>朝霧 ROUTE <span aria-hidden="true">/</span> <span data-ja="人物資料" data-en="CHARACTER FILES">人物資料</span></div><nav><a href="/" data-ja="ホーム" data-en="HOME">ホーム</a><a href="/image/" data-ja="イラスト" data-en="GALLERY">イラスト</a><a href="/channel/" data-ja="足あと帳" data-en="GUESTBOOK">足あと帳</a></nav></div>
-  <header class="masthead">
-    <div class="masthead-content"><div class="kicker">ASAGIRI ROUTE / CHARACTER ARCHIVE</div><h1 class="masthead-title">CHARACTERS</h1><p class="masthead-sub" data-ja="人物紹介・立ち絵・資料。その先に、二人の物語。" data-en="Character profiles, artwork and reference materials — followed by their shared story.">人物紹介・立ち絵・資料。その先に、二人の物語。</p></div>
-    <div class="lang-switch" role="group" aria-label="Language"><button type="button" class="lang-btn is-active" data-lang="ja" aria-pressed="true">日本語</button><button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button></div>
-    <div class="masthead-stripe"></div>
-  </header>
-  <div class="primary-nav"><nav class="nav-inner" aria-label="Profile sections"><a href="#characters" data-ja="キャラクター" data-en="CHARACTERS">キャラクター</a><a href="#files" data-ja="人物資料" data-en="CHARACTER FILES">人物資料</a><a href="#references" data-ja="画像資料" data-en="ART REFERENCES">画像資料</a><a href="#shared" data-ja="二人の物語" data-en="SHARED STORY">二人の物語</a><a href="#aus" data-ja="AU・パラレル" data-en="AU / PARALLEL">AU・パラレル</a></nav></div>
-  <main class="frame">
-    <section id="characters">
-      <div class="section-marker"><span class="index">01</span><div><small>CHARACTER INTRODUCTION / 人物紹介</small><h2 data-ja="キャラクター紹介" data-en="Character introduction">キャラクター紹介</h2></div></div>
-      <div class="showcase">
-        <div class="character-switch">
-          <button type="button" class="is-active" data-person="miu" aria-pressed="true"><span class="switch-num">01</span><span><span class="switch-name"><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></span><span class="switch-sub">ASAGIRI MIU</span></span></button>
-          <button type="button" data-person="adachi" aria-pressed="false"><span class="switch-num">02</span><span><span class="switch-name"><ruby>足立透<rt>あだち とおる</rt></ruby></span><span class="switch-sub">ADACHI TOHRU</span></span></button>
-        </div>
-        <div class="showcase-layout">
-          <div class="art-stage" id="artStage" data-char="miu">
-            <div class="stage-id" id="stageID">01 / ASAGIRI MIU</div><div class="huge-index" id="hugeIndex" aria-hidden="true">01</div>
-            <div class="figure-window">
-              <div class="art-empty" id="artEmpty"><strong data-ja="立ち絵 / 準備中" data-en="ARTWORK / COMING SOON">立ち絵 / 準備中</strong><small data-ja="透明PNGの全身イラストを追加すると、ここに大きく表示されます。" data-en="Your full-body transparent PNG will appear here at its natural proportions.">透明PNGの全身イラストを追加すると、ここに大きく表示されます。</small><code id="artPath"></code></div>
-              <img id="characterArt" alt="" hidden>
-            </div>
-            <button class="art-direction prev" id="prevArt" type="button" aria-label="Previous image">‹</button><button class="art-direction next" id="nextArt" type="button" aria-label="Next image">›</button>
-            <div class="version-label"><div><strong id="versionTitle">Main Visual</strong><small id="versionNote"></small></div><span class="version-count" id="versionCounter">01 / 05</span></div>
-          </div>
-          <aside class="info-rail" aria-label="Character details">
-            <div class="info-top"><div class="char-eyebrow" id="infoEyebrow">CHARACTER FILE // 01</div><h2 class="info-name" id="infoName"><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></h2><div class="info-roman" id="infoRoman">ASAGIRI MIU</div><div class="info-portrait-bar"><div class="small-portrait" id="smallPortrait"><span>PORTRAIT</span></div><div class="info-micro" data-ja="キャラクター資料 / 立ち絵と設定" data-en="CHARACTER DATA / ART AND PROFILE">キャラクター資料 / 立ち絵と設定</div></div></div>
-            <div class="fact-heading" data-ja="基本データ / PROFILE DATA" data-en="PROFILE DATA">基本データ / PROFILE DATA</div>
-            <dl class="facts" id="facts"></dl>
-            <div class="fact-note" data-ja="この欄は設定資料に合わせて更新します。未確定の項目は「—」表示です。" data-en="Details follow the established character sheet. Unspecified fields are shown as —.">この欄は設定資料に合わせて更新します。未確定の項目は「—」表示です。</div>
-          </aside>
-        </div>
+<div class="site">
+ <header class="topline">
+  <a href="/" class="brand" aria-label="Asagiri Route home"><span class="brand-mark">✦</span><span class="brand-text">朝霧 ROUTE</span></a>
+  <div class="toplinks"><a href="/" data-ja="ホーム" data-en="HOME">ホーム</a><a href="/image/" data-ja="イラスト" data-en="GALLERY">イラスト</a><a href="/channel/" data-ja="足あと帳" data-en="GUESTBOOK">足あと帳</a>
+    <div class="language" role="group" aria-label="Language"><button type="button" class="lang-btn is-active" data-lang="ja" aria-pressed="true">日本語</button><button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button></div>
+  </div>
+ </header>
+ <section class="site-header" aria-label="Page title"><div class="header-shapes"></div><div class="header-inner"><div class="header-overline"><b>✦</b> ASAGIRI ROUTE</div><h1 class="header-title">CHARACTERS</h1><p class="header-caption" data-ja="人物紹介・立ち絵・資料。その先に、二人の物語。" data-en="Characters, artwork and reference materials — followed by their shared story.">人物紹介・立ち絵・資料。その先に、二人の物語。</p></div><div class="header-line"></div></section>
+ <nav class="sticky-nav" aria-label="Profile sections"><div class="nav-content"><a href="#characters" data-ja="キャラクター" data-en="CHARACTERS">キャラクター</a><a href="#files" data-ja="人物紹介" data-en="PROFILES">人物紹介</a><a href="#references" data-ja="設定画" data-en="ARTWORK">設定画</a><a href="#shared" data-ja="二人の物語" data-en="SHARED STORY">二人の物語</a><a href="#aus" data-ja="AU・パラレル" data-en="AU / PARALLEL">AU・パラレル</a></div></nav>
+ <main class="main">
+  <section id="characters" class="content-section">
+   <div class="section-head"><div><div class="overline">CHARACTER INTRODUCTION</div><h2 data-ja="キャラクター紹介" data-en="Meet the characters">キャラクター紹介</h2></div><div class="head-side">ASAGIRI ROUTE</div></div>
+   <div class="showcase" id="heroShowcase">
+    <div class="character-switch" role="group" aria-label="Select character">
+      <button type="button" class="is-active" data-person="miu" aria-pressed="true"><span class="switch-name"><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></span><span class="switch-sub">MIU ASAGIRI</span></button>
+      <button type="button" data-person="adachi" aria-pressed="false"><span class="switch-name"><ruby>足立透<rt>あだち とおる</rt></ruby></span><span class="switch-sub">TOHRU ADACHI</span></button>
+    </div>
+    <div class="hero-grid">
+      <div class="art-stage" id="artStage" data-char="miu">
+       <div class="art-plate" data-ja="メインビジュアル" data-en="MAIN VISUAL">メインビジュアル</div>
+       <div class="figure-window"><div class="art-empty" id="artEmpty"><strong data-ja="立ち絵 準備中" data-en="ARTWORK PENDING">立ち絵 準備中</strong><small data-ja="全身イラストを追加するとここに表示されます。" data-en="The full-body illustration will appear here after upload.">全身イラストを追加するとここに表示されます。</small><code id="artPath"></code></div><img class="figure-img" id="characterArt" alt="" hidden></div>
+       <button class="arrow prev" id="prevArt" type="button" aria-label="Previous artwork">‹</button><button class="arrow next" id="nextArt" type="button" aria-label="Next artwork">›</button>
+       <div class="version-bar"><div><strong class="version-title" id="versionTitle">Main Visual</strong><small class="version-note" id="versionNote"></small></div><div class="slide-dots" id="slideDots" aria-label="Select artwork version"></div></div>
       </div>
-    </section>
-    <section id="files" class="file-section">
-      <div class="section-marker"><span class="index">02</span><div><small>INDIVIDUAL PROFILES</small><h2 data-ja="人物資料" data-en="Character files">人物資料</h2></div></div>
-      <div class="dossiers">
-        <article class="dossier">
-          <div class="dossier-header"><h3><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></h3><span>01 / MIU</span></div>
-          <div class="dossier-intro"><div class="dossier-portrait" data-image="miu-portrait"><span class="empty">PORTRAIT</span></div><p data-ja="八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。" data-en="A transfer student in her third year at Yasogami High. Known for her unusual manner and tiny stature, she has a knack for stumbling into one mishap after another.">八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。</p></div>
-          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。" data-en="A petite young girl with light-grey eyes and long black hair tied into two low pigtails, its loose strands giving her a perpetually tousled appearance. Sensitive to the cold, she usually wears an oversized, slightly rumpled cardigan that tends to slip off her shoulders.">小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。</p></div>
-          <div class="dossier-item"><strong data-ja="性格" data-en="Personality">性格</strong><p data-ja="内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。" data-en="Introverted and soft-spoken, with a slow manner, some clumsiness and an unusual sensibility.">内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。</p></div>
-          <div class="dossier-item"><strong data-ja="背景" data-en="Background">背景</strong><p class="placeholder" data-ja="詳細は後から追加できます。" data-en="Add background notes here later.">詳細は後から追加できます。</p></div>
-        </article>
-        <article class="dossier">
-          <div class="dossier-header"><h3><ruby>足立透<rt>あだち とおる</rt></ruby></h3><span>02 / ADACHI</span></div>
-          <div class="dossier-intro"><div class="dossier-portrait" data-image="adachi-portrait"><span class="empty">PORTRAIT</span></div><p data-ja="稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。" data-en="A detective at Inaba Police Department, assigned to work alongside Ryotaro Dojima.">稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。</p></div>
-          <div class="dossier-item"><strong data-ja="外見" data-en="Appearance">外見</strong><p data-ja="短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。" data-en="A lean young man with short, unkempt charcoal-grey hair and grey eyes. He usually wears a dark suit over a white shirt, with a loosely knotted red tie, a brown belt and sturdy brown boots.">短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。</p></div>
-          <div class="dossier-item"><strong data-ja="性格" data-en="Personality">性格</strong><p data-ja="朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。" data-en="Outwardly cheerful and approachable, yet often careless and seemingly incompetent at work.">朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。</p></div>
-          <div class="dossier-item"><strong data-ja="背景" data-en="Background">背景</strong><p class="placeholder" data-ja="詳しい設定・解釈は後から追加できます。" data-en="Longer character analysis can be added here.">詳しい設定・解釈は後から追加できます。</p></div>
-        </article>
+      <div class="hero-info">
+       <div class="identity"><div class="identity-label" data-ja="人物紹介" data-en="CHARACTER PROFILE">人物紹介</div><h2 class="jp-name" id="infoName"><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></h2><div class="roman-name" id="infoRoman">MIU ASAGIRI</div><p class="intro-line" id="introLine"></p></div>
+       <div class="info-bottom"><h3 class="info-subtitle" data-ja="プロフィール" data-en="PROFILE">プロフィール</h3><div class="info-groups" id="facts"></div><div class="info-bottom-decoration" data-ja="朝霧 ROUTE / 人物資料" data-en="ASAGIRI ROUTE / CHARACTER MATERIAL">朝霧 ROUTE / 人物資料</div></div>
       </div>
-    </section>
-    <section class="visual-section" id="references">
-      <div class="section-marker"><span class="index">03</span><div><small>EXPRESSIONS / DESIGN NOTES</small><h2 data-ja="設定画・画像資料" data-en="Visual references">設定画・画像資料</h2></div></div>
-      <div class="reference-grid">
-        <article class="ref-card"><div class="ref-picture" data-image="miu-expressions"><span class="ref-empty">MIU / EXPRESSIONS</span></div><div class="ref-footer"><strong data-ja="美雨 / 表情資料" data-en="Miu / Expressions">美雨 / 表情資料</strong><small>01 / SHEET</small></div></article>
-        <article class="ref-card"><div class="ref-picture" data-image="adachi-expressions"><span class="ref-empty">ADACHI / EXPRESSIONS</span></div><div class="ref-footer"><strong data-ja="足立 / 表情資料" data-en="Adachi / Expressions">足立 / 表情資料</strong><small>02 / SHEET</small></div></article>
-        <article class="ref-card"><div class="ref-picture" data-image="design-notes"><span class="ref-empty">DESIGN / NOTES</span></div><div class="ref-footer"><strong data-ja="衣装・資料" data-en="Outfits / Notes">衣装・資料</strong><small>03 / SHEET</small></div></article>
-      </div>
-    </section>
-    <section class="shared-section" id="shared">
-      <div class="section-marker"><span class="index">04</span><div><small>THE TWO OF THEM / MAIN ROUTE</small><h2 data-ja="二人の物語" data-en="Their shared story">二人の物語</h2></div></div>
-      <div class="shared-shell">
-        <div class="shared-head"><div class="overline" data-ja="ADACHI TOHRU × ASAGIRI MIU" data-en="TOHRU ADACHI × MIU ASAGIRI">ADACHI TOHRU × ASAGIRI MIU</div><h3>足立透 × 朝霧美雨</h3></div>
-        <div class="shared-body"><div class="shared-picture" data-image="pair-main"><span class="ref-empty">PAIR ILLUSTRATION / ARTWORK</span></div><div class="shared-notes"><h4 data-ja="関係性・物語" data-en="Relationship and story">関係性・物語</h4><p class="placeholder" data-ja="ここは二人の関係性と物語をまとめる場所です。本文は後から追加できます。" data-en="This area is reserved for their shared relationship and story. Detailed material can be added later.">ここは二人の関係性と物語をまとめる場所です。本文は後から追加できます。</p></div></div>
-        <div class="shared-index"><a href="/text/"><span data-ja="文章" data-en="Writing">文章</span><small data-ja="短編・シーン・物語" data-en="Scenes and stories">短編・シーン・物語</small></a><a href="/image/"><span data-ja="イラスト" data-en="Gallery">イラスト</span><small data-ja="依頼・資料・作品" data-en="Illustrations and works">依頼・資料・作品</small></a><a href="#aus"><span data-ja="パラレル" data-en="Parallel worlds">パラレル</span><small>AU / OTHER VERSIONS</small></a></div>
-      </div>
-    </section>
-    <section class="au-section" id="aus"><div class="section-marker"><span class="index">05</span><div><small>ALTERNATIVE UNIVERSES</small><h2 data-ja="AU・パラレル" data-en="AU / Parallel">AU・パラレル</h2></div></div><details class="au-disclosure"><summary data-ja="AU・パラレル版について" data-en="AU / Parallel versions">AU・パラレル版について</summary><div class="au-note" data-ja="別世界・別設定のプロフィールは、素材が揃ってからここに追加します。" data-en="Alternative-universe profiles can be linked here once their materials are ready.">別世界・別設定のプロフィールは、素材が揃ってからここに追加します。</div></details></section>
-  </main>
-  <footer class="footer">朝霧 ROUTE © personal dream / OC archive. Do not repost, reuse, edit or use for AI training.</footer>
+    </div>
+   </div>
+  </section>
+  <section id="files" class="content-section">
+   <div class="section-head"><div><div class="overline">INDIVIDUAL CHARACTER FILES</div><h2 data-ja="人物紹介" data-en="Profiles">人物紹介</h2></div></div>
+   <div class="file-grid">
+    <article class="file-feature"><div class="file-name"><h3><ruby>朝霧美雨<rt>あさぎり みう</rt></ruby></h3><span class="file-roman" data-ja="ASAGIRI MIU" data-en="MIU ASAGIRI">ASAGIRI MIU</span></div>
+      <div class="file-featured"><div class="file-img" data-image="miu-portrait"><span class="empty-image" data-ja="画像準備中" data-en="ART PENDING">画像準備中</span></div><div class="file-overview"><p data-ja="八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。" data-en="A transfer student in her third year at Yasogami High. Known for her unusual manner and tiny stature, she has a knack for stumbling into one mishap after another.">八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。</p></div></div>
+      <div class="file-detail"><strong data-ja="外見" data-en="APPEARANCE">外見</strong><p data-ja="小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。" data-en="A petite young girl with light-grey eyes and long black hair tied into two low pigtails, its loose strands giving her a perpetually tousled appearance. Sensitive to the cold, she usually wears an oversized, slightly rumpled cardigan that tends to slip off her shoulders.">小柄な少女で、淡い灰色の瞳と、低い位置で二つに結んだ長い黒髪が特徴。髪はいつも少し寝癖まじりで、どこか無造作。寒がりで、大きめの少しくたびれたカーディガンをよく羽織っているが、肩からずり落ちがち。</p></div>
+      <div class="file-detail"><strong data-ja="性格" data-en="PERSONALITY">性格</strong><p data-ja="内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。" data-en="Introverted and soft-spoken, with a slow manner, some clumsiness and an unusual sensibility.">内向的で、ゆっくりとした話し方。少し不器用で、独特な感性を持つ。</p></div>
+      <div class="file-detail"><strong data-ja="背景" data-en="BACKGROUND">背景</strong><p class="placeholder" data-ja="詳細は後から追加できます。" data-en="Background material can be added later.">詳細は後から追加できます。</p></div>
+    </article>
+    <article class="file-feature"><div class="file-name"><h3><ruby>足立透<rt>あだち とおる</rt></ruby></h3><span class="file-roman" data-ja="ADACHI TOHRU" data-en="TOHRU ADACHI">ADACHI TOHRU</span></div>
+      <div class="file-featured"><div class="file-img" data-image="adachi-portrait"><span class="empty-image" data-ja="画像準備中" data-en="ART PENDING">画像準備中</span></div><div class="file-overview"><p data-ja="稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。" data-en="A detective at Inaba Police Department, assigned to work alongside Ryotaro Dojima.">稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。</p></div></div>
+      <div class="file-detail"><strong data-ja="外見" data-en="APPEARANCE">外見</strong><p data-ja="短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。" data-en="A lean young man with short, unkempt charcoal-grey hair and grey eyes. He usually wears a dark suit over a white shirt, with a loosely knotted red tie, a brown belt and sturdy brown boots.">短く無造作な暗い灰色の髪と灰色の瞳を持つ、細身の青年。黒っぽいスーツに白シャツ、少し緩んだ赤いネクタイ、茶色のベルトとブーツを身に着けている。</p></div>
+      <div class="file-detail"><strong data-ja="性格" data-en="PERSONALITY">性格</strong><p data-ja="朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。" data-en="Outwardly cheerful and approachable, yet often careless and seemingly incompetent at work.">朗らかで人当たりのよい態度の一方、仕事ではどこか抜けている。</p></div>
+      <div class="file-detail"><strong data-ja="背景" data-en="BACKGROUND">背景</strong><p class="placeholder" data-ja="詳しい設定・解釈は後から追加できます。" data-en="Background material can be added later.">詳しい設定・解釈は後から追加できます。</p></div>
+    </article>
+   </div>
+  </section>
+  <section class="content-section" id="references"><div class="section-head"><div><div class="overline">EXPRESSIONS / DESIGN MATERIAL</div><h2 data-ja="設定画・画像資料" data-en="Visual references">設定画・画像資料</h2></div></div>
+    <div class="ref-grid">
+      <article class="ref-card"><div class="ref-photo" data-image="miu-expressions"><span class="empty-image">MIU / EXPRESSIONS</span></div><div class="ref-meta"><span data-ja="美雨 / 表情資料" data-en="Miu / Expressions">美雨 / 表情資料</span></div></article>
+      <article class="ref-card"><div class="ref-photo" data-image="adachi-expressions"><span class="empty-image">ADACHI / EXPRESSIONS</span></div><div class="ref-meta"><span data-ja="足立 / 表情資料" data-en="Adachi / Expressions">足立 / 表情資料</span></div></article>
+      <article class="ref-card"><div class="ref-photo" data-image="design-notes"><span class="empty-image">DESIGN / NOTES</span></div><div class="ref-meta"><span data-ja="衣装・資料" data-en="Outfits / Notes">衣装・資料</span></div></article>
+    </div>
+  </section>
+  <section class="content-section" id="shared"><div class="section-head"><div><div class="overline">SHARED STORY / MAIN ROUTE</div><h2 data-ja="二人の物語" data-en="Their story">二人の物語</h2></div></div>
+    <div class="shared-panel"><div class="shared-title"><span class="mini">ASAGIRI ROUTE</span><h3>足立透 × 朝霧美雨</h3></div><div class="shared-layout"><div class="shared-art" data-image="pair-main"><span class="empty-image" data-ja="画像準備中" data-en="PAIR ARTWORK PENDING">画像準備中</span></div><div class="shared-description"><h4 data-ja="関係性・物語" data-en="Relationship and story">関係性・物語</h4><p data-ja="二人の関係性と物語は、ここから紹介していきます。" data-en="Their relationship and shared story can be explored from here.">二人の関係性と物語は、ここから紹介していきます。</p><div class="story-actions"><a href="/text/" data-ja="文章を見る ↗" data-en="STORIES ↗">文章を見る ↗</a><a href="/image/" data-ja="イラストを見る ↗" data-en="GALLERY ↗">イラストを見る ↗</a></div></div></div></div>
+  </section>
+  <section class="content-section" id="aus"><div class="section-head"><div><div class="overline">ALTERNATE SETTINGS</div><h2 data-ja="AU・パラレル" data-en="AU / Parallel">AU・パラレル</h2></div></div><details class="au-toggle"><summary data-ja="AU・パラレル版について" data-en="AU / Parallel versions">AU・パラレル版について</summary><div class="au-details" data-ja="別世界・別設定のプロフィールは、素材が揃ってからここに追加します。" data-en="Alternative-universe profiles can be linked here when the artwork and materials are ready.">別世界・別設定のプロフィールは、素材が揃ってからここに追加します。</div></details></section>
+ </main>
+ <footer class="footer">朝霧 ROUTE © personal dream / OC archive. Do not repost, reuse, edit or use for AI training.</footer>
 </div>
 <script>
 'use strict';
-/* Upload transparent figure artwork under /assets/images/profile/. For artwork with transparent margins, adjust each slide zoom/x/y. */
-/* Miu age 17 (18) means 17 before May 2, 2011, and 18 afterward. */
 const PROFILE = {
   miu: {
     japanese:'朝霧美雨',reading:'あさぎり みう',romanJa:'ASAGIRI MIU',romanEn:'MIU ASAGIRI',
@@ -284,70 +169,71 @@ const EXTRA_IMAGES={
   'design-notes':'/assets/images/profile/design-notes.png',
   'pair-main':'/assets/images/profile/pair-main.png'
 };
-let current='miu',slideIndex=0,lang='ja',loadToken=0;
+const INTRO={
+ miu:{ja:'八十神高校に転入してきた3年生。小柄で少し変わり者として知られ、なぜかいつも小さな災難や騒動に巻き込まれてしまう。',en:'A transfer student in her third year at Yasogami High. Known for her unusual manner and tiny stature, she has a knack for stumbling into one mishap after another.'},
+ adachi:{ja:'稲羽署に勤める刑事。堂島遼太郎とともに事件の捜査に当たる。',en:'A detective at Inaba Police Department, assigned to work alongside Ryotaro Dojima.'}
+};
 const $=id=>document.getElementById(id);
+let current='miu',slideIndex=0,lang='ja',loadToken=0;
+function localized(v){return (v&&v[lang])||'—'}
 function setLanguage(next){
-  lang=next==='en'?'en':'ja';document.documentElement.lang=lang;
-  document.querySelectorAll('[data-ja][data-en]').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});
-  document.querySelectorAll('[data-lang]').forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle('is-active',on);b.setAttribute('aria-pressed',String(on))});
-  document.querySelectorAll('[data-person]').forEach(btn=>{const data=PROFILE[btn.dataset.person];btn.querySelector('.switch-sub').textContent=lang==='ja'?data.romanJa:data.romanEn});
-  renderCharacter();
+ lang=next==='en'?'en':'ja';document.documentElement.lang=lang;
+ document.querySelectorAll('[data-ja][data-en]').forEach(el=>el.textContent=el.getAttribute('data-'+lang));
+ document.querySelectorAll('[data-lang]').forEach(b=>{const a=b.dataset.lang===lang;b.classList.toggle('is-active',a);b.setAttribute('aria-pressed',String(a))});
+ document.querySelectorAll('[data-person]').forEach(btn=>{let profile=PROFILE[btn.dataset.person];btn.querySelector('.switch-sub').textContent=lang==='ja'?profile.romanJa:profile.romanEn});
+ renderCharacter();
 }
-function textVal(value){return value&&value[lang]?value[lang]:'—'}
-function renderFacts(data){
-  const facts=$('facts');facts.replaceChildren();
-  FIELD_GROUPS.forEach(group=>{
-    const heading=document.createElement('div');heading.className='fact-group-heading';
-    heading.textContent=lang==='ja'?group.ja:group.en;
-    facts.append(heading);
-    group.keys.forEach(([key,ja,en])=>{
-      const wrap=document.createElement('div');wrap.className='fact';
-      const dt=document.createElement('dt'),dd=document.createElement('dd');
-      dt.textContent=lang==='ja'?ja:en;
-      dd.textContent=textVal(data.fields[key]);
-      wrap.append(dt,dd);facts.append(wrap);
-    });
-  });
+function renderFacts(profile){
+ const root=$('facts');root.replaceChildren();
+ for(const group of FIELD_GROUPS){
+   const sec=document.createElement('section');sec.className='info-group';
+   const heading=document.createElement('h4');heading.textContent=lang==='ja'?group.ja:group.en;
+   const dl=document.createElement('dl');
+   for(const [key,ja,en] of group.keys){
+      const row=document.createElement('div');row.className='info-row';
+      const dt=document.createElement('dt');dt.textContent=lang==='ja'?ja:en;
+      const dd=document.createElement('dd');dd.textContent=localized(profile.fields[key]);
+      row.append(dt,dd);dl.append(row);
+   }
+   sec.append(heading,dl);root.append(sec);
+ }
+}
+function renderSlideDots(profile){
+ const root=$('slideDots');root.replaceChildren();
+ profile.slides.forEach((slide,i)=>{
+   const b=document.createElement('button');b.type='button';b.className=i===slideIndex?'is-active':'';
+   b.setAttribute('aria-label',localized(slide.title));b.title=localized(slide.title);b.setAttribute('aria-pressed',String(i===slideIndex));
+   b.addEventListener('click',()=>{slideIndex=i;renderCharacter()});root.append(b);
+ });
 }
 function renderCharacter(){
-  const data=PROFILE[current],slide=data.slides[slideIndex];
-  document.querySelectorAll('[data-person]').forEach(b=>{const active=b.dataset.person===current;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active))});
-  $('artStage').dataset.char=current;$('stageID').textContent=data.number+' / '+(lang==='ja'?data.romanJa:data.romanEn);
-  $('hugeIndex').textContent=data.number;
-  $('infoEyebrow').textContent='CHARACTER FILE // '+data.number;
-  $('infoName').replaceChildren();
-  const ruby=document.createElement('ruby');ruby.append(document.createTextNode(data.japanese));
-  const rt=document.createElement('rt');rt.textContent=data.reading;ruby.append(rt);$('infoName').append(ruby);
-  $('infoRoman').textContent=lang==='ja'?data.romanJa:data.romanEn;
-  $('versionTitle').textContent=textVal(slide.title);$('versionNote').textContent=slide.note?.[lang]||'';
-  $('versionCounter').textContent=String(slideIndex+1).padStart(2,'0')+' / '+String(data.slides.length).padStart(2,'0');
-  renderFacts(data);renderSlide(data,slide);
-  renderSmallPortrait(data.portrait);
+ const profile=PROFILE[current],slide=profile.slides[slideIndex];
+ document.querySelectorAll('[data-person]').forEach(btn=>{const a=btn.dataset.person===current;btn.classList.toggle('is-active',a);btn.setAttribute('aria-pressed',String(a))});
+ $('artStage').dataset.char=current;
+ const ruby=document.createElement('ruby');ruby.append(document.createTextNode(profile.japanese));const rt=document.createElement('rt');rt.textContent=profile.reading;ruby.append(rt);
+ $('infoName').replaceChildren(ruby);
+ $('infoRoman').textContent=lang==='ja'?profile.romanJa:profile.romanEn;
+ $('introLine').textContent=localized(INTRO[current]);
+ $('versionTitle').textContent=localized(slide.title);$('versionNote').textContent=slide.note?.[lang]||'';
+ renderFacts(profile);renderSlideDots(profile);renderSlide(profile,slide);
 }
-function renderSlide(data,slide){
-  const token=++loadToken,img=$('characterArt'),empty=$('artEmpty');
-  img.hidden=true;img.removeAttribute('src');empty.hidden=false;$('artPath').textContent=slide.src;
-  img.style.setProperty('--art-zoom',String(slide.zoom??1));
-  img.style.setProperty('--art-x',String(slide.x??0)+'px');
-  img.style.setProperty('--art-y',String(slide.y??0)+'px');
-  const preload=new Image();
-  preload.onload=()=>{if(token!==loadToken)return;img.src=slide.src;img.alt=data.japanese+' / '+textVal(slide.title);img.hidden=false;empty.hidden=true};
-  preload.onerror=()=>{if(token!==loadToken)return;img.hidden=true;empty.hidden=false};
-  preload.src=slide.src;
+function renderSlide(profile,slide){
+ const token=++loadToken,img=$('characterArt'),empty=$('artEmpty');
+ img.hidden=true;img.removeAttribute('src');empty.hidden=false;$('artPath').textContent=slide.src;
+ img.style.setProperty('--art-zoom',String(slide.zoom??1));img.style.setProperty('--art-x',String(slide.x??0)+'px');img.style.setProperty('--art-y',String(slide.y??0)+'px');
+ const preload=new Image();
+ preload.onload=()=>{if(token!==loadToken)return;img.src=slide.src;img.alt=profile.japanese+' / '+localized(slide.title);img.hidden=false;empty.hidden=true;img.classList.remove('is-arriving');void img.offsetWidth;img.classList.add('is-arriving')};
+ preload.onerror=()=>{if(token!==loadToken)return;img.hidden=true;empty.hidden=false};preload.src=slide.src;
 }
-function renderSmallPortrait(url){
-  const el=$('smallPortrait');el.replaceChildren();
-  const img=new Image();img.alt='';img.onload=()=>{el.replaceChildren(img)};img.onerror=()=>{el.textContent='PORTRAIT'};img.src=url;
-}
-function nextSlide(step){const n=PROFILE[current].slides.length;slideIndex=(slideIndex+step+n)%n;renderCharacter()}
+function nextSlide(step){const count=PROFILE[current].slides.length;slideIndex=(slideIndex+step+count)%count;renderCharacter()}
 document.querySelectorAll('[data-person]').forEach(btn=>btn.addEventListener('click',()=>{current=btn.dataset.person;slideIndex=0;renderCharacter()}));
 document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
 $('prevArt').addEventListener('click',()=>nextSlide(-1));$('nextArt').addEventListener('click',()=>nextSlide(1));
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT')nextSlide(-1);if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT')nextSlide(1)});
+document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;if(e.key==='ArrowLeft')nextSlide(-1);if(e.key==='ArrowRight')nextSlide(1)});
 for(const [name,url] of Object.entries(EXTRA_IMAGES)){
-  document.querySelectorAll('[data-image="'+name+'"]').forEach(slot=>{
-    const img=new Image();img.alt='';img.loading='lazy';img.onload=()=>{slot.replaceChildren(img)};img.src=url;
-  });
+  for(const el of document.querySelectorAll('[data-image="'+name+'"]')){
+    const image=new Image();image.alt='';image.loading='lazy';image.onload=()=>el.replaceChildren(image);image.src=url;
+  }
 }
 setLanguage('ja');
 </script>
